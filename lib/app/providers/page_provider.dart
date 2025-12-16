@@ -15,7 +15,7 @@ class PageProvider extends ChangeNotifier{
     PageNames.categories : const CategoriesPage(),
     PageNames.providers : const ProvidersPage(),
     PageNames.blog : const BlogsPage(),
-    PageNames.myClasses : const ClassesPage(),
+    PageNames.myCourses : const ClassesPage(), // MODIFIED: Changed key from myClasses to myCourses
   };
 
   setPage(PageNames data,{bool emit=true}){

@@ -28,7 +28,8 @@ import 'package:webinar/common/utils/constants.dart';
 import 'package:webinar/config/colors.dart';
 import 'package:webinar/config/notification.dart';
 import 'app/pages/authentication_page/forget_password_page.dart';
-import 'app/pages/authentication_page/register_page.dart';
+// COMMENTED: Registration disabled
+// import 'app/pages/authentication_page/register_page.dart';
 import 'app/pages/authentication_page/verify_code_page.dart';
 import 'app/pages/main_page/blog_page/details_blog_page.dart';
 import 'app/pages/main_page/categories_page/filter_category_page/filter_category_page.dart';
@@ -45,8 +46,9 @@ import 'app/pages/main_page/home_page/assignments_page/assignment_overview_page.
 import 'app/pages/main_page/home_page/assignments_page/assignments_page.dart';
 import 'app/pages/main_page/home_page/assignments_page/submissions_page.dart';
 import 'app/pages/main_page/home_page/cart_page/bank_accounts_page.dart';
-import 'app/pages/main_page/home_page/cart_page/cart_page.dart';
-import 'app/pages/main_page/home_page/cart_page/checkout_page.dart';
+// COMMENTED: Cart and Checkout disabled
+// import 'app/pages/main_page/home_page/cart_page/cart_page.dart';
+// import 'app/pages/main_page/home_page/cart_page/checkout_page.dart';
 import 'app/pages/main_page/home_page/financial_page/financial_page.dart';
 import 'app/pages/main_page/home_page/meetings_page/meetings_page.dart';
 import 'app/pages/main_page/home_page/notification_page.dart';
@@ -173,7 +175,8 @@ class MyApp extends StatelessWidget {
               SplashPage.pageName : (context) => const SplashPage(),
               IntroPage.pageName : (context) => const IntroPage(),
               LoginPage.pageName : (context) => const LoginPage(),
-              RegisterPage.pageName : (context) => const RegisterPage(),
+              // COMMENTED: Registration disabled - users will be created from dashboard
+              // RegisterPage.pageName : (context) => const RegisterPage(),
               VerifyCodePage.pageName : (context) => const VerifyCodePage(),
               ForgetPasswordPage.pageName : (context) => const ForgetPasswordPage(),
               FilterCategoryPage.pageName : (context) => const FilterCategoryPage(),
@@ -185,8 +188,9 @@ class MyApp extends StatelessWidget {
               SearchForumPage.pageName : (context) => const SearchForumPage(),
               ForumAnswerPage.pageName : (context) => const ForumAnswerPage(),
               NotificationPage.pageName : (context) => const NotificationPage(),
-              CartPage.pageName : (context) => const CartPage(),
-              CheckoutPage.pageName : (context) => const CheckoutPage(),
+              // COMMENTED: Cart and Checkout disabled - no purchasing
+              // CartPage.pageName : (context) => const CartPage(),
+              // CheckoutPage.pageName : (context) => const CheckoutPage(),
               SingleContentPage.pageName : (context) => const SingleContentPage(),
               WebViewPage.pageName : (context) => const WebViewPage(),
               BankAccountsPage.pageName : (context) => const BankAccountsPage(),

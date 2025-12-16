@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:persian_number_utility/persian_number_utility.dart';
+// COMMENTED: Removed Persian number utility
+// import 'package:persian_number_utility/persian_number_utility.dart';
 import 'package:webinar/app/models/login_history_model.dart';
 import 'package:webinar/app/pages/authentication_page/login_page.dart';
 import 'package:webinar/app/providers/app_language_provider.dart';
@@ -445,16 +446,17 @@ class _SettingPageState extends State<SettingPage> with TickerProviderStateMixin
                       });
 
                       
+                      // MODIFIED: Removed toEnglishDigit() - using plain text
                       bool res = await UserService.updateInfo(
-                        emailController.text.trim().toEnglishDigit(), 
-                        nameController.text.trim().toEnglishDigit(), 
-                        phoneController.text.trim().toEnglishDigit(), 
+                        emailController.text.trim(), 
+                        nameController.text.trim(), 
+                        phoneController.text.trim(), 
                         timeZoneSelected ?? '', 
                         newsletter, 
-                        ibanController.text.trim().toEnglishDigit(), 
-                        accountTypeController.text.trim().toEnglishDigit(), 
-                        accountIdController.text.trim().toEnglishDigit(), 
-                        addressController.text.trim().toEnglishDigit(), 
+                        ibanController.text.trim(), 
+                        accountTypeController.text.trim(), 
+                        accountIdController.text.trim(), 
+                        addressController.text.trim(), 
                         selectedCountry?.id, 
                         provinceSelectedId, citySelectedId, districtSelectedId
                       );
@@ -464,9 +466,10 @@ class _SettingPageState extends State<SettingPage> with TickerProviderStateMixin
                         if(currentPasswordController.text.trim().isNotEmpty && newPasswordController.text.trim().isNotEmpty){
 
                           if(newPasswordController.text.trim().compareTo(retypePasswordController.text.trim()) == 0){
+                            // MODIFIED: Removed toEnglishDigit()
                             await UserService.updatePassword(
-                              currentPasswordController.text.trim().toEnglishDigit(), 
-                              newPasswordController.text.trim().toEnglishDigit(),
+                              currentPasswordController.text.trim(), 
+                              newPasswordController.text.trim(),
                             ); 
                           }else{
                             showSnackBar(ErrorEnum.success, appText.passwordAndRetypePassNotMatch);

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:webinar/app/pages/authentication_page/login_page.dart';
-import 'package:webinar/app/pages/authentication_page/register_page.dart';
+// COMMENTED: Registration disabled
+// import 'package:webinar/app/pages/authentication_page/register_page.dart';
 import 'package:webinar/app/pages/main_page/main_page.dart';
 import 'package:webinar/common/components.dart';
 import 'package:webinar/common/common.dart';
@@ -81,22 +82,22 @@ class IntroWidget{
                   ),
                 ),
                 
-                space(0,width: 20),
-
-                Expanded(
-                  child: button(
-                    onTap: (){
-                      nextRoute(RegisterPage.pageName,isClearBackRoutes: true);
-                    }, 
-                    width: getSize().width, 
-                    height: 52, 
-                    text: appText.signup,
-                    bgColor: Colors.white, 
-                    textColor: green77(), 
-                    borderColor: green77(),
-                    raduis: 15
-                  ),
-                ),
+                // COMMENTED: Registration button removed - users created from dashboard
+                // space(0,width: 20),
+                // Expanded(
+                //   child: button(
+                //     onTap: (){
+                //       nextRoute(RegisterPage.pageName,isClearBackRoutes: true);
+                //     }, 
+                //     width: getSize().width, 
+                //     height: 52, 
+                //     text: appText.signup,
+                //     bgColor: Colors.white, 
+                //     textColor: green77(), 
+                //     borderColor: green77(),
+                //     raduis: 15
+                //   ),
+                // ),
               ],
             ),
 

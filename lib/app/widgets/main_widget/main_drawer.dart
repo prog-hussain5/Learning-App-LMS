@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:webinar/app/pages/authentication_page/login_page.dart';
-import 'package:webinar/app/pages/main_page/home_page/certificates_page/certificates_page.dart';
+// COMMENTED: Features disabled from drawer
+// import 'package:webinar/app/pages/main_page/home_page/certificates_page/certificates_page.dart';
 import 'package:webinar/app/pages/main_page/home_page/assignments_page/assignments_page.dart';
-import 'package:webinar/app/pages/main_page/home_page/financial_page/financial_page.dart';
-import 'package:webinar/app/pages/main_page/home_page/meetings_page/meetings_page.dart';
+// import 'package:webinar/app/pages/main_page/home_page/financial_page/financial_page.dart';
+// import 'package:webinar/app/pages/main_page/home_page/meetings_page/meetings_page.dart';
 import 'package:webinar/app/pages/main_page/home_page/setting_page/setting_page.dart';
 import 'package:webinar/app/providers/app_language_provider.dart';
 import 'package:webinar/app/providers/page_provider.dart';
@@ -28,12 +29,13 @@ import 'package:webinar/config/styles.dart';
 import 'package:webinar/locator.dart';
 
 import '../../../common/utils/object_instance.dart';
-import '../../pages/main_page/home_page/comments_page/comments_page.dart';
+// COMMENTED: Features disabled from drawer
+// import '../../pages/main_page/home_page/comments_page/comments_page.dart';
 import '../../pages/main_page/home_page/dashboard_page/dashboard_page.dart';
-import '../../pages/main_page/home_page/favorites_page/favorites_page.dart';
+// import '../../pages/main_page/home_page/favorites_page/favorites_page.dart';
 import '../../pages/main_page/home_page/quizzes_page/quizzes_page.dart';
-import '../../pages/main_page/home_page/subscription_page/subscription_page.dart';
-import '../../pages/main_page/home_page/support_message_page/support_message_page.dart';
+// import '../../pages/main_page/home_page/subscription_page/subscription_page.dart';
+// import '../../pages/main_page/home_page/support_message_page/support_message_page.dart';
 
 class MainDrawer extends StatefulWidget {
   const MainDrawer({super.key});
@@ -201,69 +203,80 @@ class _MainDrawerState extends State<MainDrawer> {
                             }
                           }),
                           
+                          // KEEP: My Courses
                           menuItem(appText.classes, AppAssets.classesSvg, (){
                             if(hasAccess(canRedirect: true)){
-                              if(locator<PageProvider>().page != PageNames.myClasses){
-                                locator<PageProvider>().setPage(PageNames.myClasses);
+                              // MODIFIED: Changed from myClasses to myCourses
+                              if(locator<PageProvider>().page != PageNames.myCourses){
+                                locator<PageProvider>().setPage(PageNames.myCourses);
                               }
 
                               drawerController.hideDrawer();
                             }
                           }),
                           
-                          menuItem(appText.meetings, AppAssets.meetingsSvg, (){
-                            if(hasAccess(canRedirect: true)){
-                              nextRoute(MeetingsPage.pageName);
-                            }
-                          }),
+                          // COMMENTED: Removed Meetings
+                          // menuItem(appText.meetings, AppAssets.meetingsSvg, (){
+                          //   if(hasAccess(canRedirect: true)){
+                          //     nextRoute(MeetingsPage.pageName);
+                          //   }
+                          // }),
                           
+                          // KEEP: Assignments
                           menuItem(appText.assignments, AppAssets.assignmentsSvg, (){
                             if(hasAccess(canRedirect: true)){
                               nextRoute(AssignmentsPage.pageName);
                             }
                           }), 
                           
+                          // KEEP: Quizzes
                           menuItem(appText.quizzes, AppAssets.quizzesSvg, (){
                             if(hasAccess(canRedirect: true)){
                               nextRoute(QuizzesPage.pageName);
                             }
                           }),
                           
-                          menuItem(appText.certificates, AppAssets.certificatesSvg, (){
-                            if(hasAccess(canRedirect: true)){
-                              nextRoute(CertificatesPage.pageName);
-                            }
-                          }),
+                          // COMMENTED: Removed Certificates
+                          // menuItem(appText.certificates, AppAssets.certificatesSvg, (){
+                          //   if(hasAccess(canRedirect: true)){
+                          //     nextRoute(CertificatesPage.pageName);
+                          //   }
+                          // }),
                           
-                          menuItem(appText.favorites, AppAssets.favoritesSvg, (){
-                            if(hasAccess(canRedirect: true)){
-                              nextRoute(FavoritesPage.pageName);
-                            }
-                          }),
+                          // COMMENTED: Removed Favorites
+                          // menuItem(appText.favorites, AppAssets.favoritesSvg, (){
+                          //   if(hasAccess(canRedirect: true)){
+                          //     nextRoute(FavoritesPage.pageName);
+                          //   }
+                          // }),
                           
-                          menuItem(appText.comments, AppAssets.commentsSvg, (){
-                            if(hasAccess(canRedirect: true)){
-                              nextRoute(CommentsPage.pageName);
-                            }
-                          }),
+                          // COMMENTED: Removed Comments
+                          // menuItem(appText.comments, AppAssets.commentsSvg, (){
+                          //   if(hasAccess(canRedirect: true)){
+                          //     nextRoute(CommentsPage.pageName);
+                          //   }
+                          // }),
                           
-                          menuItem(appText.financial, AppAssets.financialSvg, (){
-                            if(hasAccess(canRedirect: true)){
-                              nextRoute(FinancialPage.pageName);
-                            }
-                          }),
+                          // COMMENTED: Removed Financial
+                          // menuItem(appText.financial, AppAssets.financialSvg, (){
+                          //   if(hasAccess(canRedirect: true)){
+                          //     nextRoute(FinancialPage.pageName);
+                          //   }
+                          // }),
                           
-                          menuItem(appText.subscription, AppAssets.subscriptionSvg, (){
-                            if(hasAccess(canRedirect: true)){
-                              nextRoute(SubscriptionPage.pageName);
-                            }
-                          }),
+                          // COMMENTED: Removed Subscription
+                          // menuItem(appText.subscription, AppAssets.subscriptionSvg, (){
+                          //   if(hasAccess(canRedirect: true)){
+                          //     nextRoute(SubscriptionPage.pageName);
+                          //   }
+                          // }),
                           
-                          menuItem(appText.support, AppAssets.supportSvg, (){
-                            if(hasAccess(canRedirect: true)){
-                              nextRoute(SupportMessagePage.pageName);
-                            }
-                          }),
+                          // COMMENTED: Removed Support
+                          // menuItem(appText.support, AppAssets.supportSvg, (){
+                          //   if(hasAccess(canRedirect: true)){
+                          //     nextRoute(SupportMessagePage.pageName);
+                          //   }
+                          // }),
 
                           space(10),
 

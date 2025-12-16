@@ -559,50 +559,52 @@ Widget courseItem(CourseModel courseData,{bool isSmallSize=true,double width = 1
               
                   const Spacer(),
               
+                  // COMMENTED: Hidden price display
                   // price and type
                   SizedBox(
                     width: width,
                     child: Row(
                       children: [
 
-                        if(isShowReward)...{
-                          Text(
-                            courseData.points?.toString() ?? '-',
-                            style: style14Regular().copyWith(color: yellow29),
-                          )
-                        }else...{
+                        // COMMENTED: Hidden price/reward points
+                        // if(isShowReward)...{
+                        //   Text(
+                        //     courseData.points?.toString() ?? '-',
+                        //     style: style14Regular().copyWith(color: yellow29),
+                        //   )
+                        // }else...{
+                        //   Text(
+                        //     (courseData.price == 0)
+                        //       ? appText.free
+                        //       : CurrencyUtils.calculator(courseData.price ?? 0),
+                        //     style: style12Regular().copyWith(
+                        //       color: (courseData.discountPercent ?? 0) > 0 ? greyB2 : green77(),
+                        //       decoration: (courseData.discountPercent ?? 0) > 0 ? TextDecoration.lineThrough : TextDecoration.none,
+                        //       decorationColor: (courseData.discountPercent ?? 0) > 0 ? greyCF : green77(),
+                        //     ),
+                        //   ),
+                        // },
 
-                          Text(
-                            (courseData.price == 0)
-                              ? appText.free
-                              : CurrencyUtils.calculator(courseData.price ?? 0),
-                            style: style12Regular().copyWith(
-                              color: (courseData.discountPercent ?? 0) > 0 ? greyB2 : green77(),
-                              decoration: (courseData.discountPercent ?? 0) > 0 ? TextDecoration.lineThrough : TextDecoration.none,
-                              decorationColor: (courseData.discountPercent ?? 0) > 0 ? greyCF : green77(),
-                            ),
-                          ),
-                        },
-
-                        if((courseData.discountPercent ?? 0) > 0)...{
-                          space(0,width: 8),
-
-                          Text(
-                            CurrencyUtils.calculator(
-                              (courseData.price ?? 0) - ((courseData.price ?? 0) * (courseData.discountPercent ?? 0) ~/ 100)
-                            ),
-                            style: style14Regular().copyWith(
-                              color: green77(),
-                            ),
-                          ),
-                        },
+                        // COMMENTED: Hidden discount price
+                        // if((courseData.discountPercent ?? 0) > 0)...{
+                        //   space(0,width: 8),
+                        //   Text(
+                        //     CurrencyUtils.calculator(
+                        //       (courseData.price ?? 0) - ((courseData.price ?? 0) * (courseData.discountPercent ?? 0) ~/ 100)
+                        //     ),
+                        //     style: style14Regular().copyWith(
+                        //       color: green77(),
+                        //     ),
+                        //   ),
+                        // },
 
                         const Spacer(),
 
-                        if((courseData.discountPercent ?? 0) > 0)...{
-                          Badges.off((courseData.discountPercent ?? 0).toString())
-
-                        }else if(CourseUtils.checkType(courseData) == CourseType.live)...{
+                        // COMMENTED: Hidden discount badge - keeping other badges
+                        // if((courseData.discountPercent ?? 0) > 0)...{
+                        //   Badges.off((courseData.discountPercent ?? 0).toString())
+                        // }else 
+                        if(CourseUtils.checkType(courseData) == CourseType.live)...{
                           Badges.liveClass(),
 
                         }else if(courseData.label == 'Course')...{
@@ -996,44 +998,41 @@ Widget courseItemVertically(CourseModel courseData,{bool isSmallSize=true,double
                         },
                         
                         
+                        // COMMENTED: Hidden price and reward display in vertical layout
                         // price or reward
-                        if(isShowReward)...{
-                          Text(
-                            courseData.points?.toString() ?? '-',
-                            style: style14Regular().copyWith(color: yellow29),
-                          )
-                        }else...{
-
-                          Row(
-                            children: [
-                  
-                              Text(
-                                (courseData.price == 0)
-                                  ? appText.free
-                                  : CurrencyUtils.calculator(courseData.price ?? 0),
-                                style: style12Regular().copyWith(
-                                  color: (courseData.discountPercent ?? 0) > 0 ? greyCF : green77(),
-                                  decoration: (courseData.discountPercent ?? 0) > 0 ? TextDecoration.lineThrough : TextDecoration.none,
-                                  decorationColor: (courseData.discountPercent ?? 0) > 0 ? greyCF : green77(),
-                                ),
-                              ),
-                  
-                              if((courseData.discountPercent ?? 0) > 0)...{
-                                space(0,width: 8),
-                  
-                                Text(
-                                  CurrencyUtils.calculator(
-                                    (courseData.price ?? 0) - ((courseData.price ?? 0) * (courseData.discountPercent ?? 0) ~/ 100)
-                                  ),
-                                  style: style14Regular().copyWith(
-                                    color: green77(),
-                                  ),
-                                ),
-                              },
-                              
-                            ],
-                          ),
-                        }
+                        // if(isShowReward)...{
+                        //   Text(
+                        //     courseData.points?.toString() ?? '-',
+                        //     style: style14Regular().copyWith(color: yellow29),
+                        //   )
+                        // }else...{
+                        //   Row(
+                        //     children: [
+                        //       Text(
+                        //         (courseData.price == 0)
+                        //           ? appText.free
+                        //           : CurrencyUtils.calculator(courseData.price ?? 0),
+                        //         style: style12Regular().copyWith(
+                        //           color: (courseData.discountPercent ?? 0) > 0 ? greyCF : green77(),
+                        //           decoration: (courseData.discountPercent ?? 0) > 0 ? TextDecoration.lineThrough : TextDecoration.none,
+                        //           decorationColor: (courseData.discountPercent ?? 0) > 0 ? greyCF : green77(),
+                        //         ),
+                        //       ),
+                        //       if((courseData.discountPercent ?? 0) > 0)...{
+                        //         space(0,width: 8),
+                        //         Text(
+                        //           CurrencyUtils.calculator(
+                        //             (courseData.price ?? 0) - ((courseData.price ?? 0) * (courseData.discountPercent ?? 0) ~/ 100)
+                        //           ),
+                        //           style: style14Regular().copyWith(
+                        //             color: green77(),
+                        //           ),
+                        //         ),
+                        //       },
+                        //     ],
+                        //   ),
+                        // }
+                        const SizedBox(), // Placeholder to maintain layout
   
   
   

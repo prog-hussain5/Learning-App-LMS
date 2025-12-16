@@ -17,7 +17,8 @@ import '../../../../common/utils/object_instance.dart';
 import '../../../../config/assets.dart';
 import '../../../../config/colors.dart';
 import '../../../../config/styles.dart';
-import '../../../pages/main_page/home_page/cart_page/cart_page.dart';
+// COMMENTED: Cart disabled
+// import '../../../pages/main_page/home_page/cart_page/cart_page.dart';
 import '../main_widget.dart';
 
 
@@ -132,21 +133,22 @@ class HomeWidget{
                                   ),
                                 ),
                     
+                                // COMMENTED: Removed basket icon - no cart functionality
                                 // basket and notification
                                 Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     
-                                    // basket
-                                    MainWidget.menuButton(
-                                      AppAssets.basketSvg, 
-                                      userProvider.cartData?.items?.isNotEmpty ?? false, 
-                                      Colors.white, 
-                                      Colors.black.withOpacity(.2), 
-                                      (){ 
-                                        nextRoute(CartPage.pageName);
-                                      }
-                                    ),
+                                    // COMMENTED: Basket icon removed
+                                    // MainWidget.menuButton(
+                                    //   AppAssets.basketSvg, 
+                                    //   userProvider.cartData?.items?.isNotEmpty ?? false, 
+                                    //   Colors.white, 
+                                    //   Colors.black.withOpacity(.2), 
+                                    //   (){ 
+                                    //     nextRoute(CartPage.pageName);
+                                    //   }
+                                    // ),
                     
                                     space(0,width: 12),
                     

@@ -7,7 +7,8 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:webinar/app/pages/authentication_page/forget_password_page.dart';
-import 'package:webinar/app/pages/authentication_page/register_page.dart';
+// COMMENTED: Registration disabled
+// import 'package:webinar/app/pages/authentication_page/register_page.dart';
 import 'package:webinar/app/pages/main_page/home_page/single_course_page/single_content_page/web_view_page.dart';
 import 'package:webinar/app/pages/main_page/main_page.dart';
 import 'package:webinar/app/providers/page_provider.dart';
@@ -417,28 +418,29 @@ class _LoginPageState extends State<LoginPage> {
                       space(80),
       
                       // haveAnAccount
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            appText.dontHaveAnAccount,
-                            style: style16Regular(),
-                          ),
+                      // COMMENTED: Registration disabled - users created from dashboard
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //     Text(
+                      //       appText.dontHaveAnAccount,
+                      //       style: style16Regular(),
+                      //     ),
       
-                          space(0,width: 2),
+                      //     space(0,width: 2),
       
-                          GestureDetector(
-                            onTap: (){
-                              nextRoute(RegisterPage.pageName,isClearBackRoutes: true);
-                            },
-                            behavior: HitTestBehavior.opaque,
-                            child: Text(
-                              appText.signup,
-                              style: style16Regular(),
-                            ),
-                          )
-                        ],
-                      ),
+                      //     GestureDetector(
+                      //       onTap: (){
+                      //         nextRoute(RegisterPage.pageName,isClearBackRoutes: true);
+                      //       },
+                      //       behavior: HitTestBehavior.opaque,
+                      //       child: Text(
+                      //         appText.signup,
+                      //         style: style16Regular(),
+                      //       ),
+                      //     )
+                      //   ],
+                      // ),
       
                       space(25),
       

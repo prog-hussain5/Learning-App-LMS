@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
-import 'package:persian_number_utility/persian_number_utility.dart';
+// COMMENTED: Removed Persian number utility
+// import 'package:persian_number_utility/persian_number_utility.dart';
 import 'package:webinar/app/models/profile_model.dart';
 import 'package:webinar/app/services/guest_service/providers_service.dart';
 import 'package:webinar/common/common.dart';
@@ -536,11 +537,12 @@ class UserProfileWidget{
                             isLoading = true;
                             state((){});
 
+                            // MODIFIED: Removed toEnglishDigit()
                             bool res = await ProvidersService.sendMessage(
                               id, 
-                              subjectController.text.trim().toEnglishDigit(), 
-                              emailController.text.trim().toEnglishDigit(), 
-                              messageController.text.trim().toEnglishDigit()
+                              subjectController.text.trim(), 
+                              emailController.text.trim(), 
+                              messageController.text.trim()
                             );
                       
                             isLoading = false;

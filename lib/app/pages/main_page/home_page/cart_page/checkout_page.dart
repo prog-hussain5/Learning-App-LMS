@@ -1,7 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:persian_number_utility/persian_number_utility.dart';
+// COMMENTED: Removed Persian number utility
+// import 'package:persian_number_utility/persian_number_utility.dart';
 import 'package:webinar/app/models/checkout_model.dart';
 import 'package:webinar/app/pages/main_page/main_page.dart';
 import 'package:webinar/app/services/user_service/cart_service.dart';
@@ -167,7 +168,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                       CurrencyUtils.calculator(
                                         checkoutData?.userCharge ?? '',
                                         // fractionDigits: 2
-                                      ).seRagham(),
+                                      ), // MODIFIED: Removed .seRagham()
                                       style: style10Regular().copyWith(color: greyB2),
                                     ),
                                   )

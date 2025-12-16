@@ -25,12 +25,12 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace = "com.webinar.webinar"
+    namespace = "Academy.balsam.med"
     compileSdk = 35
     ndkVersion = "29.0.13113456 rc1"
 
     defaultConfig {
-        applicationId = "com.webinar.webinar"
+        applicationId = "Academy.balsam.med"
         minSdk = 21
         targetSdk = 35
         versionCode = flutterVersionCode

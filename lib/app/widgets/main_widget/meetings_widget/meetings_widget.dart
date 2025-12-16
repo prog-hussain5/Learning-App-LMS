@@ -1,7 +1,8 @@
 import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:persian_number_utility/persian_number_utility.dart';
+// COMMENTED: Removed Persian number utility
+// import 'package:persian_number_utility/persian_number_utility.dart';
 import 'package:webinar/app/models/meeting_details_model.dart';
 import 'package:webinar/app/services/user_service/meeting_service.dart';
 
@@ -62,7 +63,8 @@ class MeetingWidget{
                               isLoading = true;
                             });
                             
-                            bool res = await MeetingService.createLink(meetingId, urlController.text.trim().toEnglishDigit(), passwordController.text.trim().toEnglishDigit());
+                            // MODIFIED: Removed toEnglishDigit() - using plain text instead
+                            bool res = await MeetingService.createLink(meetingId, urlController.text.trim(), passwordController.text.trim());
                     
                             if(res){
                               backRoute(arguments: true);

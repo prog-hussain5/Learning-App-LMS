@@ -35,7 +35,13 @@ class AppLanguage{
 
   Future getLanguage() async {    
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    currentLanguage = prefs.getString('language') ?? 'en';
+    // MODIFIED: Force Arabic language only (removed 'en' default)
+    currentLanguage = prefs.getString('language') ?? 'ar';
+    // Ensure Arabic is always set
+    if (currentLanguage != 'ar') {
+      currentLanguage = 'ar';
+      await saveLanguage('ar');
+    }
     return currentLanguage;
   }
 

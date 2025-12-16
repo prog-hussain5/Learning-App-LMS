@@ -3,5 +3,5 @@ enum PageNames{
   blog,
   providers,
   categories,
-  myClasses
+  myCourses // MODIFIED: Renamed from myClasses to myCourses
 }

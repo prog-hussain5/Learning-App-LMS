@@ -56,11 +56,37 @@ class _MainPageState extends State<MainPage> {
       
       addListener();
 
-      FirebaseMessaging.instance.getToken().then((value) {
-        try{
-          UserService.sendFirebaseToken(value!);
-        }catch(_){}
-      });
+      // Request notification permissions first (especially important for iOS)
+      await FirebaseMessaging.instance.requestPermission(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+
+      // For iOS: Get APNS token first before getting Firebase token
+      if (!kIsWeb && Platform.isIOS) {
+        try {
+          String? apnsToken = await FirebaseMessaging.instance.getAPNSToken();
+          if (apnsToken != null) {
+            // Now we can safely get Firebase token
+            String? firebaseToken = await FirebaseMessaging.instance.getToken();
+            if (firebaseToken != null) {
+              UserService.sendFirebaseToken(firebaseToken);
+            }
+          }
+        } catch (e) {
+          // Silently handle error
+        }
+      } else {
+        // For Android and Web
+        FirebaseMessaging.instance.getToken().then((value) {
+          try {
+            if (value != null) {
+              UserService.sendFirebaseToken(value);
+            }
+          } catch (_) {}
+        });
+      }
     });
 
     getData();
@@ -244,27 +270,29 @@ class _MainPageState extends State<MainPage> {
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
+                                        // COMMENTED: Removed categories and blog - keeping only 3 items: Home, Instructors, My Courses
+                                        // MainWidget.navItem(PageNames.categories, pageProvider.page, appText.categories, AppAssets.categorySvg, (){
+                                        //   pageProvider.setPage(PageNames.categories);
+                                        // }),
                                         
-                                        MainWidget.navItem(PageNames.categories, pageProvider.page, appText.categories, AppAssets.categorySvg, (){
-                                          pageProvider.setPage(PageNames.categories);
-                                        }),
-                                        
+                                        // Instructors (Providers)
                                         MainWidget.navItem(PageNames.providers, pageProvider.page, appText.providers, AppAssets.provideresSvg, (){
                                           pageProvider.setPage(PageNames.providers);
                                         }),
                                                 
-                                                
+                                        // Home
                                         MainWidget.homeNavItem(PageNames.home, pageProvider.page, (){
                                           pageProvider.setPage(PageNames.home);
                                         }),
                                         
+                                        // COMMENTED: Removed blog from navigation
+                                        // MainWidget.navItem(PageNames.blog, pageProvider.page, appText.blog, AppAssets.blogSvg, (){
+                                        //   pageProvider.setPage(PageNames.blog);
+                                        // }),
                                         
-                                        MainWidget.navItem(PageNames.blog, pageProvider.page, appText.blog, AppAssets.blogSvg, (){
-                                          pageProvider.setPage(PageNames.blog);
-                                        }),
-                                        
-                                        MainWidget.navItem(PageNames.myClasses, pageProvider.page, appText.myClassess, AppAssets.classesSvg, (){
-                                          pageProvider.setPage(PageNames.myClasses);
+                                        // My Courses (changed from myClasses)
+                                        MainWidget.navItem(PageNames.myCourses, pageProvider.page, appText.myClassess, AppAssets.classesSvg, (){
+                                          pageProvider.setPage(PageNames.myCourses);
                                         }),
                                                 
                                       ],

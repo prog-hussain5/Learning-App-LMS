@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:persian_number_utility/persian_number_utility.dart';
+// COMMENTED: Removed Persian number utility
+// import 'package:persian_number_utility/persian_number_utility.dart';
 import 'package:webinar/app/pages/main_page/home_page/assignments_page/submissions_page.dart';
 import 'package:webinar/app/services/user_service/assignment_service.dart';
 import 'package:webinar/common/common.dart';
@@ -148,7 +149,8 @@ class _AssignmentOverviewPageState extends State<AssignmentOverviewPage> {
                                 if(isMyAssignment)...{ // 1
                                   SingleCourseWidget.courseStatus(
                                     appText.deadline, 
-                                    (assignment?.deadline?.toString() ?? '').isNumeric() ? '${assignment?.deadline?.toString() ?? ''} ${appText.day}' : assignment?.deadline?.toString() ?? '', 
+                                    // MODIFIED: Removed .isNumeric() - showing deadline as is
+                                    assignment?.deadline?.toString() ?? '', 
                                     AppAssets.infoSquareSvg,
                                     width: (getSize().width * .5) - 42,
                                   ),
