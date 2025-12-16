@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "346142227155",
+    "project_id": "webinar-c51b7",
+    "storage_bucket": "webinar-c51b7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:346142227155:android:ea2e14d4ed957a79d23226",
+        "android_client_info": {
+          "package_name": "com.webinar.webinar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "346142227155-r6jiebtjasattjoboiqaib9pj4v6qglm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.webinar.webinar",
+            "certificate_hash": "4691591c4261760895fe0df7733a48228ef79926"
+          }
+        },
+        {
+          "client_id": "346142227155-rmrbm5ro6r8d038s3u9cph7umvjrrvks.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATOMUHqK1GBarcT394Drm6RFi50LsX3wQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "346142227155-be19v4v7jj1dh2eqb2avp2tmnghahoc8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "346142227155-30a9drvvvduc0qboegip572sh6e30aeg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.webinar.webinar"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
