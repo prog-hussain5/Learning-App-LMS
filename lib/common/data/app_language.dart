@@ -21,8 +21,8 @@ class AppLanguage{
     CountryCode(
       name: "Arabic",
       code: "AR",
-      dialCode: '+966',
-      flagUri: '${AppAssets.flags}${"sa".toLowerCase()}.png',
+      dialCode: '+964',
+      flagUri: '${AppAssets.flags}${"iq".toLowerCase()}.png',
     ),
   ];
 

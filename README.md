@@ -1,6 +1,6 @@
-# Rocket LMS
+# أكاديمية بلسم الطبية
 
-Rocket LMS project.
+Balsam Medical Academy - مستقبل التعليم الطبي.
 
 ## Getting Started
 

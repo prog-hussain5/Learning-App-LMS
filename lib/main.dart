@@ -166,6 +166,23 @@ class MyApp extends StatelessWidget {
               
             ),
             
+            // Force Latin/English digits instead of Persian
+            builder: (context, child) {
+              return Directionality(
+                textDirection: locator<AppLanguage>().isRtl() ? TextDirection.rtl : TextDirection.ltr,
+                child: Builder(
+                  builder: (context) {
+                    return MediaQuery(
+                      data: MediaQuery.of(context).copyWith(
+                        textScaler: const TextScaler.linear(1.0),
+                      ),
+                      child: child!,
+                    );
+                  },
+                ),
+              );
+            },
+            
             debugShowCheckedModeBanner: false,
             // debugShowMaterialGrid: true,
               

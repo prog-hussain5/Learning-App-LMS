@@ -51,7 +51,7 @@
 
 
     <application
-        android:label="Rocket LMS"
+        android:label="أكاديمية بلسم الطبية"
         android:usesCleartextTraffic="true"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

@@ -5,7 +5,8 @@ import 'package:webinar/locator.dart';
 
 TextStyle style48Bold() {
   return TextStyle(
-    fontFamily: !locator<AppLanguage>().isRtl() ? 'SF-Pro-Bold' : 'Vazir-Bold',
+    // Using Pingar Heavy for bold text
+    fontFamily: 'Pingar-Heavy',
     color: textColorGrey33,
     fontSize: 48
   );
@@ -21,7 +22,8 @@ TextStyle style12Bold() => style48Bold().copyWith(fontSize: 12);
 
 TextStyle style16Regular() {
   return TextStyle(
-    fontFamily: !locator<AppLanguage>().isRtl() ? 'SF-Pro-Regular' : 'Vazir-Regular',
+    // Using Pingar Regular for normal text
+    fontFamily: 'Pingar-Regular',
     color: textColorGrey33,
     fontSize: 16
   );

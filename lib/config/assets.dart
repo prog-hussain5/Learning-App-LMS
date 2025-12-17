@@ -6,11 +6,13 @@ class AppAssets {
   
 
   static const String placePng = '${_basePng}place.jpg';
-  static const String splashPng = '${_basePng}splash-bg.png';
+  static const String splashPng = '${_basePng}Balsam_Splash_screen.png';
   static const String introBgPng = '${_basePng}intro-bg.png';
   static const String paypalPng = '${_basePng}paypal.png';
   static const String payBgPng = '${_basePng}pay_bg.png';
   static const String worldPng = '${_basePng}world.png';
+  static const String balsamLogoPng = '${_basePng}Balsam Icon Color Transparent.png';
+  static const String balsamLogoWithTextPng = '${_basePng}Balsam Academy.png';
 
   
 

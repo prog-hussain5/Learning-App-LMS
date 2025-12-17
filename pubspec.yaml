@@ -110,13 +110,25 @@ dev_dependencies:
   flutter_lints: ^4.0.0
   hive_generator: ^2.0.1
   build_runner: ^2.4.9
+  flutter_launcher_icons: ^0.13.1
 
 flutter_native_splash:
   android: true
   ios: true
   web: false
-  color: "#00BA63"
-  color_dark: "#00BA63"
+  color: "#0071ff"
+  image: assets/image/png/Balsam Icon Color Transparent.png
+  fullscreen: true
+  android_12:
+    image: assets/image/png/Balsam Icon Color Transparent.png
+    color: "#0071ff"
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/image/png/Balsam Icon.png"
+  adaptive_icon_background: "#0071ff"
+  adaptive_icon_foreground: "assets/image/png/Balsam Icon Color Transparent.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -148,13 +160,20 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
+    - family: Pingar-Heavy
+      fonts:
+        - asset: assets/font/PINGAR+LT-HEAVY.OTF
+    - family: Pingar-Regular
+      fonts:
+        - asset: assets/font/PINGAR+LT-REGULAR.OTF
+    
+    # Old fonts kept for backup
     - family: SF-Pro-Bold
       fonts:
         - asset: assets/font/sf-pro-bold.otf
     - family: SF-Pro-Regular
       fonts:
         - asset: assets/font/sf-pro-regular.otf
-    
     - family: Vazir-Bold
       fonts:
         - asset: assets/font/vazir-bold.ttf

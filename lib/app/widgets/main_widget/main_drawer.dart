@@ -115,11 +115,15 @@ class _MainDrawerState extends State<MainDrawer> {
                                         color: Colors.white,
                                         shape: BoxShape.circle
                                       ),
-                                      child: SvgPicture.asset(
-                                        AppAssets.splashLogoSvg,
-                                        width: 65,
-                                        height: 65,
-                                    ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Image.asset(
+                                          AppAssets.balsamLogoPng,
+                                          width: 65,
+                                          height: 65,
+                                          fit: BoxFit.contain,
+                                        ),
+                                      ),
                                   )
                                   : Image.network(
                                       userProiver.profile?.avatar ?? '', 

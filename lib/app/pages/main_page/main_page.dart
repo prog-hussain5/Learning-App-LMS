@@ -71,20 +71,24 @@ class _MainPageState extends State<MainPage> {
             // Now we can safely get Firebase token
             String? firebaseToken = await FirebaseMessaging.instance.getToken();
             if (firebaseToken != null) {
+              print('🔔 Firebase Device Token (iOS): $firebaseToken');
               UserService.sendFirebaseToken(firebaseToken);
             }
           }
         } catch (e) {
-          // Silently handle error
+          print('❌ Error getting Firebase token (iOS): $e');
         }
       } else {
         // For Android and Web
         FirebaseMessaging.instance.getToken().then((value) {
           try {
             if (value != null) {
+              print('🔔 Firebase Device Token (Android): $value');
               UserService.sendFirebaseToken(value);
             }
-          } catch (_) {}
+          } catch (e) {
+            print('❌ Error getting Firebase token (Android): $e');
+          }
         });
       }
     });

@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:webinar/app/pages/introduction_page/intro_page.dart';
 import 'package:webinar/app/pages/main_page/main_page.dart';
@@ -91,39 +89,8 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
 
-            const Spacer(),const Spacer(),
 
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                Center(
-                  child: AnimatedBuilder(
-                    animation: animationController,
-                  
-                    builder: (content, _){
-                      return Transform.rotate(
-                        angle: animationController.value * .5 * 3.14,
-                        child: SvgPicture.asset(
-                          AppAssets.whiteLogoEmptySvg,
-                        ),
-                      );
-                    }
-                  ),
-                ),
-
-                Center(
-                  child: SvgPicture.asset(AppAssets.logoLineSvg),
-                ),
-              ],
-            ),
-
-            space(40),
-
-            Text(
-              appText.webinar,
-              style: style24Bold().copyWith(color: Colors.white),
-            ),
-
+          
             space(10),
 
             Text(
