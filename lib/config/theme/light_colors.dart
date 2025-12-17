@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 
 /// Main Color
-Color lightGreen77() => const Color(0xff0170FF);
-Color lightGreen91() => const Color(0xff67A9FF);
+Color lightGreen77() => const Color(0xff0071ff);
+Color lightGreen91() => const Color(0xff3399ff);
 Color lightBlue64() => const Color(0xff1F3B64);
 LinearGradient greenGradint() => LinearGradient(
     colors: [
@@ -15,7 +15,7 @@ LinearGradient greenGradint() => LinearGradient(
 );
 
 // use in drawer background color
-Color lightGreen63 = const Color(0xff036DF6);
+Color lightGreen63 = const Color(0xff0071ff);
 
 // grey Shade
 Color lightGrey33 = const Color(0xff2F3133);
@@ -48,11 +48,11 @@ Color lightOrange50 = const Color(0xffFE7950);
 
 // Semantics
 Color lightGreen50 = const Color(0xff8FBF50);
-Color lightGreen4B = const Color(0xff076AEB);
-Color lightGreen9D = const Color(0xff50BF9D);
+Color lightGreen4B = const Color(0xff0071ff);
+Color lightGreen9D = const Color(0xff3399ff);
 
-Color lightCyan50 = const Color(0xff50BF9D);
-Color lightBlueFE = const Color(0xff5090FE);
+Color lightCyan50 = const Color(0xff3399ff);
+Color lightBlueFE = const Color(0xff0071ff);
 Color lightBlueA4 = const Color(0xff2849A4);
 Color lightYellow4C = const Color(0xffFFCD4C);
 
