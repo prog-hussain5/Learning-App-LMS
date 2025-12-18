@@ -31,8 +31,9 @@ class _ProvidersPageState extends State<ProvidersPage> with SingleTickerProvider
   int currentTab=1;
 
   List<UserModel> instructorsData = [];
-  List<UserModel> organizationsData = [];
-  List<UserModel> consultantsData = [];
+  // COMMENTED: Organizations and Consultants hidden - only showing Instructors
+  // List<UserModel> organizationsData = [];
+  // List<UserModel> consultantsData = [];
 
 
   bool isLoading = true;
@@ -41,13 +42,15 @@ class _ProvidersPageState extends State<ProvidersPage> with SingleTickerProvider
   void initState() {
     super.initState();
 
-    tabController = TabController(length: 3, vsync: this);
+    // MODIFIED: Changed from 3 tabs to 1 tab (only Instructors)
+    tabController = TabController(length: 1, vsync: this);
 
     locator<ProvidersProvider>().clearFilter();
 
     getInstructors();
-    getOrganizations();
-    getConsultants();
+    // COMMENTED: Only loading instructors
+    // getOrganizations();
+    // getConsultants();
   }
 
 
@@ -80,51 +83,53 @@ class _ProvidersPageState extends State<ProvidersPage> with SingleTickerProvider
 
   }
   
-  getOrganizations() async {
+  // COMMENTED: Organizations function - not needed
+  // getOrganizations() async {
 
-    setState(() {
-      isLoading = true;
-    });
+  //   setState(() {
+  //     isLoading = true;
+  //   });
 
-    organizationsData = await ProvidersService.getOrganizations(
-      availableForMeetings: locator<ProvidersProvider>().availableForMeeting,
-      freeMeetings: locator<ProvidersProvider>().free,
-      discount: locator<ProvidersProvider>().discount,
-      downloadable: locator<ProvidersProvider>().downloadable,
+  //   organizationsData = await ProvidersService.getOrganizations(
+  //     availableForMeetings: locator<ProvidersProvider>().availableForMeeting,
+  //     freeMeetings: locator<ProvidersProvider>().free,
+  //     discount: locator<ProvidersProvider>().discount,
+  //     downloadable: locator<ProvidersProvider>().downloadable,
       
-      sort: locator<ProvidersProvider>().sort,
+  //     sort: locator<ProvidersProvider>().sort,
 
-      categories: locator<ProvidersProvider>().categorySelected
-    );
+  //     categories: locator<ProvidersProvider>().categorySelected
+  //   );
 
-    setState(() {
-      isLoading = false;
-    });
+  //   setState(() {
+  //     isLoading = false;
+  //   });
 
-  }
+  // }
   
-  getConsultants() async {
+  // COMMENTED: Consultants function - not needed
+  // getConsultants() async {
 
-    setState(() {
-      isLoading = true;
-    });
+  //   setState(() {
+  //     isLoading = true;
+  //   });
 
-    consultantsData = await ProvidersService.getConsultations(
-      availableForMeetings: locator<ProvidersProvider>().availableForMeeting,
-      freeMeetings: locator<ProvidersProvider>().free,
-      discount: locator<ProvidersProvider>().discount,
-      downloadable: locator<ProvidersProvider>().downloadable,
+  //   consultantsData = await ProvidersService.getConsultations(
+  //     availableForMeetings: locator<ProvidersProvider>().availableForMeeting,
+  //     freeMeetings: locator<ProvidersProvider>().free,
+  //     discount: locator<ProvidersProvider>().discount,
+  //     downloadable: locator<ProvidersProvider>().downloadable,
       
-      sort: locator<ProvidersProvider>().sort,
+  //     sort: locator<ProvidersProvider>().sort,
 
-      categories: locator<ProvidersProvider>().categorySelected
-    );
+  //     categories: locator<ProvidersProvider>().categorySelected
+  //   );
 
-    setState(() {
-      isLoading = false;
-    });
+  //   setState(() {
+  //     isLoading = false;
+  //   });
 
-  }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -148,8 +153,9 @@ class _ProvidersPageState extends State<ProvidersPage> with SingleTickerProvider
 
                 if(res != null && res){
                   getInstructors();
-                  getOrganizations();
-                  getConsultants();
+                  // COMMENTED: Only refreshing instructors
+                  // getOrganizations();
+                  // getConsultants();
                 }
               },
               rightWidth: 22
@@ -168,6 +174,7 @@ class _ProvidersPageState extends State<ProvidersPage> with SingleTickerProvider
                     elevation: 10,
                     titleSpacing: 0,
 
+                    // MODIFIED: Only showing Instructors tab
                     title: tabBar(onChangeTab, tabController, [
                     
                       Tab(
@@ -175,15 +182,16 @@ class _ProvidersPageState extends State<ProvidersPage> with SingleTickerProvider
                         height: 32,
                       ),
                       
-                      Tab(
-                        text: appText.organizations,
-                        height: 32,
-                      ),
+                      // COMMENTED: Organizations and Consultants tabs hidden
+                      // Tab(
+                      //   text: appText.organizations,
+                      //   height: 32,
+                      // ),
                       
-                      Tab(
-                        text: appText.consultants,
-                        height: 32,
-                      ),
+                      // Tab(
+                      //   text: appText.consultants,
+                      //   height: 32,
+                      // ),
 
                     ]),
                   )
@@ -194,6 +202,7 @@ class _ProvidersPageState extends State<ProvidersPage> with SingleTickerProvider
                 controller: tabController,
                 children: [
               
+                  // ONLY Instructors tab visible
                   !isLoading && instructorsData.isEmpty
                   ? emptyState(AppAssets.providersEmptyStateSvg, appText.noInstructor, appText.noInstructorDesc)
                   : GridView.builder(
@@ -218,53 +227,55 @@ class _ProvidersPageState extends State<ProvidersPage> with SingleTickerProvider
                       },
                     ),
               
-                  !isLoading && organizationsData.isEmpty
-                  ? emptyState(AppAssets.providersEmptyStateSvg, appText.noOrganization, appText.noOrganizationDesc)
-                  : GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: TabletDetector.isTablet() ? 3 : 2,
-                        mainAxisSpacing: 22,
-                        crossAxisSpacing: 22,
-                        mainAxisExtent: 195
-                      ), 
-                      padding: const EdgeInsets.only(
-                        right: 21,
-                        left: 21,
-                        bottom: 100
-                      ),
-                      itemCount: isLoading ? 6 : organizationsData.length,
-                      itemBuilder: (context, index) {
-                        return isLoading
-                          ? userProfileCardShimmer()
-                          : userProfileCard(organizationsData[index], (){
-                              nextRoute(UserProfilePage.pageName, arguments: organizationsData[index].id);
-                            });
-                      },
-                    ),
+                  // COMMENTED: Organizations tab hidden
+                  // !isLoading && organizationsData.isEmpty
+                  // ? emptyState(AppAssets.providersEmptyStateSvg, appText.noOrganization, appText.noOrganizationDesc)
+                  // : GridView.builder(
+                  //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  //       crossAxisCount: TabletDetector.isTablet() ? 3 : 2,
+                  //       mainAxisSpacing: 22,
+                  //       crossAxisSpacing: 22,
+                  //       mainAxisExtent: 195
+                  //     ), 
+                  //     padding: const EdgeInsets.only(
+                  //       right: 21,
+                  //       left: 21,
+                  //       bottom: 100
+                  //     ),
+                  //     itemCount: isLoading ? 6 : organizationsData.length,
+                  //     itemBuilder: (context, index) {
+                  //       return isLoading
+                  //         ? userProfileCardShimmer()
+                  //         : userProfileCard(organizationsData[index], (){
+                  //             nextRoute(UserProfilePage.pageName, arguments: organizationsData[index].id);
+                  //           });
+                  //     },
+                  //   ),
               
-                  !isLoading && consultantsData.isEmpty
-                  ? emptyState(AppAssets.providersEmptyStateSvg, appText.noConsultants, appText.noConsultantsDesc)
-                  : GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: TabletDetector.isTablet() ? 3 : 2,
-                        mainAxisSpacing: 22,
-                        crossAxisSpacing: 22,
-                        mainAxisExtent: 195
-                      ), 
-                      padding: const EdgeInsets.only(
-                        right: 21,
-                        left: 21,
-                        bottom: 100
-                      ),
-                      itemCount: isLoading ? 6 : consultantsData.length,
-                      itemBuilder: (context, index) {
-                        return isLoading
-                          ? userProfileCardShimmer()
-                          : userProfileCard(consultantsData[index], (){
-                              nextRoute(UserProfilePage.pageName, arguments: consultantsData[index].id);
-                            });
-                      },
-                    ),
+                  // COMMENTED: Consultants tab hidden
+                  // !isLoading && consultantsData.isEmpty
+                  // ? emptyState(AppAssets.providersEmptyStateSvg, appText.noConsultants, appText.noConsultantsDesc)
+                  // : GridView.builder(
+                  //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  //       crossAxisCount: TabletDetector.isTablet() ? 3 : 2,
+                  //       mainAxisSpacing: 22,
+                  //       crossAxisSpacing: 22,
+                  //       mainAxisExtent: 195
+                  //     ), 
+                  //     padding: const EdgeInsets.only(
+                  //       right: 21,
+                  //       left: 21,
+                  //       bottom: 100
+                  //     ),
+                  //     itemCount: isLoading ? 6 : consultantsData.length,
+                  //     itemBuilder: (context, index) {
+                  //       return isLoading
+                  //         ? userProfileCardShimmer()
+                  //         : userProfileCard(consultantsData[index], (){
+                  //             nextRoute(UserProfilePage.pageName, arguments: consultantsData[index].id);
+                  //           });
+                  //     },
+                  //   ),
               
                 ]
               )

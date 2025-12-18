@@ -99,7 +99,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
             ),
             const Spacer(),const Spacer(),
 
-
+               const SizedBox(height: 120,),
             const SizedBox(
               width: 35,
               child: LoadingIndicator(

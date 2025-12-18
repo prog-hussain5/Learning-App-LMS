@@ -5,7 +5,7 @@ class Constants {
   
   static const dommain = 'https://balsam.academy';
   static const baseUrl = '$dommain/api/production/';
-  static const apiKey = 'base64:BlQYTmcfZGV4XShvK5Z+ffNVWv0qszkUTReQGmD76lw=';
+  static const apiKey = 'sdgh452TGWR214rf';
   static const scheme = 'balsamacademy';
   
   static final RouteObserver<ModalRoute<void>> singleCourseRouteObserver = RouteObserver<ModalRoute<void>>();
