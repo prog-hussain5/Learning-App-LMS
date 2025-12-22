@@ -31,7 +31,7 @@ android {
 
     defaultConfig {
         applicationId = "Academy.balsam.med"
-        minSdk = 21
+        minSdk = flutter.minSdkVersion
         targetSdk = 35
         versionCode = flutterVersionCode
         versionName = flutterVersionName

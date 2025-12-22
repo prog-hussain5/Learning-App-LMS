@@ -1,4 +1,4 @@
-package com.webinar.webinar
+package Academy.balsam.med
 
 import io.flutter.embedding.android.FlutterActivity
 // import com.facebook.FacebookSdk;

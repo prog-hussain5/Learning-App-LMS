@@ -133,7 +133,6 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
           onTapLeftIcon: (){
             backRoute();
           },
-          isBasket: true
         ),
 
         body: Column(

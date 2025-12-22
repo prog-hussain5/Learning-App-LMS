@@ -248,7 +248,6 @@ class _SingleCoursePageState extends State<SingleCoursePage> with SingleTickerPr
         
         appBar: appbar(
           title: appText.courseDetails,
-          isBasket: true
         ),
 
         body: isLoading 
