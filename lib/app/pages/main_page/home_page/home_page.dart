@@ -275,35 +275,33 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                                       ),
                                             
                                             
-                                      // Bundle
-                                      Column(
-                                        children: [
-                                          HomeWidget.titleAndMore(appText.latestBundles, onTapViewAll: (){
-                                            locator<FilterCourseProvider>().clearFilter();
-                                            locator<FilterCourseProvider>().bundleCourse = true;
-                                            nextRoute(FilterCategoryPage.pageName);
-                                          }),
-                                            
-                                          SizedBox(
-                                            width: getSize().width,
-                                            child: SingleChildScrollView(
-                                              physics: const BouncingScrollPhysics(),
-                                              padding: padding(),
-                                              scrollDirection: Axis.horizontal,
-                                              child: Row(
-                                                children: List.generate( homeProvider.isLoadingBundleData ? 3 : homeProvider.bundleData.length, (index) {
-                                                  return homeProvider.isLoadingBundleData
-                                                    ? courseItemShimmer()
-                                                    : courseItem(
-                                                        homeProvider.bundleData[index]
-                                                      );
-                                                }),
-                                              ),
-                                            ),
-                                          )
-                                            
-                                        ],
-                                      ),
+                                      // Bundle (معلق)
+                                      // Column(
+                                      //   children: [
+                                      //     HomeWidget.titleAndMore(appText.latestBundles, onTapViewAll: (){
+                                      //       locator<FilterCourseProvider>().clearFilter();
+                                      //       locator<FilterCourseProvider>().bundleCourse = true;
+                                      //       nextRoute(FilterCategoryPage.pageName);
+                                      //     }),
+                                      //     SizedBox(
+                                      //       width: getSize().width,
+                                      //       child: SingleChildScrollView(
+                                      //         physics: const BouncingScrollPhysics(),
+                                      //         padding: padding(),
+                                      //         scrollDirection: Axis.horizontal,
+                                      //         child: Row(
+                                      //           children: List.generate( homeProvider.isLoadingBundleData ? 3 : homeProvider.bundleData.length, (index) {
+                                      //             return homeProvider.isLoadingBundleData
+                                      //               ? courseItemShimmer()
+                                      //               : courseItem(
+                                      //                   homeProvider.bundleData[index]
+                                      //                 );
+                                      //           }),
+                                      //         ),
+                                      //       ),
+                                      //     )
+                                      //   ],
+                                      // ),
                                             
                             
                                       if(homeProvider.bestRatedListData.isNotEmpty)...{
@@ -342,99 +340,83 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                                             
                                       space(22),
                                             
-                                      // by spending points
-                                      Container(
-                                        padding: padding(horizontal: 16),
-                                        margin: padding(),
-                                        width: getSize().width,
-                                        height: 165,
-                                            
-                                        decoration: BoxDecoration(
-                                          color: whiteFF_26,
-                                          borderRadius: borderRadius(),
-                                        ),
-                                            
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                            
-                                                Text(
-                                                  appText.freeCourses,
-                                                  style: style20Bold(),
-                                                ),
-                                            
-                                                space(4),
-                                                
-                                                Text(
-                                                  appText.bySpendingPoints,
-                                                  style: style12Regular().copyWith(color: greyB2),
-                                                ),
-                                                
-                                                space(8),
-                                            
-                                                button(
-                                                  onTap: (){
-                                                    locator<FilterCourseProvider>().clearFilter();
-                                                    locator<FilterCourseProvider>().rewardCourse = true;
-                                                    nextRoute(FilterCategoryPage.pageName);
-                                                  }, 
-                                                  width: 75, 
-                                                  height: 32, 
-                                                  text: appText.view, 
-                                                  bgColor: green77(), 
-                                                  textColor: Colors.white,
-                                                  raduis: 10
-                                                )
-                                            
-                                              ],
-                                            ),
-                                            
-                                            
-                                            
-                                            SvgPicture.asset(AppAssets.pointsMedalSvg)
-                                            
-                                            
-                                          ],
-                                        ),
-                                      ),
+                                      // by spending points (معلق)
+                                      // Container(
+                                      //   padding: padding(horizontal: 16),
+                                      //   margin: padding(),
+                                      //   width: getSize().width,
+                                      //   height: 165,
+                                      //   decoration: BoxDecoration(
+                                      //     color: whiteFF_26,
+                                      //     borderRadius: borderRadius(),
+                                      //   ),
+                                      //   child: Row(
+                                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      //     children: [
+                                      //       Column(
+                                      //         crossAxisAlignment: CrossAxisAlignment.start,
+                                      //         mainAxisAlignment: MainAxisAlignment.center,
+                                      //         children: [
+                                      //           Text(
+                                      //             appText.freeCourses,
+                                      //             style: style20Bold(),
+                                      //           ),
+                                      //           space(4),
+                                      //           Text(
+                                      //             appText.bySpendingPoints,
+                                      //             style: style12Regular().copyWith(color: greyB2),
+                                      //           ),
+                                      //           space(8),
+                                      //           button(
+                                      //             onTap: (){
+                                      //               locator<FilterCourseProvider>().clearFilter();
+                                      //               locator<FilterCourseProvider>().rewardCourse = true;
+                                      //               nextRoute(FilterCategoryPage.pageName);
+                                      //             }, 
+                                      //             width: 75, 
+                                      //             height: 32, 
+                                      //             text: appText.view, 
+                                      //             bgColor: green77(), 
+                                      //             textColor: Colors.white,
+                                      //             raduis: 10
+                                      //           )
+                                      //         ],
+                                      //       ),
+                                      //       SvgPicture.asset(AppAssets.pointsMedalSvg)
+                                      //     ],
+                                      //   ),
+                                      // ),
                                             
                                       space(10),
                                             
                                             
-                                      // Best Selling
-                                      Column(
-                                        children: [
-                                          HomeWidget.titleAndMore(appText.bestSelling, onTapViewAll: (){
-                                            locator<FilterCourseProvider>().clearFilter();
-                                            locator<FilterCourseProvider>().sort = 'bestsellers';
-                                            nextRoute(FilterCategoryPage.pageName);
-                                          }),
-                                            
-                                          SizedBox(
-                                            width: getSize().width,
-                                            child: SingleChildScrollView(
-                                              physics: const BouncingScrollPhysics(),
-                                              padding: padding(),
-                                              scrollDirection: Axis.horizontal,
-                                              child: Row(
-                                                children: List.generate( homeProvider.isLoadingBestSellingListData ? 3 : homeProvider.bestSellingListData.length, (index) {
-                                                  return homeProvider.isLoadingBestSellingListData
-                                                    ? courseItemShimmer()
-                                                    : courseItem(
-                                                        homeProvider.bestSellingListData[index]
-                                                      );
-                                                }),
-                                              ),
-                                            ),
-                                          )
-                                            
-                                        ],
-                                      ),
+                                      // Best Selling (معلق)
+                                      // Column(
+                                      //   children: [
+                                      //     HomeWidget.titleAndMore(appText.bestSelling, onTapViewAll: (){
+                                      //       locator<FilterCourseProvider>().clearFilter();
+                                      //       locator<FilterCourseProvider>().sort = 'bestsellers';
+                                      //       nextRoute(FilterCategoryPage.pageName);
+                                      //     }),
+                                      //     SizedBox(
+                                      //       width: getSize().width,
+                                      //       child: SingleChildScrollView(
+                                      //         physics: const BouncingScrollPhysics(),
+                                      //         padding: padding(),
+                                      //         scrollDirection: Axis.horizontal,
+                                      //         child: Row(
+                                      //           children: List.generate( homeProvider.isLoadingBestSellingListData ? 3 : homeProvider.bestSellingListData.length, (index) {
+                                      //             return homeProvider.isLoadingBestSellingListData
+                                      //               ? courseItemShimmer()
+                                      //               : courseItem(
+                                      //                   homeProvider.bestSellingListData[index]
+                                      //                 );
+                                      //           }),
+                                      //         ),
+                                      //       ),
+                                      //     )
+                                      //   ],
+                                      // ),
                                       
                                             
                             
@@ -471,39 +453,37 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                                         ),
                                       },
                                             
-                                      // Free Classes
-                                      Column(
-                                        children: [
-                                          HomeWidget.titleAndMore(appText.freeClasses, onTapViewAll: (){
-                                            locator<FilterCourseProvider>().clearFilter();
-                                            locator<FilterCourseProvider>().free = true;
-                                            nextRoute(FilterCategoryPage.pageName);
-                                          }),
-                                            
-                                          SizedBox(
-                                            width: getSize().width,
-                                            child: SingleChildScrollView(
-                                              physics: const BouncingScrollPhysics(),
-                                              padding: padding(),
-                                              scrollDirection: Axis.horizontal,
-                                              child: Row(
-                                                children: List.generate( homeProvider.isLoadingFreeListData ? 3 : homeProvider.freeListData.length, (index) {
-                                                  return homeProvider.isLoadingFreeListData
-                                                    ? courseItemShimmer()
-                                                    : courseItem(
-                                                        homeProvider.freeListData[index]
-                                                      );
-                                                }),
-                                              ),
-                                            ),
-                                          )
-                                            
-                                        ],
-                                      ),
+                                      // Free Classes (معلق)
+                                      // Column(
+                                      //   children: [
+                                      //     HomeWidget.titleAndMore(appText.freeClasses, onTapViewAll: (){
+                                      //       locator<FilterCourseProvider>().clearFilter();
+                                      //       locator<FilterCourseProvider>().free = true;
+                                      //       nextRoute(FilterCategoryPage.pageName);
+                                      //     }),
+                                      //     SizedBox(
+                                      //       width: getSize().width,
+                                      //       child: SingleChildScrollView(
+                                      //         physics: const BouncingScrollPhysics(),
+                                      //         padding: padding(),
+                                      //         scrollDirection: Axis.horizontal,
+                                      //         child: Row(
+                                      //           children: List.generate( homeProvider.isLoadingFreeListData ? 3 : homeProvider.freeListData.length, (index) {
+                                      //             return homeProvider.isLoadingFreeListData
+                                      //               ? courseItemShimmer()
+                                      //               : courseItem(
+                                      //                   homeProvider.freeListData[index]
+                                      //                 );
+                                      //           }),
+                                      //         ),
+                                      //       ),
+                                      //     )
+                                      //   ],
+                                      // ),
                                             
                                             
                                             
-                                      space(150),
+                                      space(40),
                                             
                                     ],
                                   ),

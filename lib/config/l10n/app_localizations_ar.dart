@@ -12,31 +12,31 @@ class AppLocalizationsAr extends AppLocalizations {
   String get webinar => 'أكاديمية بلسم الطبية';
 
   @override
-  String get splashDesc => 'مستقبل التعليم الطبي...';
+  String get splashDesc => 'أسهل طريقة للتعلم';
 
   @override
-  String get introTitle1 => 'ابدأ التعلم الآن!';
+  String get introTitle1 => 'اهلًأ و سهلًا';
 
   @override
-  String get introTitle2 => 'حجز لقاء...';
+  String get introTitle2 => 'ادرس في الوقت الذي يناسبك';
 
   @override
-  String get introTitle3 => 'تعليم مهاراتك!';
+  String get introTitle3 => 'اختبر نفسك';
 
   @override
   String get introTitle4 => 'ابدأ التعلم الآن';
 
   @override
-  String get introDesc1 => 'هل أنت مهتم بالتعلم من أفضل المعلمين حول العالم؟';
+  String get introDesc1 => 'في تطبيق اكاديمية بلسم الطبية';
 
   @override
-  String get introDesc2 => 'هل تبحث عن مدرس خصوصي؟ احجز جلسة خاصة الآن!';
+  String get introDesc2 => 'كورسات مسجلة خصيصًا لك.';
 
   @override
-  String get introDesc3 => 'ابدأ التدريس الآن وشارك معرفتك القيمة.';
+  String get introDesc3 => 'من خلال الاختبارات المختلفة.';
 
   @override
-  String get introDesc4 => 'ابدأ التعلم من أفضل المدربين في مواضيع مختلفة.';
+  String get introDesc4 => 'ابدأ التعلم مع افضل الاساتذة!';
 
   @override
   String get getStart => 'ابدأ';
@@ -45,7 +45,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get login => 'تسجيل الدخول';
 
   @override
-  String get signup => 'اشتراك';
+  String get signup => 'تسجيل جديد';
 
   @override
   String get skipLogin => 'تخطي تسجيل الدخول';
@@ -54,48 +54,48 @@ class AppLocalizationsAr extends AppLocalizations {
   String get createAccount => 'إنشاء حساب';
 
   @override
-  String get createAccountDesc => 'انضم إلينا الآن وابدأ بالتعلم والتدريس';
+  String get createAccountDesc => 'انضم إلينا الآن وابدأ بالتعلم والتعليم';
 
   @override
-  String get yourEmail => 'بريدك الالكتروني';
+  String get yourEmail => 'بريدك الإلكتروني';
 
   @override
-  String get password => 'كلمةالمرور';
+  String get password => 'كلمة المرور';
 
   @override
-  String get retypePassword => 'أعد إدخال كلمةالمرور';
+  String get retypePassword => 'أعد إدخال كلمة المرور';
 
   @override
   String get createAnAccount => 'إنشاء حساب';
 
   @override
   String get termsPoliciesDesc =>
-      'باستخدام خدماتنا، فإنك توافق على الشروط والسياسات الخاصة بنا. ';
+      'باستخدام خدماتنا، فإنك توافق على الشروط والسياسات الخاصة بنا.';
 
   @override
   String get haveAnAccount => 'هل لديك حساب؟';
 
   @override
-  String get welcomeBack => 'مرحبًا بعودتك!';
+  String get welcomeBack => 'مرحبًا!';
 
   @override
   String get welcomeBackDesc => 'قم بالدخول إلى حسابك واستمتع بالتعلم...';
 
   @override
-  String get emailOrPhone => 'بريد الكتروني او هاتف';
+  String get emailOrPhone => 'البريد الإلكتروني أو الهاتف';
 
   @override
   String get dontHaveAnAccount => 'ليس لديك حساب؟';
 
   @override
-  String get forgetPassword => 'نسيت كلمة المرور';
+  String get forgetPassword => 'نسيت كلمة المرور؟';
 
   @override
   String get forgetPasswordDesc =>
       'لا تقلق، سيتم إعادة تعيين كلمة المرور الخاصة بك.';
 
   @override
-  String get haventReceiveTheCode => 'لم تتلقى الرمز؟';
+  String get haventReceiveTheCode => 'لم تتلقَ الرمز؟';
 
   @override
   String get resendCode => 'أعد إرسال الرمز';
@@ -107,40 +107,40 @@ class AppLocalizationsAr extends AppLocalizations {
   String get accountVerification => 'تأكيد الحساب';
 
   @override
-  String get accountVerificationDesc => 'أدخل رمز التحقق الذي أرسل إليك...';
+  String get accountVerificationDesc => 'أدخل رمز التحقق الذي أُرسل إليك...';
 
   @override
-  String get selectlanguage => 'اختر لغة';
+  String get selectlanguage => 'اختر اللغة';
 
   @override
   String get searchCountry => 'ابحث عن بلد أو لغة';
 
   @override
-  String get cancel => 'يلغي';
+  String get cancel => 'إلغاء';
 
   @override
   String get alreadyHaveAnAccount => 'هل لديك حساب؟';
 
   @override
-  String get phoneNumber => 'رقم التليفون';
+  String get phoneNumber => 'رقم الهاتف';
 
   @override
-  String get home => 'بيت';
+  String get home => 'الرئيسية';
 
   @override
-  String get dashboard => 'لوحة القيادة';
+  String get dashboard => 'لوحة التحكم';
 
   @override
-  String get classes => 'الطبقات';
+  String get classes => 'الكورسات';
 
   @override
   String get meetings => 'الاجتماعات';
 
   @override
-  String get assignments => 'تعيينات';
+  String get assignments => 'الواجبات';
 
   @override
-  String get quizzes => 'الإختبارات';
+  String get quizzes => 'الاختبارات';
 
   @override
   String get certificates => 'الشهادات';
@@ -149,28 +149,28 @@ class AppLocalizationsAr extends AppLocalizations {
   String get favorites => 'المفضلة';
 
   @override
-  String get comments => 'تعليقات';
+  String get comments => 'التعليقات';
 
   @override
-  String get financial => 'مالي';
+  String get financial => 'المالية';
 
   @override
   String get subscription => 'الاشتراك';
 
   @override
-  String get support => 'يدعم';
+  String get support => 'الدعم الفني';
 
   @override
   String get logOut => 'تسجيل خروج';
 
   @override
-  String get hi => 'Hi, ';
+  String get hi => 'مرحباً، ';
 
   @override
-  String get letsStartLearning => 'دعونا نبدأ التعلم!';
+  String get letsStartLearning => 'اكاديمية  الطبية ترحب بكم';
 
   @override
-  String get searchInputDesc => 'ماذا ستجد؟';
+  String get searchInputDesc => 'ماذا تريد أن تتعلم؟';
 
   @override
   String get viewAll => 'عرض الكل';
@@ -182,10 +182,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get newestClasses => 'أحدث الفئات';
 
   @override
-  String get bestRated => 'أفضل تصنيف';
+  String get bestRated => 'الأعلى تقييماً';
 
   @override
-  String get bestSelling => 'أفضل مبيعات';
+  String get bestSelling => 'الأكثر مبيعاً';
 
   @override
   String get discountedClasses => 'فصول مخفضة';
@@ -194,25 +194,25 @@ class AppLocalizationsAr extends AppLocalizations {
   String get freeClasses => 'دروس مجانية';
 
   @override
-  String get finished => 'انتهى';
+  String get finished => 'منتهية';
 
   @override
-  String get notConducted => 'لم يتم إجراؤها';
+  String get notConducted => 'لم تنعقد';
 
   @override
-  String get inProgress => 'في تَقَدم';
+  String get inProgress => 'جاري';
 
   @override
-  String get off => 'عن';
+  String get off => 'خصم';
 
   @override
-  String get liveClass => 'الطبقة الحية';
+  String get liveClass => 'بث مباشر';
 
   @override
-  String get course => 'دورة';
+  String get course => 'كورس';
 
   @override
-  String get textClass => 'فئة النص';
+  String get textClass => 'درس نصي';
 
   @override
   String get featured => 'متميز';
@@ -221,16 +221,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get hours => 'ساعات';
 
   @override
-  String get categories => 'فئات';
+  String get categories => 'الفئات';
 
   @override
-  String get providers => 'مقدمي الخدمات';
+  String get providers => 'الاساتذة';
 
   @override
-  String get blog => 'مدونة';
+  String get blog => 'المدونة';
 
   @override
-  String get myClassess => 'فصولي';
+  String get myClassess => 'كورساتي';
 
   @override
   String get yourName => 'اسمك';
@@ -239,28 +239,28 @@ class AppLocalizationsAr extends AppLocalizations {
   String get refCode => 'كود الإحالة';
 
   @override
-  String get continue_ => 'يكمل';
+  String get continue_ => 'متابعة';
 
   @override
-  String get finalizeYourAccount => 'وضع اللمسات النهائية على حسابك';
+  String get finalizeYourAccount => 'إكمال بيانات حسابك';
 
   @override
-  String get free => 'حر';
+  String get free => 'مجاني';
 
   @override
-  String get trending => 'الشائع';
+  String get trending => 'شائع';
 
   @override
   String get browseCategories => 'تصفح الفئات';
 
   @override
-  String get courses => 'الدورات';
+  String get courses => 'الكورسات';
 
   @override
   String get options => 'خيارات';
 
   @override
-  String get filters => 'المرشحات';
+  String get filters => 'تصفية';
 
   @override
   String get dataNotFound => 'لم يتم العثور على بيانات...';
@@ -278,19 +278,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String get sortBy => 'ترتيب حسب';
 
   @override
-  String get all => 'الجميع';
+  String get all => 'الكل';
 
   @override
   String get newest => 'الأحدث';
 
   @override
-  String get highestPrice => 'اغلى سعر';
+  String get highestPrice => 'الأعلى سعراً';
 
   @override
-  String get lowestPrice => 'أقل سعر';
+  String get lowestPrice => 'الأقل سعراً';
 
   @override
-  String get bestSellers => 'أفضل البائعين';
+  String get bestSellers => 'الأفضل مبيعاً';
 
   @override
   String get applyOptions => 'تطبيق الخيارات';
@@ -299,75 +299,75 @@ class AppLocalizationsAr extends AppLocalizations {
   String get filterItems => 'تصفية العناصر';
 
   @override
-  String get level => 'مستوى';
+  String get level => 'المستوى';
 
   @override
-  String get language => 'لغة';
+  String get language => 'اللغة';
 
   @override
-  String get type => 'يكتب';
+  String get type => 'النوع';
 
   @override
-  String get search => 'يبحث';
+  String get search => 'بحث';
 
   @override
-  String get searchResultDesc => ' النتائج التي تم العثور عليها ل ';
+  String get searchResultDesc => ' النتائج التي تم العثور عليها لـ ';
 
   @override
   String get suggestedRandom => 'مقترح (عشوائي)';
 
   @override
-  String get users => 'المستخدمين';
+  String get users => 'المستخدمون';
 
   @override
   String get organizations => 'المنظمات';
 
   @override
-  String get resultNotFound => 'لم يتم العثور على النتيجة';
+  String get resultNotFound => 'لم يتم العثور على نتائج';
 
   @override
   String get tryMoreAccurateWordsToReachResults =>
       'حاول استخدام كلمات أكثر دقة للوصول إلى النتائج.';
 
   @override
-  String get instrcutors => 'المدربين';
+  String get instrcutors => 'الاساتذة';
 
   @override
-  String get consultants => 'استشاريين';
+  String get consultants => 'الاساتذة';
 
   @override
-  String get noInstructor => 'لا يوجد مدرس';
+  String get noInstructor => 'لاايوجد مدرس';
 
   @override
-  String get noInstructorDesc => 'لا يوجد مدربين في هذا التطبيق';
+  String get noInstructorDesc => 'لا يوجد استاذون في هذا التطبيق';
 
   @override
-  String get noOrganization => 'لا منظمة';
+  String get noOrganization => 'لا توجد منظمة';
 
   @override
   String get noOrganizationDesc => 'لا توجد منظمات في هذا التطبيق';
 
   @override
-  String get noConsultants => 'لا يوجد استشاريين';
+  String get noConsultants => 'لا يوجد مستشارون';
 
   @override
-  String get noConsultantsDesc => 'لا يوجد مستشارين في هذا التطبيق';
+  String get noConsultantsDesc => 'لا يوجد مستشارون في هذا التطبيق';
 
   @override
   String get availableForMeetings => 'متاح للاجتماعات';
 
   @override
-  String get blogPost => 'مشاركة مدونة';
+  String get blogPost => 'مقالة';
 
   @override
-  String get leaveAComment => 'اترك تعليقا';
+  String get leaveAComment => 'اترك تعليقاً';
 
   @override
-  String get submitComment => 'إرسال تعليق';
+  String get submitComment => 'إرسال التعليق';
 
   @override
   String get submitCommentDesc =>
-      'فيما يتعلق بتجربتي، يعد هذا المرشد أحد أفضل المرشدين حول العالم.';
+      'بناءً على تجربتي، يعد هذا الأستاذ أحد أفضل الاساتذة حول العالم!';
 
   @override
   String get commentOptions => 'خيارات التعليق';
@@ -376,13 +376,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get reply => 'رد';
 
   @override
-  String get report => 'تقرير';
+  String get report => 'إبلاغ';
 
   @override
   String get replyToComment => 'الرد على التعليق';
 
   @override
-  String get selectReportReason => 'حدد سبب التقرير';
+  String get selectReportReason => 'حدد سبب الإبلاغ';
 
   @override
   String get messageToReviewer => 'رسالة إلى المراجع';
@@ -394,34 +394,34 @@ class AppLocalizationsAr extends AppLocalizations {
   String get blogCategories => 'فئات المدونة';
 
   @override
-  String get noComments => 'بدون تعليقات!';
+  String get noComments => 'لا توجد تعليقات!';
 
   @override
-  String get noCommentsDesc => 'اترك التعليق الأول لهذا المنشور';
+  String get noCommentsDesc => 'كن أول من يعلق على هذا المنشور';
 
   @override
-  String get noBlogPosts => 'لا توجد مشاركات مدونة!';
+  String get noBlogPosts => 'لا توجد مقالات!';
 
   @override
-  String get noBlogPostsDesc => 'لا توجد مشاركات بلوق في هذا التطبيق';
+  String get noBlogPostsDesc => 'لا توجد مقالات في هذا التطبيق';
 
   @override
   String get selectACurrency => 'اختر العملة';
 
   @override
-  String get courseDetails => 'تفاصيل الدورة';
+  String get courseDetails => 'تفاصيل الكورس';
 
   @override
-  String get information => 'معلومة';
+  String get information => 'معلومات';
 
   @override
-  String get content => 'محتوى';
+  String get content => 'المحتوى';
 
   @override
-  String get reviews => 'التعليقات';
+  String get reviews => 'التقييمات';
 
   @override
-  String get subscribe => 'يشترك';
+  String get subscribe => 'اشتراك';
 
   @override
   String get enrollOnClass => 'التسجيل في الفصل';
@@ -430,19 +430,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String get certificate => 'شهادة';
 
   @override
-  String get included => 'متضمنة';
+  String get included => 'متضمن';
 
   @override
   String get quiz => 'اختبار';
 
   @override
-  String get supported => 'أيد';
+  String get supported => 'مدعوم';
 
   @override
   String get class_ => 'فصل';
 
   @override
-  String get specialOffer => 'خاص\nيعرض';
+  String get specialOffer => 'عرض\nخاص';
 
   @override
   String get day => 'يوم';
@@ -460,13 +460,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get students => 'طلاب';
 
   @override
-  String get capacity => 'سعة';
+  String get capacity => 'السعة';
 
   @override
   String get startDate => 'تاريخ البدء';
 
   @override
-  String get duration => 'مدة';
+  String get duration => 'المدة';
 
   @override
   String get prerequisties => 'المتطلبات الأساسية';
@@ -475,31 +475,31 @@ class AppLocalizationsAr extends AppLocalizations {
   String get addToCart => 'أضف إلى السلة';
 
   @override
-  String get selectPricingPlan => 'حدد خطة التسعير';
+  String get selectPricingPlan => 'حدد خطة السعر';
 
   @override
-  String get classOptions => 'خيارات الصف';
+  String get classOptions => 'خيارات الفصل';
 
   @override
   String get addToCalendar => 'إضافة إلى التقويم';
 
   @override
-  String get addToFavorites => 'اضافة الى المفضلة';
+  String get addToFavorites => 'إضافة إلى المفضلة';
 
   @override
-  String get share => 'يشارك';
+  String get share => 'مشاركة';
 
   @override
   String get viewMore => 'عرض المزيد';
 
   @override
-  String get status => 'حالة';
+  String get status => 'الحالة';
 
   @override
-  String get downloadable => 'للتحميل';
+  String get downloadable => 'قابل للتحميل';
 
   @override
-  String get questions => 'أسئلة';
+  String get questions => 'الأسئلة';
 
   @override
   String get contentQuality => 'جودة المحتوى';
@@ -514,32 +514,31 @@ class AppLocalizationsAr extends AppLocalizations {
   String get supportQuality => 'جودة الدعم';
 
   @override
-  String get noReviews => 'لم يتم تقديم تعليقات!';
+  String get noReviews => 'لا توجد مراجعات!';
 
   @override
-  String get noReviewsDesc => 'لا يوجد مراجعة لهذه الدورة';
+  String get noReviewsDesc => 'لا توجد مراجعات لهذا الكورس';
 
   @override
-  String get noCommentsCourseDesc => 'لا توجد تعليقات لهذه الدورة';
+  String get noCommentsCourseDesc => 'لا توجد تعليقات لهذه الكورس';
 
   @override
-  String get price => 'سعر';
+  String get price => 'السعر';
 
   @override
-  String get reviewTheCourse => 'قم بمراجعة الدورة';
+  String get reviewTheCourse => 'قيم الكورس';
 
   @override
-  String get reviewTheCourseDesc => 'قيم الدورة بالنجوم ثم اكتب تعليقك';
+  String get reviewTheCourseDesc => 'قيّم الكورس بالنجوم واكتب رأيك';
 
   @override
   String get writeReview => 'أكتب مراجعة';
 
   @override
-  String get writeReviewDesc =>
-      'فيما يتعلق بتجربتي، يعد هذا المرشد أحد أفضل المرشدين حول العالم.';
+  String get writeReviewDesc => 'اكتب تجربتك ورأيك في هذه الكورس...';
 
   @override
-  String get submit => 'يُقدِّم';
+  String get submit => 'إرسال';
 
   @override
   String get completed => 'مكتمل';
@@ -548,7 +547,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get goToLearningPage => 'انتقل إلى صفحة التعلم';
 
   @override
-  String get lessons => 'دروس';
+  String get lessons => 'الدروس';
 
   @override
   String get buyWithPoints => 'الشراء بالنقاط';
@@ -563,16 +562,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get purchase => 'شراء';
 
   @override
-  String get bundleCourse => 'حزمة الدورة';
+  String get bundleCourse => 'حزمة كورسات';
 
   @override
   String get notices => 'إشعارات';
 
   @override
-  String get postedBy => 'منشور من طرف';
+  String get postedBy => 'نُشر بواسطة';
 
   @override
-  String get close => 'يغلق';
+  String get close => 'إغلاق';
 
   @override
   String get forum => 'المنتدى';
@@ -587,49 +586,49 @@ class AppLocalizationsAr extends AppLocalizations {
   String get answers => 'الإجابات';
 
   @override
-  String get activeUsers => 'المستخدمين النشطين';
+  String get activeUsers => 'المستخدمون النشطون';
 
   @override
-  String get lastActivity => 'النشاط الاخير';
+  String get lastActivity => 'آخر نشاط';
 
   @override
-  String get searchInCourseForum => 'البحث في منتدى الدورة';
+  String get searchInCourseForum => 'البحث في منتدى الكورس';
 
   @override
-  String get pin => 'دبوس';
+  String get pin => 'تثبيت';
 
   @override
-  String get unpin => 'إزالة التثبيت';
+  String get unpin => 'إلغاء التثبيت';
 
   @override
-  String get resultsFoundFor => 'النتائج التي تم العثور عليها ل';
+  String get resultsFoundFor => 'النتائج التي تم العثور عليها لـ';
 
   @override
   String get newQuestion => 'سؤال جديد';
 
   @override
-  String get send => 'يرسل';
+  String get send => 'إرسال';
 
   @override
-  String get title => 'عنوان';
+  String get title => 'العنوان';
 
   @override
-  String get description => 'وصف';
+  String get description => 'الوصف';
 
   @override
   String get download => 'تحميل';
 
   @override
-  String get markAsResolved => 'وضع علامة تم الحل';
+  String get markAsResolved => 'تحديد كمحلول';
 
   @override
-  String get edit => 'يحرر';
+  String get edit => 'تعديل';
 
   @override
-  String get replyToCourseForum => 'الرد على منتدى الدورة';
+  String get replyToCourseForum => 'الرد في منتدى الكورس';
 
   @override
-  String get noQuestion => 'لا سؤال!';
+  String get noQuestion => 'لا توجد أسئلة!';
 
   @override
   String get noQuestionDesc => 'اطرح سؤالاً جديدًا وتواصل مع الطلاب الآخرين...';
@@ -638,92 +637,92 @@ class AppLocalizationsAr extends AppLocalizations {
   String get notification => 'إشعار';
 
   @override
-  String get cart => 'عربة التسوق';
+  String get cart => 'سلة التسوق';
 
   @override
   String get subtotal => 'المجموع الفرعي';
 
   @override
-  String get discount => 'تخفيض';
+  String get discount => 'الخصم';
 
   @override
-  String get tax => 'ضريبة';
+  String get tax => 'الضريبة';
 
   @override
   String get total => 'المجموع';
 
   @override
-  String get checkout => 'الدفع';
+  String get checkout => 'إتمام الشراء';
 
   @override
-  String get addCoupon => 'أضف عرض';
+  String get addCoupon => 'أضف كوبون';
 
   @override
-  String get validate => 'التحقق من صحة';
+  String get validate => 'تحقق';
 
   @override
   String get startPayment => 'ابدأ الدفع';
 
   @override
-  String get paymentMethod => 'طريقة الدفع او السداد';
+  String get paymentMethod => 'طريقة الدفع';
 
   @override
-  String get successfulPayment => 'الدفع الناجح';
+  String get successfulPayment => 'دفع ناجح';
 
   @override
   String get successfulPaymentDesc => 'تم الدفع بنجاح';
 
   @override
-  String get paymentFailed => 'عملية الدفع فشلت';
+  String get paymentFailed => 'فشلت عملية الدفع';
 
   @override
-  String get paymentFailedDesc => 'لم يكن الدفع ناجحا';
+  String get paymentFailedDesc => 'لم تكتمل عملية الدفع بنجاح';
 
   @override
-  String get remove => 'يزيل';
+  String get remove => 'حذف';
 
   @override
-  String get accountCharge => 'تهمة الحساب';
+  String get accountCharge => 'شحن الرصيد';
 
   @override
-  String get offlinePayment => 'الدفع دون اتصال بالإنترنت';
+  String get offlinePayment => 'دفع أوفلاين (تحويل بنكي)';
 
   @override
   String get userGroupDiscount => 'خصم مجموعة المستخدمين';
 
   @override
-  String get courseMaterialDetails => 'تفاصيل الدورة';
+  String get courseMaterialDetails => 'تفاصيل مواد الكورس';
 
   @override
-  String get volume => 'مقدار';
+  String get volume => 'الحجم';
 
   @override
   String get publishDate => 'تاريخ النشر';
 
   @override
-  String get text_lesson => 'درس النص';
+  String get text_lesson => 'درس نصي';
 
   @override
   String get iHaveReadThisLesson => 'لقد قرأت هذا الدرس';
 
   @override
-  String get join => 'ينضم';
+  String get join => 'انضمام';
 
   @override
-  String get play => 'يلعب';
+  String get play => 'تشغيل';
 
   @override
-  String get view => 'منظر';
+  String get view => 'عرض';
 
   @override
-  String get thisSessionConductedOn => 'أجريت هذه الدورة بتاريخ';
+  String get thisSessionConductedOn => 'عُقدت هذه الجلسة بتاريخ';
 
   @override
-  String get accessDenied => 'تم الرفض!';
+  String get accessDenied => 'تم رفض الوصول!';
 
   @override
   String get accessDeniedDesc =>
-      'تحتاج إلى اجتياز الجزء السابق للوصول إلى هذا الجزء.';
+      'يجب عليك اجتياز الجزء السابق للوصول إلى هذا المحتوى.';
 
   @override
   String get no => 'لا';
@@ -732,7 +731,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get yes => 'نعم';
 
   @override
-  String get noContentForShow => 'لا يوجد محتوى ليتم عرضه';
+  String get noContentForShow => 'لا يوجد محتوى لعرضه';
 
   @override
   String get attachments => 'المرفقات';
@@ -741,41 +740,40 @@ class AppLocalizationsAr extends AppLocalizations {
   String get noNotifications => 'لا إشعارات!';
 
   @override
-  String get noNotificationsDesc => 'ليس لديك أي إشعارات...';
+  String get noNotificationsDesc => 'ليس لديك أي إشعارات جديدة...';
 
   @override
-  String get cartIsEmpty => 'البطاقه خاليه!';
+  String get cartIsEmpty => 'سلة التسوق فارغة!';
 
   @override
-  String get cartIsEmptyDesc => 'أضف دوراتك المفضلة إلى سلة التسوق.';
+  String get cartIsEmptyDesc => 'أضف كورساتك المفضلة إلى سلة التسوق.';
 
   @override
-  String get back => 'خلف';
+  String get back => 'رجوع';
 
   @override
-  String get successAddToCartDesc =>
-      'انتقل إلى عربة التسوق الخاصة بك لإكمال الطلب';
+  String get successAddToCartDesc => 'انتقل إلى سلة التسوق لإكمال الطلب';
 
   @override
-  String get notAccessContent => 'ليس لديك حق الوصول إلى هذا المحتوى';
+  String get notAccessContent => 'ليس لديك صلاحية الوصول لهذا المحتوى';
 
   @override
-  String get offlinePaymentDetails => 'تفاصيل الدفع دون اتصال بالإنترنت';
+  String get offlinePaymentDetails => 'تفاصيل الدفع البنكي';
 
   @override
   String get selectBank => 'حدد البنك';
 
   @override
-  String get reference => 'مرجع';
+  String get reference => 'المرجع';
 
   @override
   String get banksInfo => 'معلومات البنوك';
 
   @override
-  String get amount => 'كمية';
+  String get amount => 'المبلغ';
 
   @override
-  String get date => 'تاريخ';
+  String get date => 'التاريخ';
 
   @override
   String get bankAccount => 'حسابات بنكية';
@@ -784,71 +782,71 @@ class AppLocalizationsAr extends AppLocalizations {
   String get successfulyRequest => 'لقد تم تسجيل طلبك بنجاح.';
 
   @override
-  String get followers => 'متابعون';
+  String get followers => 'المتابعون';
 
   @override
-  String get about => 'عن';
+  String get about => 'نبذة عن';
 
   @override
-  String get badges => 'شارات';
+  String get badges => 'الشارات';
 
   @override
-  String get meeting => 'مقابلة';
+  String get meeting => 'اجتماع';
 
   @override
-  String get instructorIsUnavailable => 'المدرب غير متوفر';
+  String get instructorIsUnavailable => 'الاستاذ غير متاح';
 
   @override
-  String get experiences => 'خبرة';
+  String get experiences => 'الخبرات';
 
   @override
-  String get education => 'تعليم';
+  String get education => 'التعليم';
 
   @override
-  String get follow => 'يتبع';
+  String get follow => 'متابعة';
 
   @override
-  String get license => 'Please activate your license!';
+  String get license => 'يرجى تفعيل الترخيص الخاص بك!';
 
   @override
-  String get unFollow => 'الغاء المتابعة';
+  String get unFollow => 'إلغاء المتابعة';
 
   @override
-  String get sendMessage => 'أرسل رسالة';
+  String get sendMessage => 'إرسال رسالة';
 
   @override
   String get reserveMeetingDesc =>
-      'حجز اجتماع مباشر مع هذا المستخدم\nالرسوم بالساعة:';
+      'حجز اجتماع مباشر مع هذا المستخدم\nالسعر بالساعة:';
 
   @override
   String get reserveMeeting => 'حجز اجتماع';
 
   @override
-  String get hourlyCharge => 'تهمة بالساعة';
+  String get hourlyCharge => 'السعر بالساعة';
 
   @override
-  String get noBiography => 'لا سيرة ذاتية!';
+  String get noBiography => 'لا توجد سيرة ذاتية!';
 
   @override
-  String get noBiographyDesc => 'هذا المدرب لا يحدد السيرة الذاتية.';
+  String get noBiographyDesc => 'لم يقم هذا الاستاذ بإضافة سيرة ذاتية.';
 
   @override
-  String get noCourses => 'لا دورات!';
+  String get noCourses => 'لا توجد كورسات!';
 
   @override
-  String get noCoursesDesc => 'هذا المدرب ليس لديه أي دورات.';
+  String get noCoursesDesc => 'هذا الاستاذ ليس لديه أي كورسات حالياً.';
 
   @override
-  String get noBadges => 'لا شارات!';
+  String get noBadges => 'لا توجد شارات!';
 
   @override
-  String get noBadgesDesc => 'هذا المدرب ليس لديه أي شارات.';
+  String get noBadgesDesc => 'هذا الاستاذ ليس لديه أي شارات.';
 
   @override
-  String get noInstructorProfileDesc => 'المنظمة ليس لديها أي مدربين.';
+  String get noInstructorProfileDesc => 'المنظمة ليس لديها أي استاذين.';
 
   @override
-  String get pickaDate => 'اختر موعدًا';
+  String get pickaDate => 'اختر موعداً';
 
   @override
   String get meetingTimesAreAvailable => 'أوقات الاجتماع متاحة.';
@@ -857,13 +855,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get important => 'مهم';
 
   @override
-  String get timeSlotsDisplayedIn => 'فتحات الوقت المعروضة في';
+  String get timeSlotsDisplayedIn => 'الأوقات المعروضة بتوقيت';
 
   @override
-  String get timeZone => 'منطقة زمنية';
+  String get timeZone => 'المنطقة الزمنية';
 
   @override
-  String get pickaTime => 'اختر وقتًا';
+  String get pickaTime => 'اختر وقتاً';
 
   @override
   String get finalizeReservation => 'إنهاء الحجز';
@@ -878,23 +876,23 @@ class AppLocalizationsAr extends AppLocalizations {
   String get meetingDetails => 'تفاصيل الاجتماع';
 
   @override
-  String get onlineMeetingHourlyRate => 'معدل الاجتماع عبر الإنترنت بالساعة: ';
+  String get onlineMeetingHourlyRate => 'سعر الاجتماع عبر الإنترنت (ساعة): ';
 
   @override
-  String get inPersonMeetingHourlyRate => 'معدل الاجتماع الشخصي بالساعة: ';
+  String get inPersonMeetingHourlyRate => 'سعر الاجتماع الشخصي (ساعة): ';
 
   @override
   String get instructorConductsGroupMeetings =>
       'يقوم المعلم بإجراء اجتماعات جماعية.';
 
   @override
-  String get conductionType => 'نوع التوصيل';
+  String get conductionType => 'نوع التقديم';
 
   @override
-  String get inPerson => 'شخصيا';
+  String get inPerson => 'حضور شخصي';
 
   @override
-  String get online => 'متصل';
+  String get online => 'أونلاين';
 
   @override
   String get meetingType => 'نوع الاجتماع';
@@ -906,97 +904,97 @@ class AppLocalizationsAr extends AppLocalizations {
   String get group => 'مجموعة';
 
   @override
-  String get participates => 'يشارك';
+  String get participates => 'المشاركين';
 
   @override
   String get groupMeetingDetails => 'تفاصيل اجتماع المجموعة';
 
   @override
-  String get meetingHourlyRate => 'معدل الاجتماع بالساعة: ';
+  String get meetingHourlyRate => 'سعر الاجتماع بالساعة: ';
 
   @override
-  String get groupLiveCapacity => 'القدرة الحية للمجموعة:';
+  String get groupLiveCapacity => 'سعة البث المباشر للمجموعة:';
 
   @override
-  String get successfullyRegisteredMeeting => 'تم تسجيل الاجتماع بنجاح';
+  String get successfullyRegisteredMeeting => 'تم حجز الاجتماع بنجاح';
 
   @override
-  String get myAssignments => 'مهامي';
+  String get myAssignments => 'واجباتي';
 
   @override
   String get studentAssignmetns => 'واجبات الطلاب';
 
   @override
-  String get lastSubmission => 'التقديم الأخير';
+  String get lastSubmission => 'آخر تقديم';
 
   @override
-  String get firstSubmission => 'التقديم الأول';
+  String get firstSubmission => 'أول تقديم';
 
   @override
-  String get deadline => 'موعد التسليم';
+  String get deadline => 'الموعد النهائي';
 
   @override
-  String get grade => 'درجة';
+  String get grade => 'الدرجة';
 
   @override
-  String get attempts => 'محاولات';
+  String get attempts => 'المحاولات';
 
   @override
   String get pending => 'قيد الانتظار';
 
   @override
-  String get passed => 'اجتاز';
+  String get passed => 'ناجح';
 
   @override
-  String get notSubmitted => 'لم يتم تقديمه';
+  String get notSubmitted => 'لم يتم التقديم';
 
   @override
-  String get assignmentOverview => 'نظرة عامة على المهمة';
+  String get assignmentOverview => 'نظرة عامة على الواجب';
 
   @override
-  String get assignmentDetails => 'تفاصيل المهمة';
+  String get assignmentDetails => 'تفاصيل الواجب';
 
   @override
   String get passGrade => 'درجة النجاح';
 
   @override
-  String get totalGrade => 'الدرجة الإجمالية';
+  String get totalGrade => 'الدرجة الكلية';
 
   @override
   String get yourGrade => 'درجتك';
 
   @override
-  String get assignmentHistory => 'تاريخ التعيين';
+  String get assignmentHistory => 'سجل الواجب';
 
   @override
-  String get submitAssignment => 'إرسال الواجب';
+  String get submitAssignment => 'تسليم الواجب';
 
   @override
   String get assignmentSubmission => 'تقديم الطلب';
 
   @override
-  String get fileTileOptional => 'بلاط الملف (اختياري)';
+  String get fileTileOptional => 'عنوان الملف (اختياري)';
 
   @override
-  String get assignmentClosed => 'المهمة مغلقة';
+  String get assignmentClosed => 'المواجب مغلق';
 
   @override
-  String get youCanNotSendFilesAnymMore => 'لا يمكنك إرسال الملفات بعد الآن';
+  String get youCanNotSendFilesAnymMore => 'لا يمكنك إرسال ملفات بعد الآن';
 
   @override
-  String get assignmentPassed => 'تمت المهمة';
+  String get assignmentPassed => 'تم اجتياز الواجب';
 
   @override
-  String get active => 'نشيط';
+  String get active => 'نشط';
 
   @override
   String get totalSubmissions => 'إجمالي التقديمات';
 
   @override
-  String get averageGrade => 'درجه متوسطه';
+  String get averageGrade => 'متوسط الدرجات';
 
   @override
-  String get failed => 'فشل';
+  String get failed => 'راسب';
 
   @override
   String get submissions => 'التقديمات';
@@ -1014,55 +1012,55 @@ class AppLocalizationsAr extends AppLocalizations {
   String get allSubmissions => 'جميع التقديمات';
 
   @override
-  String get noSubmissions => 'لا التقديمات!';
+  String get noSubmissions => 'لا توجد تقديمات!';
 
   @override
-  String get noSubmissionsDesc => 'لا يوجد واجب للطالب للمراجعة';
+  String get noSubmissionsDesc => 'لا يوجد واجبات للمراجعة';
 
   @override
-  String get rateAssignment => 'تعيين المعدل';
+  String get rateAssignment => 'تقييم الواجب';
 
   @override
   String get passGradeIis => 'درجة النجاح هي ';
 
   @override
-  String get assignmentPassedDesc => 'لا يمكنك إرسال الملفات بعد الآن';
+  String get assignmentPassedDesc => 'لا يمكنك إرسال ملفات بعد الآن';
 
   @override
-  String get summary => 'ملخص';
+  String get summary => 'الملخص';
 
   @override
-  String get offlinePayments => 'المدفوعات دون اتصال بالإنترنت';
+  String get offlinePayments => 'المدفوعات البنكية';
 
   @override
-  String get sales => 'مبيعات';
+  String get sales => 'المبيعات';
 
   @override
-  String get payout => 'سيصرف';
+  String get payout => 'سحب الرصيد';
 
   @override
   String get accountBalance => 'رصيد الحساب';
 
   @override
-  String get charge => 'تكلفة';
+  String get charge => 'شحن';
 
   @override
-  String get balancesHistory => 'أرصدة التاريخ';
+  String get balancesHistory => 'سجل الرصيد';
 
   @override
-  String get payoutHistory => 'تاريخ الدفع';
+  String get payoutHistory => 'سجل الدفعات';
 
   @override
-  String get salesHistory => 'تاريخ المبيعات';
+  String get salesHistory => 'سجل المبيعات';
 
   @override
-  String get payoutRequest => 'طلب الدفع';
+  String get payoutRequest => 'طلب سحب رصيد';
 
   @override
   String get financialSettings => 'الإعدادات المالية';
 
   @override
-  String get classSales => 'مبيعات الدرجة';
+  String get classSales => 'مبيعات الدروس';
 
   @override
   String get meetingSales => 'مبيعات الاجتماعات';
@@ -1074,7 +1072,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get ref => 'المرجع';
 
   @override
-  String get waiting => 'منتظر';
+  String get waiting => 'قيد الانتظار';
 
   @override
   String get rejected => 'مرفوض';
@@ -1083,69 +1081,68 @@ class AppLocalizationsAr extends AppLocalizations {
   String get noBalance => 'لا يوجد رصيد!';
 
   @override
-  String get noBalanceDesc => 'لا توجد أرصدة في حسابك.';
+  String get noBalanceDesc => 'لا يوجد رصيد في حسابك.';
 
   @override
-  String get noBankAccounts => 'لا حسابات مصرفية!';
+  String get noBankAccounts => 'لا توجد حسابات بنكية!';
 
   @override
-  String get noBankAccountsDesc => 'لا توجد حسابات مصرفية للدفع خارج الإنترنت.';
+  String get noBankAccountsDesc => 'لا توجد حسابات بنكية مضافة.';
 
   @override
-  String get noOfflinePayments => 'لا توجد مدفوعات دون اتصال بالإنترنت!';
+  String get noOfflinePayments => 'لا توجد مدفوعات بنكية!';
 
   @override
-  String get noOfflinePaymentsDesc =>
-      'ليس لديك أي طلبات دفع دون اتصال بالإنترنت.';
+  String get noOfflinePaymentsDesc => 'ليس لديك أي طلبات دفع بنكية.';
 
   @override
-  String get noPayout => 'لا دفع تعويضات!';
+  String get noPayout => 'لا توجد مدفوعات!';
 
   @override
-  String get noPayoutDesc => 'ليس لديك سجل دفع.';
+  String get noPayoutDesc => 'ليس لديك سجل دفعات.';
 
   @override
-  String get noSales => 'لا تخرج!';
+  String get noSales => 'لا توجد مبيعات!';
 
   @override
-  String get noSalesDesc => 'لم تقم ببيع أي سلع.';
+  String get noSalesDesc => 'لم تقم ببيع أي شيء بعد.';
 
   @override
   String get readyToPayout => 'جاهز للدفع';
 
   @override
-  String get requestPayout => 'طلب دفع تعويضات';
+  String get requestPayout => 'طلب الدفع';
 
   @override
   String get requestPayoutDesc =>
-      'يرجى مراجعة معلومات حسابك وسنقوم بإرسال الأموال إليه';
+      'يرجى مراجعة معلومات حسابك وسنقوم بتحويل الأموال إليه';
 
   @override
-  String get cardID => 'بطاقة الهوية';
+  String get cardID => 'رقم الهوية';
 
   @override
-  String get account => 'حساب';
+  String get account => 'الحساب';
 
   @override
-  String get iban => 'رقم الحساب الدولي (IBAN)';
+  String get iban => 'رقم الآيبان (IBAN)';
 
   @override
-  String get purchased => 'تم شراؤها';
+  String get purchased => 'تم الشراء';
 
   @override
   String get invited => 'مدعو';
 
   @override
-  String get organization => 'منظمة';
+  String get organization => 'المنظمة';
 
   @override
-  String get category => 'فئة';
+  String get category => 'الفئة';
 
   @override
-  String get accessExpiresOn => 'تنتهي صلاحية الوصول في';
+  String get accessExpiresOn => 'ينتهي الوصول في';
 
   @override
-  String get courseOverview => 'نظرة عامة على الدورة';
+  String get courseOverview => 'نظرة عامة على الكورس';
 
   @override
   String get classID => 'معرف الفئة';
@@ -1163,7 +1160,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get startMeeting => 'ابدأ الاجتماع';
 
   @override
-  String get joinMeeting => 'أنضم إلى الأجتماع';
+  String get joinMeeting => 'انضم للاجتماع';
 
   @override
   String get finishmeeting => 'إنهاء الاجتماع';
@@ -1172,37 +1169,37 @@ class AppLocalizationsAr extends AppLocalizations {
   String get meetingOptions => 'خيارات الاجتماع';
 
   @override
-  String get canceled => 'ألغيت';
+  String get canceled => 'ملغي';
 
   @override
-  String get address => 'عنوان';
+  String get address => 'العنوان';
 
   @override
   String get createJoinInfo => 'إنشاء معلومات الانضمام';
 
   @override
-  String get joinURL => 'الانضمام إلى URL';
+  String get joinURL => 'رابط الانضمام';
 
   @override
   String get passwordOptional => 'كلمة المرور (اختياري)';
 
   @override
-  String get save => 'يحفظ';
+  String get save => 'حفظ';
 
   @override
-  String get noMeetings => 'لا اجتماعات!';
+  String get noMeetings => 'لا توجد اجتماعات!';
 
   @override
   String get noMeetingsDesc => 'احجز لقاء مع المستشار المفضل لديك.';
 
   @override
-  String get noCourseClassesDesc => 'ابدأ التعلم الآن بالتسجيل في الدورات.';
+  String get noCourseClassesDesc => 'ابدأ التعلم الآن بالتسجيل في الكورسات.';
 
   @override
   String get consultant => 'مستشار';
 
   @override
-  String get reservatore => 'ريسيرفاتوري';
+  String get reservatore => 'الحاجز';
 
   @override
   String get startTime => 'وقت البدء';
@@ -1217,16 +1214,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get myComments => 'تعليقاتي';
 
   @override
-  String get myClassComments => 'تعليقات صفي';
+  String get myClassComments => 'تعليقات فصلي';
 
   @override
   String get commentDetails => 'تفاصيل التعليق';
 
   @override
-  String get thisCommentIsFor => 'هذا التعليق ل';
+  String get thisCommentIsFor => 'هذا التعليق لـ';
 
   @override
-  String get delete => 'يمسح';
+  String get delete => 'حذف';
 
   @override
   String get editComment => 'تعديل التعليق';
@@ -1235,34 +1232,34 @@ class AppLocalizationsAr extends AppLocalizations {
   String get reportComment => 'الإبلاغ عن التعليق';
 
   @override
-  String get open => 'يفتح';
+  String get open => 'مفتوح';
 
   @override
-  String get thereIsNoInformationToDisplay => 'لا توجد معلومات لعرضه';
+  String get thereIsNoInformationToDisplay => 'لا توجد معلومات لعرضها';
 
   @override
-  String get settings => 'إعدادات';
+  String get settings => 'الإعدادات';
 
   @override
   String get general => 'عام';
 
   @override
-  String get security => 'حماية';
+  String get security => 'الأمان';
 
   @override
-  String get email => 'بريد إلكتروني';
+  String get email => 'البريد الإلكتروني';
 
   @override
-  String get name => 'اسم';
+  String get name => 'الاسم';
 
   @override
-  String get phone => 'هاتف';
+  String get phone => 'الهاتف';
 
   @override
-  String get referralURL => 'عنوان URL للإحالة';
+  String get referralURL => 'رابط الإحالة';
 
   @override
-  String get joinNewsletter => 'انضم إلى النشرة الإخبارية';
+  String get joinNewsletter => 'اشترك في النشرة الإخبارية';
 
   @override
   String get accountType => 'نوع الحساب';
@@ -1271,46 +1268,47 @@ class AppLocalizationsAr extends AppLocalizations {
   String get accountID => 'معرف الحساب';
 
   @override
-  String get identityScan => 'مسح الهوية';
+  String get identityScan => 'صورة الهوية';
 
   @override
   String get certificatesDocuments => 'الشهادات والوثائق';
 
   @override
-  String get approved => 'موافقة';
+  String get approved => 'موافق عليه';
 
   @override
-  String get camera => 'آلة تصوير';
+  String get camera => 'كاميرا';
 
   @override
   String get upload => 'رفع';
 
   @override
-  String get financialApproval => 'تمت الموافقة عليها ماليا';
+  String get financialApproval => 'الموافقة المالية';
 
   @override
-  String get financialApprovalDesc => 'لم تتم الموافقة على معلوماتك المالية!';
+  String get financialApprovalDesc =>
+      'لم تتم الموافقة على معلوماتك المالية بعد!';
 
   @override
-  String get localization => 'الموقع';
+  String get localization => 'اللغة والموقع';
 
   @override
-  String get country => 'دولة';
+  String get country => 'الدولة';
 
   @override
-  String get province => 'مقاطعة';
+  String get province => 'المقاطعة';
 
   @override
-  String get city => 'مدينة';
+  String get city => 'المدينة';
 
   @override
-  String get district => 'يصرف';
+  String get district => 'الحي/المنطقة';
 
   @override
-  String get passwordUpdateDesc => 'لقد تم تحديث كلمة السر الخاصة بك بنجاح';
+  String get passwordUpdateDesc => 'تم تحديث كلمة المرور الخاصة بك بنجاح';
 
   @override
-  String get sendDataDesc => 'إرسال البيانات. انتظر من فضلك';
+  String get sendDataDesc => 'جاري إرسال البيانات. يرجى الانتظار';
 
   @override
   String get myResults => 'نتائجي';
@@ -1328,22 +1326,22 @@ class AppLocalizationsAr extends AppLocalizations {
   String get quizInfomration => 'معلومات الاختبار';
 
   @override
-  String get totalMark => 'مجموع العلامة';
+  String get totalMark => 'الدرجة الكلية';
 
   @override
-  String get passMark => 'علامة المرور';
+  String get passMark => 'درجة النجاح';
 
   @override
-  String get passedStudents => 'الطلاب المجتازين';
+  String get passedStudents => 'الطلاب الناجحون';
 
   @override
   String get backToQuizzes => 'العودة إلى الاختبارات';
 
   @override
-  String get noResults => 'لا نتائج!';
+  String get noResults => 'لا توجد نتائج!';
 
   @override
-  String get youHaveNoQuizResults => 'ليس لديك أي نتائج الاختبار.';
+  String get youHaveNoQuizResults => 'ليس لديك أي نتائج اختبار.';
 
   @override
   String get noStudentResults => 'لا توجد نتائج للطلاب!';
@@ -1362,26 +1360,26 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get waitForFinalResultDesc =>
-      'يتضمن الاختبار الخاص بك أسئلة وصفية\nيُرجى الانتظار حتى مراجعة المدرس.';
+      'يتضمن الاختبار الخاص بك أسئلة مقالية\nيُرجى الانتظار حتى مراجعة المدرس.';
 
   @override
   String get youFailedTheQuiz => 'لقد فشلت في الاختبار';
 
   @override
   String get youFailedTheQuizDesc =>
-      'آسف! لقد فشلت في الاختبار...\nيمكنك المحاولة مرة أخرى.';
+      'للاسف! لقد فشلت في الاختبار...\nيمكنك التعلم من اخطاءك عن طريق مراجعة الاجوبة الصحيحة.';
 
   @override
-  String get submitDate => 'تاريخ النشر';
+  String get submitDate => 'تاريخ التقديم';
 
   @override
-  String get reviewQuiz => 'اختبار المراجعة';
+  String get reviewQuiz => 'مراجعة الاختبار';
 
   @override
-  String get reviewAnswers => 'إجابات المراجعة';
+  String get reviewAnswers => 'مراجعة الإجابات';
 
   @override
-  String get retry => 'أعد المحاولة';
+  String get retry => 'إعادة المحاولة';
 
   @override
   String get quizResult => 'نتيجة الاختبار';
@@ -1390,25 +1388,25 @@ class AppLocalizationsAr extends AppLocalizations {
   String get student => 'طالب';
 
   @override
-  String get time => 'وقت';
+  String get time => 'الوقت';
 
   @override
-  String get start => 'يبدأ';
+  String get start => 'بدء';
 
   @override
   String get question => 'سؤال';
 
   @override
-  String get previous => 'سابق';
+  String get previous => 'السابق';
 
   @override
   String get next => 'التالي';
 
   @override
-  String get finish => 'ينهي';
+  String get finish => 'إنهاء';
 
   @override
-  String get correctAnswer => 'اجابة صحيحة';
+  String get correctAnswer => 'إجابة صحيحة';
 
   @override
   String get studentGrade => 'درجة الطالب';
@@ -1432,42 +1430,42 @@ class AppLocalizationsAr extends AppLocalizations {
   String get correct => 'صحيح';
 
   @override
-  String get reviewTheResult => 'قم بمراجعة النتيجة';
+  String get reviewTheResult => 'راجع النتيجة';
 
   @override
   String get reviewTheResultDesc =>
-      'يتضمن الاختبار الخاص بك أسئلة وصفية\nيُرجى مراجعته.';
+      'يتضمن الاختبار الخاص بك أسئلة مقالية\nيُرجى مراجعتها.';
 
   @override
-  String get quizCerts => 'شهادات الاختبار.';
+  String get quizCerts => 'شهادات الاختبار';
 
   @override
-  String get completionCerts => 'شهادات الإنجاز.';
+  String get completionCerts => 'شهادات الإكمال';
 
   @override
-  String get classCerts => 'شهادات الطبقة.';
+  String get classCerts => 'شهادات الفصل';
 
   @override
   String get certificateDetails => 'تفاصيل الشهادة';
 
   @override
-  String get shareCertificate => 'شهادة الأسهم';
+  String get shareCertificate => 'مشاركة الشهادة';
 
   @override
   String get shareCertificateDesc =>
-      'يمكنك مشاركة هذه الشهادة باستخدام الشبكات الاجتماعية\nوتشجيع الآخرين على التعلم.';
+      'يمكنك مشاركة هذه الشهادة عبر الشبكات الاجتماعية\nوتشجيع الآخرين على التعلم.';
 
   @override
-  String get takenDate => 'تاريخ الالتقاط';
+  String get takenDate => 'تاريخ الحصول عليها';
 
   @override
-  String get certificateID => 'معرف الشهادة';
+  String get certificateID => 'رقم الشهادة';
 
   @override
   String get totalStudents => 'إجمالي الطلاب';
 
   @override
-  String get average => 'متوسط';
+  String get average => 'المتوسط';
 
   @override
   String get certificateOverview => 'نظرة عامة على الشهادة';
@@ -1480,13 +1478,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get certificateStudents => 'طلاب الشهادة';
 
   @override
-  String get youHaveNotAccess => 'ليس لديك حق الوصول إلى هذا القسم';
+  String get youHaveNotAccess => 'ليس لديك صلاحية الوصول إلى هذا القسم';
 
   @override
   String get achievements => 'الإنجازات';
 
   @override
-  String get noCertificates => 'لا شهادات!';
+  String get noCertificates => 'لا توجد شهادات!';
 
   @override
   String get noCertificatesDesc => 'ليس لديك شهادات بعد.';
@@ -1495,10 +1493,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get activePlan => 'خطة\nنشطة';
 
   @override
-  String get remainedDownloads => 'باقي\nالتنزيلات';
+  String get remainedDownloads => 'التنزيلات\nالمتبقية';
 
   @override
-  String get remainedDays => 'المتبقي\nالأيام';
+  String get remainedDays => 'الأيام\nالمتبقية';
 
   @override
   String get selectAPlan => 'حدد خطة';
@@ -1507,16 +1505,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get daysOfSubscription => 'أيام الاشتراك';
 
   @override
-  String get classesSubscription => 'الاشتراك في الفصول الدراسية';
+  String get classesSubscription => 'الاشتراك في الكورسات';
 
   @override
   String get noActiveSubscriptionPlan => 'لا توجد خطة اشتراك نشطة';
 
   @override
-  String get noFavorites => 'لا المفضلة!';
+  String get noFavorites => 'لا توجد مفضلة!';
 
   @override
-  String get noFavoritesDesc => 'أضف دوراتك المفضلة إلى قائمة الرغبات.';
+  String get noFavoritesDesc => 'أضف كورساتك المفضلة إلى قائمة الرغبات.';
 
   @override
   String get newEvents => 'أحداث جديدة';
@@ -1525,16 +1523,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get pendingMessages => 'الرسائل\nالمعلقة';
 
   @override
-  String get pendingMeetings => 'في انتظار\nالاجتماعات';
+  String get pendingMeetings => 'الاجتماعات\nالمعلقة';
 
   @override
-  String get supportMessages => 'الدعم\nالرسائل';
+  String get supportMessages => 'رسائل\nالدعم';
 
   @override
   String get monthlySales => 'المبيعات\nالشهرية';
 
   @override
-  String get purchasedCourses => 'الدورات\nشراؤها';
+  String get purchasedCourses => 'الكورسات\nالمشتراة';
 
   @override
   String get learningStatistics => 'إحصائيات التعلم';
@@ -1543,7 +1541,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get monthSales => 'مبيعات الشهر';
 
   @override
-  String get tickets => 'التذاكر';
+  String get tickets => 'تذاكر الدعم';
 
   @override
   String get classesSupport => 'دعم الفصول';
@@ -1552,7 +1550,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get myClassesSupport => 'دعم فصولي';
 
   @override
-  String get replied => 'أجاب';
+  String get replied => 'تم الرد';
 
   @override
   String get newSupportMessage => 'رسالة دعم جديدة';
@@ -1573,13 +1571,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get closed => 'مغلق';
 
   @override
-  String get noTickets => 'لا تذاكر!';
+  String get noTickets => 'لا توجد تذاكر!';
 
   @override
-  String get noTicketsDesc => 'تحتاج مساعدة؟ إنشاء طلب دعم جديد.';
+  String get noTicketsDesc => 'تحتاج مساعدة؟ أنشئ تذكرة دعم جديدة.';
 
   @override
-  String get message => 'رسالة';
+  String get message => 'الرسالة';
 
   @override
   String get removeFromFavorites => 'إزالة من المفضلة';
@@ -1594,83 +1592,82 @@ class AppLocalizationsAr extends AppLocalizations {
   String get newPassword => 'كلمة المرور الجديدة';
 
   @override
-  String get passwordAndRetypePassNotMatch =>
-      'كلمة المرور الجديدة لا تتطابق مع كلمة المرور الجديدة';
+  String get passwordAndRetypePassNotMatch => 'كلمة المرور الجديدة غير متطابقة';
 
   @override
   String get nextBadges => 'الشارات التالية';
 
   @override
-  String get remainedPoints => 'النقاط\nالباقية';
+  String get remainedPoints => 'النقاط\nالمتبقية';
 
   @override
-  String get totalPoints => 'مجمل\nالنقاط';
+  String get totalPoints => 'مجموع\nالنقاط';
 
   @override
   String get spentPoints => 'النقاط\nالمستهلكة';
 
   @override
-  String get pointsHistory => 'تاريخ النقاط';
+  String get pointsHistory => 'سجل النقاط';
 
   @override
-  String get loginDesc => 'الرجاء تسجيل الدخول لعرض معلومات هذه الصفحة';
+  String get loginDesc => 'الرجاء تسجيل الدخول لعرض هذه الصفحة';
 
   @override
-  String get freeCourses => 'دورات مجانية!';
+  String get freeCourses => 'كورسات مجانية!';
 
   @override
-  String get bySpendingPoints => 'عن طريق إنفاق النقاط';
+  String get bySpendingPoints => 'عن طريق استبدال النقاط';
 
   @override
-  String get saaSPackages => 'حزم SaaS';
+  String get saaSPackages => 'باقات SaaS';
 
   @override
-  String get activationDate => 'تفعيل\nالتسجيل';
+  String get activationDate => 'تاريخ\nالتفعيل';
 
   @override
   String get accountStatistics => 'إحصائيات الحساب';
 
   @override
-  String get newCourses => 'دورات\nجديدة';
+  String get newCourses => 'كورسات\nجديدة';
 
   @override
   String get liveClassCapacity => 'سعة\nالفصل المباشر';
 
   @override
-  String get meetingTimeSlots => 'فتحات\nوقت الاجتماع';
+  String get meetingTimeSlots => 'فترات\nالاجتماعات';
 
   @override
   String get newStudents => 'طلاب\nجدد';
 
   @override
-  String get newInstructors => 'المدربون\nالجدد';
+  String get newInstructors => 'استاذون\nجدد';
 
   @override
-  String get getCashback => 'احصل على استرداد النقود';
+  String get getCashback => 'احصل على استرداد نقدي';
 
   @override
-  String get finalizeYourOrderAndGet => 'أنهي طلبك واحصل على';
+  String get finalizeYourOrderAndGet => 'أتمم طلبك واحصل على';
 
   @override
-  String get cashback => 'استرداد النقود!';
+  String get cashback => 'استرداد نقدي!';
 
   @override
-  String get skip => 'تخطى';
+  String get skip => 'تخطي';
 
   @override
-  String get purchaseThisCourseAndGet => 'شراء هذه الدورة والحصول على ';
+  String get purchaseThisCourseAndGet => 'اشترِ هذه الكورس واحصل على ';
 
   @override
   String get purchaseThisProductAndGet => 'اشتري هذا المنتج واحصل على ';
 
   @override
-  String get instrcutor => 'مدرب';
+  String get instrcutor => 'الاستاذ';
 
   @override
-  String get pleaseReview => 'من فضلك اعد النظر';
+  String get pleaseReview => 'من فضلك راجع';
 
   @override
-  String get reserveAMeetingAndGet => 'حجز اجتماع والحصول على ';
+  String get reserveAMeetingAndGet => 'احجز اجتماعاً واحصل على ';
 
   @override
   String get createALiveSession => 'إنشاء جلسة مباشرة';
@@ -1685,7 +1682,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get newInappLiveSession => 'جلسة مباشرة جديدة داخل التطبيق';
 
   @override
-  String get inappLiveSession => 'جلسة حية داخل التطبيق';
+  String get inappLiveSession => 'جلسة مباشرة داخل التطبيق';
 
   @override
   String get inappLiveSessionQuestion =>
@@ -1698,32 +1695,32 @@ class AppLocalizationsAr extends AppLocalizations {
   String get liveSessionCreated => 'تم إنشاء الجلسة المباشرة';
 
   @override
-  String get youCanJoinItNow => 'يمكنك الانضمام إليه الآن';
+  String get youCanJoinItNow => 'يمكنك الانضمام إليها الآن';
 
   @override
-  String get create => 'يخلق';
+  String get create => 'إنشاء';
 
   @override
   String get latestBundles => 'أحدث الحزم';
 
   @override
-  String get chapters => 'فصول';
+  String get chapters => 'المحاضرات';
 
   @override
   String get newMessage => 'رسالة جديدة';
 
   @override
-  String get subject => 'موضوع';
+  String get subject => 'الموضوع';
 
   @override
-  String get messageBody => 'جسم الرسالة';
+  String get messageBody => 'نص الرسالة';
 
   @override
   String get privateContent => 'محتوى خاص!';
 
   @override
   String get privateContentDesc =>
-      'تحتاج إلى تسجيل الدخول للوصول إلى محتوى الدورة.';
+      'تحتاج إلى تسجيل الدخول للوصول إلى محتوى الكورس.';
 
   @override
   String get pendingVerification => 'في انتظار التحقق!';
@@ -1736,7 +1733,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get private => 'خاص';
 
   @override
-  String get noCourse => 'لا دورة';
+  String get noCourse => 'لا توجد دورة';
 
   @override
   String get searchACurrency => 'ابحث عن عملة';
@@ -1754,10 +1751,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get exitDesc => 'هل أنت متأكد أنك تريد الخروج؟';
 
   @override
-  String get loginHistory => 'سجل تسجيل الدخول';
+  String get loginHistory => 'سجل الدخول';
 
   @override
-  String get loginHistoryDesc => 'اسحب واعرض سجل تسجيل الدخول إلى حسابك';
+  String get loginHistoryDesc => 'عرض سجل تسجيل الدخول إلى حسابك';
 
   @override
   String get os => 'نظام التشغيل';
@@ -1766,7 +1763,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get browser => 'المتصفح';
 
   @override
-  String get device => 'جهاز';
+  String get device => 'الجهاز';
 
   @override
   String get ip => 'IP';
@@ -1775,7 +1772,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get addANote => 'أضف ملاحظة';
 
   @override
-  String get courseNote => 'ملاحظة الدورة';
+  String get courseNote => 'ملاحظة الكورس';
 
   @override
   String get saveNote => 'حفظ الملاحظة';
@@ -1787,29 +1784,29 @@ class AppLocalizationsAr extends AppLocalizations {
   String get attachment => 'مرفق';
 
   @override
-  String get editNote => 'تحرير مذكرة';
+  String get editNote => 'تعديل الملاحظة';
 
   @override
-  String get networkProblem => 'مشكلة شبكة!';
+  String get networkProblem => 'مشكلة في الشبكة!';
 
   @override
   String get networkProblemDesc =>
       'يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى...';
 
   @override
-  String get myCourses => 'دوراتي';
+  String get myCourses => 'كورساتي';
 
   @override
   String get studentPassedTheQuiz => 'اجتاز الطالب الاختبار';
 
   @override
-  String get enterACouponCode => 'أدخل رمز القسيمة';
+  String get enterACouponCode => 'أدخل رمز الكوبون';
 
   @override
   String get darkMode => 'الوضع المظلم';
 
   @override
-  String get admin => 'مسؤل';
+  String get admin => 'مسؤول';
 
   @override
   String get teacher => 'مدرس';

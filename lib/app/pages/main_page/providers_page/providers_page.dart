@@ -134,155 +134,45 @@ class _ProvidersPageState extends State<ProvidersPage> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     return Consumer<AppLanguageProvider>(
-      builder: (context,appLanguageProvider,_) {
-
+      builder: (context, appLanguageProvider, _) {
         context.watch<ThemeProvider>();
-
         return directionality(
           child: Scaffold(
             backgroundColor: backgroundColor,
             appBar: appbar(
               title: appText.providers,
-              rightIcon: AppAssets.filterSvg,
               leftIcon: AppAssets.menuSvg,
-              onTapLeftIcon: (){
+              onTapLeftIcon: () {
                 drawerController.showDrawer();
               },
-              onTapRightIcon: () async {
-                bool? res = await baseBottomSheet(child: const ProvidersFilter());
-
-                if(res != null && res){
-                  getInstructors();
-                  // COMMENTED: Only refreshing instructors
-                  // getOrganizations();
-                  // getConsultants();
-                }
-              },
-              rightWidth: 22
+              rightWidth: 22,
             ),
-
-            body: NestedScrollView(
-              physics: const BouncingScrollPhysics(),
-              headerSliverBuilder: (context, innerBoxIsScrolled) {
-                return [
-                  SliverAppBar(
-                    pinned: true,
-                    centerTitle: true,
-                    automaticallyImplyLeading: false,
-                    backgroundColor: backgroundColor,
-                    shadowColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(.2),
-                    elevation: 10,
-                    titleSpacing: 0,
-
-                    // MODIFIED: Only showing Instructors tab
-                    title: tabBar(onChangeTab, tabController, [
-                    
-                      Tab(
-                        text: appText.instrcutors,
-                        height: 32,
-                      ),
-                      
-                      // COMMENTED: Organizations and Consultants tabs hidden
-                      // Tab(
-                      //   text: appText.organizations,
-                      //   height: 32,
-                      // ),
-                      
-                      // Tab(
-                      //   text: appText.consultants,
-                      //   height: 32,
-                      // ),
-
-                    ]),
-                  )
-                ];
-              }, 
-              body: TabBarView(
-                physics: const BouncingScrollPhysics(),
-                controller: tabController,
-                children: [
-              
-                  // ONLY Instructors tab visible
-                  !isLoading && instructorsData.isEmpty
-                  ? emptyState(AppAssets.providersEmptyStateSvg, appText.noInstructor, appText.noInstructorDesc)
-                  : GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: TabletDetector.isTablet() ? 3 : 2,
-                        mainAxisSpacing: 22,
-                        crossAxisSpacing: 22,
-                        mainAxisExtent: 195
-                      ), 
-                      padding: const EdgeInsets.only(
-                        right: 21,
-                        left: 21,
-                        bottom: 100
-                      ),
-                      itemCount: isLoading ? 6 : instructorsData.length,
-                      itemBuilder: (context, index) {
-                        return isLoading
+            body: !isLoading && instructorsData.isEmpty
+                ? emptyState(AppAssets.providersEmptyStateSvg, appText.noInstructor, appText.noInstructorDesc)
+                : GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: TabletDetector.isTablet() ? 3 : 2,
+                      mainAxisSpacing: 22,
+                      crossAxisSpacing: 22,
+                      mainAxisExtent: 195,
+                    ),
+                    padding: const EdgeInsets.only(
+                      right: 21,
+                      left: 21,
+                      bottom: 100,
+                    ),
+                    itemCount: isLoading ? 6 : instructorsData.length,
+                    itemBuilder: (context, index) {
+                      return isLoading
                           ? userProfileCardShimmer()
-                          : userProfileCard(instructorsData[index], (){
+                          : userProfileCard(instructorsData[index], () {
                               nextRoute(UserProfilePage.pageName, arguments: instructorsData[index].id);
                             });
-                      },
-                    ),
-              
-                  // COMMENTED: Organizations tab hidden
-                  // !isLoading && organizationsData.isEmpty
-                  // ? emptyState(AppAssets.providersEmptyStateSvg, appText.noOrganization, appText.noOrganizationDesc)
-                  // : GridView.builder(
-                  //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  //       crossAxisCount: TabletDetector.isTablet() ? 3 : 2,
-                  //       mainAxisSpacing: 22,
-                  //       crossAxisSpacing: 22,
-                  //       mainAxisExtent: 195
-                  //     ), 
-                  //     padding: const EdgeInsets.only(
-                  //       right: 21,
-                  //       left: 21,
-                  //       bottom: 100
-                  //     ),
-                  //     itemCount: isLoading ? 6 : organizationsData.length,
-                  //     itemBuilder: (context, index) {
-                  //       return isLoading
-                  //         ? userProfileCardShimmer()
-                  //         : userProfileCard(organizationsData[index], (){
-                  //             nextRoute(UserProfilePage.pageName, arguments: organizationsData[index].id);
-                  //           });
-                  //     },
-                  //   ),
-              
-                  // COMMENTED: Consultants tab hidden
-                  // !isLoading && consultantsData.isEmpty
-                  // ? emptyState(AppAssets.providersEmptyStateSvg, appText.noConsultants, appText.noConsultantsDesc)
-                  // : GridView.builder(
-                  //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  //       crossAxisCount: TabletDetector.isTablet() ? 3 : 2,
-                  //       mainAxisSpacing: 22,
-                  //       crossAxisSpacing: 22,
-                  //       mainAxisExtent: 195
-                  //     ), 
-                  //     padding: const EdgeInsets.only(
-                  //       right: 21,
-                  //       left: 21,
-                  //       bottom: 100
-                  //     ),
-                  //     itemCount: isLoading ? 6 : consultantsData.length,
-                  //     itemBuilder: (context, index) {
-                  //       return isLoading
-                  //         ? userProfileCardShimmer()
-                  //         : userProfileCard(consultantsData[index], (){
-                  //             nextRoute(UserProfilePage.pageName, arguments: consultantsData[index].id);
-                  //           });
-                  //     },
-                  //   ),
-              
-                ]
-              )
-            ),
+                    },
+                  ),
           ),
         );
-      }
+      },
     );
   }
 

@@ -68,18 +68,14 @@ class HomeWidget{
                     
                           // app bar
                           Container(
-                            
                             width: getSize().width,
                             margin: EdgeInsets.only(top: (!kIsWeb && Platform.isIOS) ? MediaQuery.of(context).viewPadding.top + 16 : MediaQuery.of(context).viewPadding.top + 22),
                             child: Row(
                               children: [
-                    
                                 // menu 
                                 GestureDetector(
                                   onTap: () async {
-                                    
                                     drawerController.showDrawer();
-                                    
                                   },
                                   behavior: HitTestBehavior.opaque,
                                   child: Container(
@@ -89,25 +85,26 @@ class HomeWidget{
                                     child: SvgPicture.asset(AppAssets.menuSvg),
                                   ),
                                 ),
-                    
                                 space(0,width: 4),
-                    
                                 // title
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                                              
-                                      // username
+                                      // username with logo
                                       Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
-                                          Container(
-                                            constraints: BoxConstraints(
-                                              maxWidth: getSize().width * .4,
-                                              minWidth: getSize().width * .1
+                                          // Academy logo (PNG)
+                                          Padding(
+                                            padding: const EdgeInsetsDirectional.only(end: 8.0),
+                                            child: Image.asset(
+                                              AppAssets.balsamLogoColorWTransparent2xPng,
+                                              height: 32,
                                             ),
+                                          ),
+                                          Container(                                       
                                             child: Text(
                                               token.isEmpty
                                               ? appText.webinar
@@ -117,28 +114,26 @@ class HomeWidget{
                                               overflow: TextOverflow.ellipsis,
                                             ),
                                           ),
-                                                                  
                                           if(token.isNotEmpty)...{
                                             SvgPicture.asset(AppAssets.hiSvg),
                                           }
                                         ],
                                       ),
-                                                              
-                                      Text(
-                                        appText.letsStartLearning,
-                                        style: style14Regular().copyWith(color: Colors.white, height: 1),
+                                      Padding(
+                                        padding: const EdgeInsets.only(right: 40),
+                                        child: Text(
+                                          appText.letsStartLearning,
+                                          style: style14Regular().copyWith(color: Colors.white, height: 1),
+                                        ),
                                       ),
-                                      
                                     ],
                                   ),
                                 ),
-                    
                                 // COMMENTED: Removed basket icon - no cart functionality
                                 // basket and notification
                                 Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    
                                     // COMMENTED: Basket icon removed
                                     // MainWidget.menuButton(
                                     //   AppAssets.basketSvg, 
@@ -149,9 +144,7 @@ class HomeWidget{
                                     //     nextRoute(CartPage.pageName);
                                     //   }
                                     // ),
-                    
                                     space(0,width: 12),
-                    
                                     // notification
                                     MainWidget.menuButton(
                                       AppAssets.notificationSvg, 
@@ -164,18 +157,13 @@ class HomeWidget{
                                     )
                                   ],
                                 )
-                    
-                    
                               ],
                             ),
                           ),
-                          
-                          const Spacer(),
-                    
+                      
                           AnimatedCrossFade(
                             firstChild: Column(
                               children: [
-                    
                                 input(
                                   searchController, searchNode, appText.searchInputDesc,
                                   iconPathLeft: AppAssets.searchSvg,isReadOnly: true,

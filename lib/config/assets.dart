@@ -1,4 +1,5 @@
 class AppAssets {
+    static const String balsamLogoColorWTransparent2xPng = '${_basePng}Balsam Icon Color w Transparent@2x.png';
   static const String _basePng = 'assets/image/png/';
   static const String _baseSvg = 'assets/image/svg/';
   static const String flags = 'assets/image/flags/';

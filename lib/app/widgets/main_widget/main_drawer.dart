@@ -201,11 +201,6 @@ class _MainDrawerState extends State<MainDrawer> {
                             drawerController.hideDrawer();
                           }),
                           
-                          menuItem(appText.dashboard, AppAssets.dashboardSvg, (){
-                            if(hasAccess(canRedirect: true)){
-                              nextRoute(DashboardPage.pageName);
-                            }
-                          }),
                           
                           // KEEP: My Courses
                           menuItem(appText.classes, AppAssets.classesSvg, (){
