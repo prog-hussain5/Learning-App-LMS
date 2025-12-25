@@ -1824,4 +1824,8 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get serverExceptionError =>
       'حدث خطأ أثناء استرداد المعلومات من الخادم.';
+
+  @override
+  String get authLimitAccount =>
+      'لا يمكنك تسجيل الدخول لأن الحساب مفتوح في جهاز آخر';
 }

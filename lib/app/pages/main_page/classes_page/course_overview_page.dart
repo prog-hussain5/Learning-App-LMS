@@ -22,7 +22,6 @@ class CourseOverviewPage extends StatefulWidget {
 }
 
 class _CourseOverviewPageState extends State<CourseOverviewPage> {
-
   SingleCourseModel? course;
   bool isLoading = true;
   bool isPrivate = false;
@@ -38,233 +37,201 @@ class _CourseOverviewPageState extends State<CourseOverviewPage> {
       id = (ModalRoute.of(context)!.settings.arguments as List)[0];
       isBundle = (ModalRoute.of(context)!.settings.arguments as List)[1];
 
-      try{
+      try {
         isPrivate = (ModalRoute.of(context)!.settings.arguments as List)[2];
-      }catch(_){}
+      } catch (_) {}
 
       getData(id!, isBundle!);
-      
     });
   }
-
-
 
   getData(int id, bool isBundle) async {
     setState(() {
-      isLoading  = true;
+      isLoading = true;
     });
-    
-    course = await CourseService.getOverviewCourseData(id, isBundle, isPrivate: isPrivate);
-    
+
+    course = await CourseService.getOverviewCourseData(id, isBundle,
+        isPrivate: isPrivate);
+
     setState(() {
-      isLoading  = false;
+      isLoading = false;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
     return directionality(
-      
-      child: Scaffold(
-        appBar: appbar(title: appText.courseOverview),
-
-        body: isLoading
-        ? loading()
-        : course == null
-      ? const SizedBox()
-      : Stack(
-          children: [
-            
-            // details
-            Positioned.fill(
-              child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  padding: padding(),
-            
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      
-                      space(20),
-            
-                      // title
-                      Text(
-                        course!.title ?? '',
-                        style: style16Bold(),
-                      ),
-                      
-                      space(4),
-            
-                      // rate
-                      Row(
-                        children: [
-                          
-                          ratingBar(course!.rate ?? '0'),
-            
-                          space(0,width: 8),
-            
-                          Container(
-                            padding: padding(horizontal: 6, vertical: 3),
-                            decoration: BoxDecoration(color: greyE7, borderRadius: borderRadius()),
-                            child: Text(
-                              course!.reviewsCount?.toString() ?? '0',
-                              style: style10Regular().copyWith(color: greyB2),
-                            ),
-                          )
-            
-                        ],
-                      ),
-            
-                      space(24),
-            
-                      // image
-                      Padding(
+        child: Scaffold(
+      appBar: appbar(title: appText.courseOverview),
+      body: isLoading
+          ? loading()
+          : course == null
+              ? const SizedBox()
+              : Stack(
+                  children: [
+                    // details
+                    Positioned.fill(
+                      child: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
                         padding: padding(),
-                        child: AspectRatio(
-                          aspectRatio: 16 / 10,
-                          child: ClipRRect(
-                            borderRadius: borderRadius(),
-                            child: fadeInImage(course?.image ?? '', getSize().width, getSize().width)
-                          ),
-                        ),
-                      ),
-            
-                      space(24),
-            
-                      Center(
-                        child: Text(
-                          appText.courseOverview,
-                          style: style20Bold(),
-                        ),
-                      ),
-            
-                      space(24),
-            
-            
-                      // info
-                      Container(
-                        padding: padding(),
-                        width: getSize().width,
-                        child: Wrap(
-                          runSpacing: 20,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                
-                            SingleCourseWidget.courseStatus(
-                              appText.classOptions, 
-                              course!.id?.toString() ?? '-', 
-                              AppAssets.moreCircleSvg,
-                              width: (getSize().width * .5) - 42,
+                            space(20),
+
+                            // title
+                            Text(
+                              course!.title ?? '',
+                              style: style16Bold(),
                             ),
-                            
-                            SingleCourseWidget.courseStatus(
-                              appText.category, 
-                              course!.category?.toString() ?? '-', 
-                              AppAssets.categorySvg,
-                              width: (getSize().width * .5) - 42,
+
+                            space(4),
+
+                            // rate
+                            Row(
+                              children: [
+                                ratingBar(course!.rate ?? '0'),
+                                space(0, width: 8),
+                                Container(
+                                  padding: padding(horizontal: 6, vertical: 3),
+                                  decoration: BoxDecoration(
+                                      color: greyE7,
+                                      borderRadius: borderRadius()),
+                                  child: Text(
+                                    course!.reviewsCount?.toString() ?? '0',
+                                    style: style10Regular()
+                                        .copyWith(color: greyB2),
+                                  ),
+                                )
+                              ],
                             ),
-                            
-                            SingleCourseWidget.courseStatus(
-                              appText.sessions, 
-                              course!.sessionsCount?.toString() ?? '-', 
-                              AppAssets.videoSvg,
-                              width: (getSize().width * .5) - 42,
+
+                            space(24),
+
+                            // image
+                            Padding(
+                              padding: padding(),
+                              child: AspectRatio(
+                                aspectRatio: 16 / 10,
+                                child: ClipRRect(
+                                    borderRadius: borderRadius(),
+                                    child: fadeInImage(course?.image ?? '',
+                                        getSize().width, getSize().width)),
+                              ),
                             ),
-                            
-                            SingleCourseWidget.courseStatus(
-                              appText.sales, 
-                              CurrencyUtils.calculator(course?.sales?.amount), 
-                              AppAssets.walletSvg,
-                              width: (getSize().width * .5) - 42,
+
+                            space(24),
+
+                            Center(
+                              child: Text(
+                                appText.courseOverview,
+                                style: style20Bold(),
+                              ),
                             ),
-                            
-                            SingleCourseWidget.courseStatus(
-                              appText.students, 
-                              course?.studentsCount?.toString() ?? '-', 
-                              AppAssets.provideresSvg,
-                              width: (getSize().width * .5) - 42,
+
+                            space(24),
+
+                            // info
+                            Container(
+                              padding: padding(),
+                              width: getSize().width,
+                              child: Wrap(
+                                runSpacing: 20,
+                                children: [
+                                  SingleCourseWidget.courseStatus(
+                                    appText.classOptions,
+                                    course!.id?.toString() ?? '-',
+                                    AppAssets.moreCircleSvg,
+                                    width: (getSize().width * .5) - 42,
+                                  ),
+                                  SingleCourseWidget.courseStatus(
+                                    appText.category,
+                                    course!.category?.toString() ?? '-',
+                                    AppAssets.categorySvg,
+                                    width: (getSize().width * .5) - 42,
+                                  ),
+                                  SingleCourseWidget.courseStatus(
+                                    appText.sessions,
+                                    course!.sessionsCount?.toString() ?? '-',
+                                    AppAssets.videoSvg,
+                                    width: (getSize().width * .5) - 42,
+                                  ),
+                                  SingleCourseWidget.courseStatus(
+                                    appText.sales,
+                                    CurrencyUtils.calculator(
+                                        course?.sales?.amount),
+                                    AppAssets.walletSvg,
+                                    width: (getSize().width * .5) - 42,
+                                  ),
+                                  SingleCourseWidget.courseStatus(
+                                    appText.students,
+                                    course?.studentsCount?.toString() ?? '-',
+                                    AppAssets.provideresSvg,
+                                    width: (getSize().width * .5) - 42,
+                                  ),
+                                  SingleCourseWidget.courseStatus(
+                                    appText.quizzes,
+                                    course?.quizzesCount?.toString() ?? '-',
+                                    AppAssets.tickSquareSvg,
+                                    width: (getSize().width * .5) - 42,
+                                  ),
+                                  SingleCourseWidget.courseStatus(
+                                    appText.duration,
+                                    '${formatHHMMSS((course?.duration ?? 0))} ${appText.hours}',
+                                    AppAssets.tickSquareSvg,
+                                    width: (getSize().width * .5) - 42,
+                                  ),
+                                  SingleCourseWidget.courseStatus(
+                                    appText.dateCreated,
+                                    timeStampToDate(
+                                        (course?.createdAt ?? 0) * 1000),
+                                    AppAssets.calendarSvg,
+                                    width: (getSize().width * .5) - 42,
+                                  ),
+                                ],
+                              ),
                             ),
-            
-                            SingleCourseWidget.courseStatus(
-                              appText.quizzes, 
-                              course?.quizzesCount?.toString() ?? '-', 
-                              AppAssets.tickSquareSvg,
-                              width: (getSize().width * .5) - 42,
-                            ),
-            
-                            SingleCourseWidget.courseStatus(
-                              appText.duration, 
-                              '${formatHHMMSS((course?.duration ?? 0))} ${appText.hours}', 
-                              AppAssets.tickSquareSvg,
-                              width: (getSize().width * .5) - 42,
-                            ),
-            
-                            SingleCourseWidget.courseStatus(
-                              appText.dateCreated, 
-                              timeStampToDate((course?.createdAt ?? 0) * 1000), 
-                              AppAssets.calendarSvg,
-                              width: (getSize().width * .5) - 42,
-                            ),
-              
-                
-                      
+
+                            space(20),
                           ],
                         ),
                       ),
-                
-                      space(120),
-            
-            
-                    ],
-                  ),
-                ),
-            ),
+                    ),
 
-            // button
-            AnimatedPositioned(
-              duration: const Duration(milliseconds: 500),
-              bottom: 0,
-              child: Container(
-                width: getSize().width,
-                padding: const EdgeInsets.only(
-                  left: 20,
-                  right: 20,
-                  top: 20,
-                  bottom: 30
-                ),
-
-                decoration: BoxDecoration(
-                  color: whiteFF_26,
-                  boxShadow: [
-                    boxShadow(Colors.black.withOpacity(.1),blur: 15,y: -3)
+                    // button
+                    AnimatedPositioned(
+                        duration: const Duration(milliseconds: 500),
+                        bottom: 0,
+                        child: Container(
+                          width: getSize().width,
+                          padding: const EdgeInsets.only(
+                              left: 20, right: 20, top: 20, bottom: 30),
+                          decoration: BoxDecoration(
+                              color: whiteFF_26,
+                              boxShadow: [
+                                boxShadow(Colors.black.withOpacity(.1),
+                                    blur: 15, y: -3)
+                              ],
+                              borderRadius: const BorderRadius.vertical(
+                                  top: Radius.circular(30))),
+                          child: button(
+                              onTap: () {
+                                nextRoute(SingleCoursePage.pageName,
+                                    arguments: [
+                                      course!.id,
+                                      course!.type == 'bundle',
+                                      null,
+                                      isPrivate
+                                    ]);
+                              },
+                              width: getSize().width,
+                              height: 52,
+                              text: appText.view,
+                              bgColor: green77(),
+                              textColor: Colors.white),
+                        )),
                   ],
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(30))
                 ),
-                child: button(
-                  onTap: (){
-                    
-                    nextRoute(
-                      SingleCoursePage.pageName, 
-                      arguments: [
-                        course!.id, 
-                        course!.type == 'bundle', 
-                        null, 
-                        isPrivate
-                      ]
-                    );          
-                  },
-                  width: getSize().width, 
-                  height: 52, 
-                  text: appText.view, 
-                  bgColor: green77(), 
-                  textColor: Colors.white
-                ),
-              )
-            ),
-          ],
-        ),
-      )
-
-    );
+    ));
   }
 }

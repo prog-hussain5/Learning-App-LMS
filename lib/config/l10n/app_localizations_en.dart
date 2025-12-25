@@ -1845,4 +1845,8 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get serverExceptionError =>
       'An error occurred while retrieving information from the server.';
+
+  @override
+  String get authLimitAccount =>
+      'You cannot log in because your account is open on another device';
 }

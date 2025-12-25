@@ -615,8 +615,8 @@
     "deleteAccount" : "Delete Account",
     "deleteAccountTitle" : "Are you sure to delete your account?",
     "deleteAccountDesc" : "Your account will be removed from the platform after admin approval. This process couldn't be reverted.",
-    "serverExceptionError" : "An error occurred while retrieving information from the server."
-
+    "serverExceptionError" : "An error occurred while retrieving information from the server.",
+    "authLimitAccount": "You cannot log in because your account is open on another device"
 
     
 

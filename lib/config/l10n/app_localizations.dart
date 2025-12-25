@@ -3691,6 +3691,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'An error occurred while retrieving information from the server.'**
   String get serverExceptionError;
+
+  /// No description provided for @authLimitAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'You cannot log in because your account is open on another device'**
+  String get authLimitAccount;
 }
 
 class _AppLocalizationsDelegate

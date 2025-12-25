@@ -26,13 +26,13 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace = "Academy.balsam.med"
-    compileSdk = 35
+    compileSdk = 36
     ndkVersion = "29.0.13113456 rc1"
 
     defaultConfig {
         applicationId = "Academy.balsam.med"
         minSdk = flutter.minSdkVersion
-        targetSdk = 35
+        targetSdk = 36
         versionCode = flutterVersionCode
         versionName = flutterVersionName
     }
