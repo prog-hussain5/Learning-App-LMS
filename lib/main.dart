@@ -88,16 +88,15 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // print('message--');
 }
 
-
 void main() async {
   // debugRepaintRainbowEnabled = true;
 
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  
+
   await Hive.initFlutter();
   Hive.registerAdapter(CourseModelDBAdapter());
-  
+
   await locatorSetup();
   await locator<AppLanguage>().getLanguage();
 
@@ -105,17 +104,17 @@ void main() async {
   tz.initializeTimeZones();
 
   await Firebase.initializeApp();
-    
+
   await setupFlutterNotifications();
-  
+
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     showFlutterNotification(message);
   });
 
-  // FirebaseMessaging.instance.getToken().then((value) {
-  //   print('token : ${value}');
-  // });
+  FirebaseMessaging.instance.getToken().then((value) {
+    print('🔥 Firebase Device Token: $value');
+  });
 
   runApp(const MyApp());
 }
@@ -125,132 +124,147 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => locator<AppLanguageProvider>()),
+        ChangeNotifierProvider(
+            create: (context) => locator<AppLanguageProvider>()),
         ChangeNotifierProvider(create: (context) => locator<PageProvider>()),
-        ChangeNotifierProvider(create: (context) => locator<FilterCourseProvider>()),
-        ChangeNotifierProvider(create: (context) => locator<ProvidersProvider>()),
+        ChangeNotifierProvider(
+            create: (context) => locator<FilterCourseProvider>()),
+        ChangeNotifierProvider(
+            create: (context) => locator<ProvidersProvider>()),
         ChangeNotifierProvider(create: (context) => locator<UserProvider>()),
         ChangeNotifierProvider(create: (context) => locator<DrawerProvider>()),
         ChangeNotifierProvider(create: (context) => locator<HomeProvider>()),
         ChangeNotifierProvider(create: (context) => locator<ThemeProvider>()),
       ],
-      child: Consumer<ThemeProvider>(
-        builder: (context, provider, _) {
-          return MaterialApp(
-            title: appText.webinar,
-            navigatorKey: navigatorKey,
-            navigatorObservers: <NavigatorObserver>[Constants.singleCourseRouteObserver, Constants.contentRouteObserver],
-            
-            scrollBehavior: ScrollConfiguration.of(context).copyWith(
-              dragDevices: {
-                PointerDeviceKind.touch,
-                PointerDeviceKind.mouse,
-              },
+      child: Consumer<ThemeProvider>(builder: (context, provider, _) {
+        return MaterialApp(
+          title: appText.webinar,
+          navigatorKey: navigatorKey,
+          navigatorObservers: <NavigatorObserver>[
+            Constants.singleCourseRouteObserver,
+            Constants.contentRouteObserver
+          ],
+
+          scrollBehavior: ScrollConfiguration.of(context).copyWith(
+            dragDevices: {
+              PointerDeviceKind.touch,
+              PointerDeviceKind.mouse,
+            },
+          ),
+
+          theme: ThemeData(
+            useMaterial3: false,
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
+            scaffoldBackgroundColor: backgroundColor,
+            dialogTheme: DialogThemeData(
+              backgroundColor: backgroundColor,
             ),
-          
-            theme: ThemeData(
-              useMaterial3: false,
-              
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
-              scaffoldBackgroundColor: backgroundColor,
-              dialogTheme: DialogThemeData(
-                backgroundColor: backgroundColor,
+          ),
+
+          // Force Latin/English digits instead of Persian
+          builder: (context, child) {
+            return Directionality(
+              textDirection: locator<AppLanguage>().isRtl()
+                  ? TextDirection.rtl
+                  : TextDirection.ltr,
+              child: Builder(
+                builder: (context) {
+                  return MediaQuery(
+                    data: MediaQuery.of(context).copyWith(
+                      textScaler: const TextScaler.linear(1.0),
+                    ),
+                    child: child!,
+                  );
+                },
               ),
-              
-            ),
-            
-            // Force Latin/English digits instead of Persian
-            builder: (context, child) {
-              return Directionality(
-                textDirection: locator<AppLanguage>().isRtl() ? TextDirection.rtl : TextDirection.ltr,
-                child: Builder(
-                  builder: (context) {
-                    return MediaQuery(
-                      data: MediaQuery.of(context).copyWith(
-                        textScaler: const TextScaler.linear(1.0),
-                      ),
-                      child: child!,
-                    );
-                  },
-                ),
-              );
-            },
-            
-            debugShowCheckedModeBanner: false,
-            // debugShowMaterialGrid: true,
-              
-            initialRoute: SplashPage.pageName,
-            routes: {
-              MainPage.pageName : (context) => const MainPage(),
-              SplashPage.pageName : (context) => const SplashPage(),
-              IntroPage.pageName : (context) => const IntroPage(),
-              LoginPage.pageName : (context) => const LoginPage(),
-              // COMMENTED: Registration disabled - users will be created from dashboard
-              // RegisterPage.pageName : (context) => const RegisterPage(),
-              VerifyCodePage.pageName : (context) => const VerifyCodePage(),
-              ForgetPasswordPage.pageName : (context) => const ForgetPasswordPage(),
-              FilterCategoryPage.pageName : (context) => const FilterCategoryPage(),
-              SuggestedSearchPage.pageName : (context) => const SuggestedSearchPage(),
-              ResultSearchPage.pageName : (context) => const ResultSearchPage(),
-              DetailsBlogPage.pageName : (context) => const DetailsBlogPage(),
-              SingleCoursePage.pageName : (context) => const SingleCoursePage(),
-              LearningPage.pageName : (context) => const LearningPage(),
-              SearchForumPage.pageName : (context) => const SearchForumPage(),
-              ForumAnswerPage.pageName : (context) => const ForumAnswerPage(),
-              NotificationPage.pageName : (context) => const NotificationPage(),
-              // COMMENTED: Cart and Checkout disabled - no purchasing
-              // CartPage.pageName : (context) => const CartPage(),
-              // CheckoutPage.pageName : (context) => const CheckoutPage(),
-              SingleContentPage.pageName : (context) => const SingleContentPage(),
-              WebViewPage.pageName : (context) => const WebViewPage(),
-              BankAccountsPage.pageName : (context) => const BankAccountsPage(),
-              UserProfilePage.pageName : (context) => const UserProfilePage(),
-              AssignmentsPage.pageName : (context) => const AssignmentsPage(),
-              AssignmentOverviewPage.pageName : (context) => const AssignmentOverviewPage(),
-              SubmissionsPage.pageName : (context) => const SubmissionsPage(),
-              AssignmentHistoryPage.pageName : (context) => const AssignmentHistoryPage(),
-              FinancialPage.pageName : (context) => const FinancialPage(),
-              CourseOverviewPage.pageName : (context) => const CourseOverviewPage(),
-              MeetingsPage.pageName : (context) => const MeetingsPage(),
-              MeetingDetailsPage.pageName : (context) => const MeetingDetailsPage(),
-              CommentsPage.pageName : (context) => const CommentsPage(),
-              CommentDetailsPage.pageName : (context) => const CommentDetailsPage(),
-              SettingPage.pageName : (context) => const SettingPage(),
-              QuizzesPage.pageName : (context) => const QuizzesPage(),
-              QuizInfoPage.pageName : (context) => const QuizInfoPage(),
-              QuizPage.pageName : (context) => const QuizPage(),
-              CertificatesPage.pageName : (context) => const CertificatesPage(),
-              CertificatesDetailsPage.pageName : (context) => const CertificatesDetailsPage(),
-              CertificatesStudentPage.pageName : (context) => const CertificatesStudentPage(),
-              SubscriptionPage.pageName : (context) => const SubscriptionPage(),
-              FavoritesPage.pageName : (context) => const FavoritesPage(),
-              DashboardPage.pageName : (context) => const DashboardPage(),
-              SupportMessagePage.pageName : (context) => const SupportMessagePage(),
-              ConversationPage.pageName : (context) => const ConversationPage(),
-              PdfViewerPage.pageName : (context) => const PdfViewerPage(),
-              RewardPointPage.pageName : (context) => const RewardPointPage(),
-              MaintenancePage.pageName : (context) => const MaintenancePage(),
-              PaymentStatusPage.pageName : (context) => const PaymentStatusPage(),
-              IpEmptyStatePage.pageName : (context) => const IpEmptyStatePage(),
-              // offline pages...
-              InternetConnectionPage.pageName : (context) => const InternetConnectionPage(),
-              OfflineListCoursePage.pageName : (context) => const OfflineListCoursePage(),
-              OfflineSingleCoursePage.pageName : (context) => const OfflineSingleCoursePage(),
-              OfflineSingleContentPage.pageName : (context) => const OfflineSingleContentPage(),
-            },
-              
-              
-          );
-        }
-      ),
+            );
+          },
+
+          debugShowCheckedModeBanner: false,
+          // debugShowMaterialGrid: true,
+
+          initialRoute: SplashPage.pageName,
+          routes: {
+            MainPage.pageName: (context) => const MainPage(),
+            SplashPage.pageName: (context) => const SplashPage(),
+            IntroPage.pageName: (context) => const IntroPage(),
+            LoginPage.pageName: (context) => const LoginPage(),
+            // COMMENTED: Registration disabled - users will be created from dashboard
+            // RegisterPage.pageName : (context) => const RegisterPage(),
+            VerifyCodePage.pageName: (context) => const VerifyCodePage(),
+            ForgetPasswordPage.pageName: (context) =>
+                const ForgetPasswordPage(),
+            FilterCategoryPage.pageName: (context) =>
+                const FilterCategoryPage(),
+            SuggestedSearchPage.pageName: (context) =>
+                const SuggestedSearchPage(),
+            ResultSearchPage.pageName: (context) => const ResultSearchPage(),
+            DetailsBlogPage.pageName: (context) => const DetailsBlogPage(),
+            SingleCoursePage.pageName: (context) => const SingleCoursePage(),
+            LearningPage.pageName: (context) => const LearningPage(),
+            SearchForumPage.pageName: (context) => const SearchForumPage(),
+            ForumAnswerPage.pageName: (context) => const ForumAnswerPage(),
+            NotificationPage.pageName: (context) => const NotificationPage(),
+            // COMMENTED: Cart and Checkout disabled - no purchasing
+            // CartPage.pageName : (context) => const CartPage(),
+            // CheckoutPage.pageName : (context) => const CheckoutPage(),
+            SingleContentPage.pageName: (context) => const SingleContentPage(),
+            WebViewPage.pageName: (context) => const WebViewPage(),
+            BankAccountsPage.pageName: (context) => const BankAccountsPage(),
+            UserProfilePage.pageName: (context) => const UserProfilePage(),
+            AssignmentsPage.pageName: (context) => const AssignmentsPage(),
+            AssignmentOverviewPage.pageName: (context) =>
+                const AssignmentOverviewPage(),
+            SubmissionsPage.pageName: (context) => const SubmissionsPage(),
+            AssignmentHistoryPage.pageName: (context) =>
+                const AssignmentHistoryPage(),
+            FinancialPage.pageName: (context) => const FinancialPage(),
+            CourseOverviewPage.pageName: (context) =>
+                const CourseOverviewPage(),
+            MeetingsPage.pageName: (context) => const MeetingsPage(),
+            MeetingDetailsPage.pageName: (context) =>
+                const MeetingDetailsPage(),
+            CommentsPage.pageName: (context) => const CommentsPage(),
+            CommentDetailsPage.pageName: (context) =>
+                const CommentDetailsPage(),
+            SettingPage.pageName: (context) => const SettingPage(),
+            QuizzesPage.pageName: (context) => const QuizzesPage(),
+            QuizInfoPage.pageName: (context) => const QuizInfoPage(),
+            QuizPage.pageName: (context) => const QuizPage(),
+            CertificatesPage.pageName: (context) => const CertificatesPage(),
+            CertificatesDetailsPage.pageName: (context) =>
+                const CertificatesDetailsPage(),
+            CertificatesStudentPage.pageName: (context) =>
+                const CertificatesStudentPage(),
+            SubscriptionPage.pageName: (context) => const SubscriptionPage(),
+            FavoritesPage.pageName: (context) => const FavoritesPage(),
+            DashboardPage.pageName: (context) => const DashboardPage(),
+            SupportMessagePage.pageName: (context) =>
+                const SupportMessagePage(),
+            ConversationPage.pageName: (context) => const ConversationPage(),
+            PdfViewerPage.pageName: (context) => const PdfViewerPage(),
+            RewardPointPage.pageName: (context) => const RewardPointPage(),
+            MaintenancePage.pageName: (context) => const MaintenancePage(),
+            PaymentStatusPage.pageName: (context) => const PaymentStatusPage(),
+            IpEmptyStatePage.pageName: (context) => const IpEmptyStatePage(),
+            // offline pages...
+            InternetConnectionPage.pageName: (context) =>
+                const InternetConnectionPage(),
+            OfflineListCoursePage.pageName: (context) =>
+                const OfflineListCoursePage(),
+            OfflineSingleCoursePage.pageName: (context) =>
+                const OfflineSingleCoursePage(),
+            OfflineSingleContentPage.pageName: (context) =>
+                const OfflineSingleContentPage(),
+          },
+        );
+      }),
     );
   }
 }
-

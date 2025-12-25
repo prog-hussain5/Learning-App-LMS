@@ -85,22 +85,13 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
           )
         ),
 
-        child: Column(
+        child: const Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Spacer(),Spacer(),
 
-
-          
-            space(10),
-
-            Text(
-              appText.splashDesc,
-              style: style16Regular().copyWith(color: Colors.white),
-            ),
-            const Spacer(),const Spacer(),
-
-               const SizedBox(height: 300,),
-            const SizedBox(
+               SizedBox(height: 300,),
+            SizedBox(
               width: 35,
               child: LoadingIndicator(
                 indicatorType: Indicator.ballBeat,
@@ -112,7 +103,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
               ),
             ),
 
-            const Spacer(),
+            Spacer(),
 
 
           ],
