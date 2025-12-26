@@ -1,10 +1,7 @@
 import 'package:flutter/services.dart';
-import 'package:pod_player/pod_player.dart';
 import 'package:flutter/material.dart';
 import 'package:webinar/common/common.dart';
-import 'package:youtube_player_embed/controller/video_controller.dart';
-import 'package:youtube_player_iframe/youtube_player_iframe.dart';
-import 'package:youtube_player_embed/youtube_player_embed.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class PodVideoPlayerDev extends StatefulWidget {
   final String type;
@@ -19,65 +16,26 @@ class PodVideoPlayerDev extends StatefulWidget {
 }
 
 class _VimeoVideoPlayerState extends State<PodVideoPlayerDev> with RouteAware, AutomaticKeepAliveClientMixin {
-  late final PodPlayerController controller;
-
-
-  VideoController? videoController;
+  YoutubePlayerController? youtubeController;
 
   @override
   void initState() {
     
-    if(widget.type == 'vimeo'){
-      controller = PodPlayerController(
-
-        playVideoFrom: PlayVideoFrom.vimeo(
-          widget.url,
-          videoPlayerOptions: VideoPlayerOptions(
-            allowBackgroundPlayback: true,
-          ),
-        ),
-        podPlayerConfig: const PodPlayerConfig(
-          autoPlay: true,
-          isLooping: false,
-          wakelockEnabled: true,
-          videoQualityPriority: [360],
+    if (widget.type == 'youtube') {
+      final videoId = YoutubePlayer.convertUrlToId(widget.url);
+      youtubeController = YoutubePlayerController(
+        initialVideoId: videoId ?? '',
+        flags: YoutubePlayerFlags(
+          autoPlay: false,
+          mute: false,
         ),
       );
-
-      controller.initialise();
-
-    }else{
-
-
-      if(widget.type == 'youtube'){
-        
-      }else{
-
-        controller = PodPlayerController(
-          playVideoFrom: widget.type == 'youtube'
-              ? PlayVideoFrom.youtube(widget.url)
-              : PlayVideoFrom.network(widget.url),
-
-        )..initialise().then((value){
-          setState(() {});
-        },onError: (e){});
-      }
     }
 
     
     super.initState();
   }
 
-  getYoutubeId(){
-    String? id = YoutubePlayerController.convertUrlToId(widget.url);
-
-    if(id == null){
-      getYoutubeId();
-    }else{
-      return id;
-    }
-
-  }
 
   @override
   void didChangeDependencies() {
@@ -92,7 +50,7 @@ class _VimeoVideoPlayerState extends State<PodVideoPlayerDev> with RouteAware, A
       DeviceOrientation.portraitUp,
     ]);
     widget.routeObserver.unsubscribe(this);
-    controller.dispose();
+    youtubeController?.dispose();
     super.dispose();
   }
 
@@ -100,18 +58,12 @@ class _VimeoVideoPlayerState extends State<PodVideoPlayerDev> with RouteAware, A
   void didPush() {}
 
   @override
+  @override
   void didPushNext() {
     // final route = ModalRoute.of(context)?.settings.name;
-    try{
-      controller.pause();
-    }catch(_){}
-  } 
-
-  @override
-  void didPopNext() {
-    try{
-      controller.play();
-    }catch(_){}
+    try {
+      youtubeController?.pause();
+    } catch (_) {}
   }
 
   @override
@@ -126,29 +78,13 @@ class _VimeoVideoPlayerState extends State<PodVideoPlayerDev> with RouteAware, A
         child: SizedBox(
           width: getSize().width,
           child: widget.type == 'youtube'
-          ? YoutubePlayerEmbed(
-              callBackVideoController: (controller) {
-                videoController = controller;
-                videoController?.playVideo();
-              },
-              videoId: getYoutubeId(), // 'shorts_video_id' Replace with a YouTube Shorts or normal video ID
-              customVideoTitle: "",
-              autoPlay: false,
-              hidenVideoControls: false,
-              mute: false,
-              enabledShareButton: false,
-              hidenChannelImage: true,
-              // aspectRatio: 16 / 9,
-              onVideoEnd: () {
-                print("video ended");
-              },
-              onVideoSeek: (currentTime) => print("Seeked to $currentTime seconds"),
-              onVideoTimeUpdate: (currentTime) => print("Current time: $currentTime seconds"),
-              onVideoStateChange: (state) {
-                
-              },
-            )
-          : PodVideoPlayer(controller: controller,),
+              ? (youtubeController != null
+                  ? YoutubePlayer(
+                      controller: youtubeController!,
+                      showVideoProgressIndicator: true,
+                    )
+                  : Center(child: Text('لا يمكن عرض الفيديو، الرابط غير صحيح')))
+              : Center(child: Text('نوع الفيديو غير مدعوم')), // يمكنك إضافة دعم vimeo لاحقاً
         ),
       ),
     );
