@@ -51,7 +51,9 @@ class _SingleCoursePageState extends State<SingleCoursePage>
   late TabController tabController;
   int currentTab = 0;
 
-  bool showInformationButton = false;
+  // ✅ التعديل: نخلي زر المعلومات ظاهر من البداية
+  bool showInformationButton = true;
+
   bool showContentButton = false;
   bool canSubmitComment = false;
   bool canSubmitReview = false;
@@ -74,19 +76,20 @@ class _SingleCoursePageState extends State<SingleCoursePage>
     tabController = TabController(length: 4, vsync: this);
     getData();
 
-    scrollController.addListener(() {
-      if (scrollController.position.pixels > 0) {
-        if (currentTab == 0) {
-          // information
-          if (!showInformationButton) {
-            offAllTabs();
-            setState(() {
-              showInformationButton = true;
-            });
-          }
-        }
-      }
-    });
+    // ✅ التعديل: حذفنا الـ scroll listener لأنه كان يخلي الزر يطلع فقط بعد السحب
+    // scrollController.addListener(() {
+    //   if (scrollController.position.pixels > 0) {
+    //     if (currentTab == 0) {
+    //       // information
+    //       if (!showInformationButton) {
+    //         offAllTabs();
+    //         setState(() {
+    //           showInformationButton = true;
+    //         });
+    //       }
+    //     }
+    //   }
+    // });
 
     tabController.addListener(() {
       if (tabController.index == 0) {
@@ -210,7 +213,6 @@ class _SingleCoursePageState extends State<SingleCoursePage>
     Timer(const Duration(seconds: 2), () {
       for (var i = 0; i < (courseData?.comments.length ?? 0); i++) {
         if (commentId == courseData?.comments[i].id) {
-          // print(courseData?.comments[i].globalKey.findWidget);
           scrollController.animateTo(
               (courseData!.comments[i].globalKey.findWidget ?? 0.0) > 230
                   ? (courseData!.comments[i].globalKey.findWidget ?? 0.0) - 230
@@ -263,7 +265,6 @@ class _SingleCoursePageState extends State<SingleCoursePage>
                                         headerSliverBuilder:
                                             (context, innerBoxIsScrolled) {
                                           return [
-                                            // course video + title + teacher info
                                             SliverToBoxAdapter(
                                               child: Padding(
                                                 padding: padding(),
@@ -288,7 +289,6 @@ class _SingleCoursePageState extends State<SingleCoursePage>
 
                                                     space(14),
 
-                                                    // title
                                                     Text(
                                                       courseData?.title ?? '',
                                                       style: style16Bold(),
@@ -296,7 +296,6 @@ class _SingleCoursePageState extends State<SingleCoursePage>
 
                                                     space(8),
 
-                                                    // rate
                                                     Row(
                                                       children: [
                                                         ratingBar(courseData
@@ -335,7 +334,6 @@ class _SingleCoursePageState extends State<SingleCoursePage>
                                                       if (courseData
                                                               ?.videoDemoSource ==
                                                           'vimeo') ...{
-                                                        // cover
                                                         ClipRRect(
                                                           borderRadius:
                                                               borderRadius(),
@@ -372,7 +370,6 @@ class _SingleCoursePageState extends State<SingleCoursePage>
                                                                 .singleCourseRouteObserver)
                                                       }
                                                     } else ...{
-                                                      // cover
                                                       ClipRRect(
                                                         borderRadius:
                                                             borderRadius(),
@@ -386,7 +383,6 @@ class _SingleCoursePageState extends State<SingleCoursePage>
 
                                                     space(24),
 
-                                                    // teacher profile
                                                     Row(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
@@ -430,7 +426,6 @@ class _SingleCoursePageState extends State<SingleCoursePage>
                                               ),
                                             ),
 
-                                            // tabs
                                             SliverAppBar(
                                               pinned: true,
                                               centerTitle: true,
@@ -469,7 +464,6 @@ class _SingleCoursePageState extends State<SingleCoursePage>
                                                 const BouncingScrollPhysics(),
                                             controller: tabController,
                                             children: [
-                                              // information page
                                               SingleCourseWidget
                                                   .informationPage(
                                                       courseData!, viewMore,
@@ -481,17 +475,14 @@ class _SingleCoursePageState extends State<SingleCoursePage>
                                                       bundleCourses:
                                                           bundleCourses),
 
-                                              // content page
                                               SingleCourseWidget.contentPage(
                                                   courseData!, contentData,
                                                   bundleCourses: bundleCourses),
 
-                                              // reviews page
                                               SingleCourseWidget.reviewsPage(
                                                 courseData!,
                                               ),
 
-                                              // comments page
                                               SingleCourseWidget.commentsPage(
                                                 courseData!,
                                               ),
@@ -503,14 +494,16 @@ class _SingleCoursePageState extends State<SingleCoursePage>
                                           'webinar_private_content_status'] ??
                                       '0') ==
                                   '1')) ...{
-                            // login buttons
                             AnimatedPositioned(
                                 duration: const Duration(milliseconds: 350),
                                 bottom: 0,
                                 child: Container(
                                   width: getSize().width,
                                   padding: const EdgeInsets.only(
-                                      left: 20, right: 20, top: 20, bottom: 30),
+                                      left: 20,
+                                      right: 20,
+                                      top: 20,
+                                      bottom: 30),
                                   decoration: BoxDecoration(
                                       color: whiteFF_26,
                                       boxShadow: [
@@ -531,7 +524,6 @@ class _SingleCoursePageState extends State<SingleCoursePage>
                                       textColor: Colors.white),
                                 )),
                           } else ...{
-                            // information buttons
                             AnimatedPositioned(
                                 duration: const Duration(milliseconds: 350),
                                 bottom: showInformationButton ? 0 : -150,
@@ -555,7 +547,6 @@ class _SingleCoursePageState extends State<SingleCoursePage>
                                                 top: Radius.circular(30))),
                                     child: Column(
                                       children: [
-                                        // price or percent
                                         if ((courseData?.authHasBought ==
                                             false)) ...{
                                           if (token.isNotEmpty) ...{
@@ -764,7 +755,6 @@ class _SingleCoursePageState extends State<SingleCoursePage>
                                                 textColor: Colors.white),
                                           }
                                         } else ...{
-                                          // progress
                                           Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -833,7 +823,6 @@ class _SingleCoursePageState extends State<SingleCoursePage>
                                     ))),
 
                             if ((courseData?.authHasBought ?? false)) ...{
-                              // write a review
                               AnimatedPositioned(
                                   duration: const Duration(milliseconds: 350),
                                   bottom: canSubmitReview ? 0 : -150,
@@ -872,14 +861,16 @@ class _SingleCoursePageState extends State<SingleCoursePage>
                                   )),
                             },
 
-                            // leave a comment
                             AnimatedPositioned(
                                 duration: const Duration(milliseconds: 350),
                                 bottom: canSubmitComment ? 0 : -150,
                                 child: Container(
                                   width: getSize().width,
                                   padding: const EdgeInsets.only(
-                                      left: 20, right: 20, top: 20, bottom: 30),
+                                      left: 20,
+                                      right: 20,
+                                      top: 20,
+                                      bottom: 30),
                                   decoration: BoxDecoration(
                                       color: whiteFF_26,
                                       boxShadow: [
@@ -914,21 +905,15 @@ class _SingleCoursePageState extends State<SingleCoursePage>
 
   @override
   void dispose() {
+    // ✅ الأفضل تنظيف الكنترولرز حتى ما يصير leak
+    scrollController.dispose();
+    tabController.dispose();
     super.dispose();
   }
 }
 
 extension GlobalKeyExtension on GlobalKey {
   double? get findWidget {
-    // final renderObject = currentContext?.findRenderObject();
-    // final translation = renderObject?.getTransformTo(null).getTranslation();
-    // if (translation != null && renderObject?.paintBounds != null) {
-    //   final offset = Offset(translation.x, translation.y);
-    //   return renderObject!.paintBounds.shift(offset);
-    // } else {
-    //   return null;
-    // }
-
     RenderBox box = currentContext?.findRenderObject() as RenderBox;
     Offset position = box.localToGlobal(Offset.zero); //this is global position
     double y = position.dy;

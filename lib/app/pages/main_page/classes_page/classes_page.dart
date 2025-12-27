@@ -41,6 +41,7 @@ class _ClassesPageState extends State<ClassesPage> {
     super.initState();
 
     AppData.getAccessToken().then((value) {
+      if (!mounted) return;
       hasLogin = value.isNotEmpty;
       setState(() {});
     });
@@ -49,6 +50,7 @@ class _ClassesPageState extends State<ClassesPage> {
   }
 
   getData() async {
+    if (!mounted) return;
     setState(() {
       isLoading = true;
     });
@@ -65,6 +67,7 @@ class _ClassesPageState extends State<ClassesPage> {
       organizations = await UserService.getOrganizationCourse();
     }
 
+    if (!mounted) return;
     setState(() {
       isLoading = false;
     });
