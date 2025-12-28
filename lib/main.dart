@@ -2,6 +2,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'dart:io';
+import 'package:flutter_windowmanager_plus/flutter_windowmanager_plus.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:webinar/app/pages/authentication_page/login_page.dart';
@@ -79,6 +81,7 @@ import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:firebase_core/firebase_core.dart';
+import 'common/utils/screen_guard_ios.dart' as _screen_guard_ios;
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -93,6 +96,14 @@ void main() async {
 
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  if (Platform.isAndroid) {
+    await FlutterWindowManagerPlus.addFlags(
+      FlutterWindowManagerPlus.FLAG_SECURE,
+    );
+  } else if (Platform.isIOS) {
+    await _screen_guard_ios.ScreenGuardIOS.start();
+  }
 
   await Hive.initFlutter();
   Hive.registerAdapter(CourseModelDBAdapter());

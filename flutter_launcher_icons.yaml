@@ -1,0 +1,8 @@
+{
+  "image_path": "assets/image/png/Balsam Icon.png",
+  "android": true,
+  "ios": true,
+  "remove_alpha_ios": true,
+  "adaptive_icon_background": "#2196F3",
+  "adaptive_icon_foreground": "assets/image/png/Balsam Icon.png"
+}

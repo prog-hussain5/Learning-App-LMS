@@ -253,22 +253,11 @@ class _LoginPageState extends State<LoginPage> {
                         height: 52,
                         child: Row(
                           children: [
-                            // email
                             AuthWidget.accountTypeWidget(appText.email,
                                 otherRegisterMethod ?? '', 'email', () {
                               setState(() {
                                 otherRegisterMethod = 'email';
                                 isPhoneNumber = false;
-                                mailController.clear();
-                              });
-                            }),
-
-                            // email
-                            AuthWidget.accountTypeWidget(appText.phone,
-                                otherRegisterMethod ?? '', 'phone', () {
-                              setState(() {
-                                otherRegisterMethod = 'phone';
-                                isPhoneNumber = true;
                                 mailController.clear();
                               });
                             }),
@@ -280,52 +269,8 @@ class _LoginPageState extends State<LoginPage> {
                   // input
                   Column(
                     children: [
-                      if (isPhoneNumber) ...{
-                        // phone input
-                        Row(
-                          children: [
-                            // country code
-                            GestureDetector(
-                              onTap: () async {
-                                CountryCode? newData =
-                                    await RegisterWidget.showCountryDialog();
-
-                                if (newData != null) {
-                                  countryCode = newData;
-                                  setState(() {});
-                                }
-                              },
-                              behavior: HitTestBehavior.opaque,
-                              child: Container(
-                                width: 52,
-                                height: 52,
-                                decoration: BoxDecoration(
-                                    color: whiteFF_26,
-                                    borderRadius: borderRadius()),
-                                alignment: Alignment.center,
-                                child: ClipRRect(
-                                  borderRadius: borderRadius(radius: 50),
-                                  child: Image.asset(
-                                    countryCode.flagUri ?? '',
-                                    width: 21,
-                                    height: 19,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                            ),
-
-                            space(0, width: 15),
-
-                            Expanded(
-                                child: input(mailController, mailNode,
-                                    appText.phoneNumber))
-                          ],
-                        )
-                      } else ...{
-                        input(mailController, mailNode, appText.email,
-                            iconPathLeft: AppAssets.mailSvg, leftIconSize: 14),
-                      },
+                      input(mailController, mailNode, appText.email,
+                          iconPathLeft: AppAssets.mailSvg, leftIconSize: 14),
                       space(16),
                       input(passwordController, passwordNode, appText.password,
                           iconPathLeft: AppAssets.passwordSvg,
@@ -349,8 +294,8 @@ class _LoginPageState extends State<LoginPage> {
                             });
 
                             bool res = await AuthenticationService.login(
-                                '${isPhoneNumber ? countryCode.dialCode!.replaceAll('+', '') : ''}${mailController.text.trim()}',
-                                passwordController.text.trim());
+                              mailController.text.trim(),
+                              passwordController.text.trim());
 
                             if (res) {
                               if (Platform.isAndroid) {

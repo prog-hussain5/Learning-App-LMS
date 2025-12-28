@@ -1,5 +1,7 @@
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_windowmanager_plus/flutter_windowmanager_plus.dart';
 import 'package:webinar/app/models/content_model.dart';
 import 'package:webinar/app/models/forum_model.dart';
 import 'package:webinar/app/models/single_course_model.dart';
@@ -22,8 +24,7 @@ class LearningPage extends StatefulWidget {
   State<LearningPage> createState() => _LearningPageState();
 }
 
-class _LearningPageState extends State<LearningPage> with TickerProviderStateMixin{
-
+class _LearningPageState extends State<LearningPage> with TickerProviderStateMixin {
   SingleCourseModel? courseData;
   late TabController tabController;
 
@@ -33,300 +34,249 @@ class _LearningPageState extends State<LearningPage> with TickerProviderStateMix
 
   ForumModel? forumData;
   bool isShowForumButton = false;
-  
-  
+
   List<ContentModel> contents = [];
   bool isContentLoading = true;
 
   List<Tab> tabList = [];
 
-
   @override
   void initState() {
     super.initState();
 
+    _secureScreen();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       courseData = ModalRoute.of(context)!.settings.arguments as SingleCourseModel;
 
       Future.wait([getContentData(), getNoticesData(), getForumData()]).then((value) {
         isContentLoading = false;
-        
 
-        tabList = [ 
-
+        tabList = [
           Tab(
             text: appText.content,
             height: 32,
           ),
-          
-          if(courseData?.quizzes.isNotEmpty ?? true)...{
+          if (courseData?.quizzes.isNotEmpty ?? false) ...[
             Tab(
               text: appText.quizzes,
               height: 32,
             ),
-          },
-          
-          if(courseData?.certificates.isNotEmpty ?? true)...{
+          ],
+          if (courseData?.certificates.isNotEmpty ?? false) ...[
             Tab(
               text: appText.certificates,
               height: 32,
-            ), 
-          },
-          
-          if(noticesData.isNotEmpty)...{
+            ),
+          ],
+          if (noticesData.isNotEmpty) ...[
             Tab(
               text: appText.notices,
               height: 32,
-            ), 
-          },
-
-          if(courseData?.forum == 1)...{
+            ),
+          ],
+          if (courseData?.forum == 1) ...[
             Tab(
               text: appText.forum,
               height: 32,
-            ), 
-          }
-          
-
+            ),
+          ],
         ];
-        
 
         tabController = TabController(length: tabList.length, vsync: this);
 
-        if(courseData?.forum == 1){
+        if (courseData?.forum == 1) {
           tabListener();
         }
+
         setState(() {});
       });
-
-
     });
-
   }
 
-  onChangeTab(int i){
+  Future<void> _secureScreen() async {
+    if (Platform.isAndroid) {
+      await FlutterWindowManagerPlus.addFlags(
+        FlutterWindowManagerPlus.FLAG_SECURE,
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    if (tabList.isNotEmpty) {
+      tabController.dispose();
+    }
+    super.dispose();
+  }
+
+  void onChangeTab(int i) {
     setState(() {
       currentTab = i;
     });
   }
 
-
-  Future getContentData({bool canOffLoading=false}) async {
-
+  Future getContentData({bool canOffLoading = false}) async {
     setState(() {
       isContentLoading = true;
     });
 
     contents = await CourseService.getContent(courseData!.id!);
-    
-    if(canOffLoading){
+
+    if (canOffLoading) {
       setState(() {
         isContentLoading = false;
       });
     }
   }
 
-
   Future getNoticesData() async {
-
     noticesData = await CourseService.getNotices(courseData!.id!);
-    
     setState(() {});
   }
 
   Future getForumData() async {
-    forumData = await ForumService.getForumData(courseData!.id!,'');
-    
+    forumData = await ForumService.getForumData(courseData!.id!, '');
     setState(() {});
-
   }
 
-  tabListener(){
-
+  void tabListener() {
     tabController.addListener(() {
-      if(tabController.index == tabController.length - 1){
+      if (tabController.index == tabController.length - 1) {
         setState(() {
           isShowForumButton = true;
         });
-
-      }else{
-
-        if(isShowForumButton){
+      } else {
+        if (isShowForumButton) {
           setState(() {
             isShowForumButton = false;
           });
         }
       }
     });
-    
   }
-
 
   @override
   Widget build(BuildContext context) {
-
-
     return directionality(
       child: Scaffold(
-
         appBar: appbar(
           title: courseData?.title ?? '',
         ),
-        
         body: courseData == null
-      ? const SizedBox()
-      : Stack(
-          children: [
-            
-            Positioned.fill(
-              child: isContentLoading
-            ? loading()
-            : Column(
+            ? const SizedBox()
+            : Stack(
                 children: [
-          
-                  // tab bar
-                  SizedBox(
-                    width: getSize().width,
-                    child: tabBar(
-                      (i){}, 
-                      tabController, 
-                      tabList
-                    ),
-                  ),
-          
-                  space(8),
-          
-                  if(courseData != null)...{
-                    
-                    Expanded(
-                      child: TabBarView(
-                        controller: tabController,
-                        children: [
-                          
-                          isContentLoading
-                        ? Center(child: loading())
-                        : LearningWidget.contentPage(
-                            contents, 
-                            courseData!.id!,
-                            (){
-                              setState(() {});
-                            },
-                            (){
-                              getContentData(canOffLoading: true);
-                            }
+                  Positioned.fill(
+                    child: isContentLoading
+                        ? loading()
+                        : Column(
+                            children: [
+                              SizedBox(
+                                width: getSize().width,
+                                child: tabBar(
+                                  (i) {},
+                                  tabController,
+                                  tabList,
+                                ),
+                              ),
+                              space(8),
+                              Expanded(
+                                child: TabBarView(
+                                  controller: tabController,
+                                  children: [
+                                    isContentLoading
+                                        ? Center(child: loading())
+                                        : LearningWidget.contentPage(
+                                            contents,
+                                            courseData!.id!,
+                                            () => setState(() {}),
+                                            () => getContentData(canOffLoading: true),
+                                          ),
+                                    if (courseData?.quizzes.isNotEmpty ?? false) ...[
+                                      LearningWidget.quizezPage(courseData),
+                                    ],
+                                    if (courseData?.certificates.isNotEmpty ?? false) ...[
+                                      LearningWidget.certificates(courseData),
+                                    ],
+                                    if (noticesData.isNotEmpty) ...[
+                                      LearningWidget.notices(noticesData),
+                                    ],
+                                    if (courseData?.forum == 1) ...[
+                                      LearningWidget.forum(
+                                        forumData,
+                                        (i) {
+                                          setState(() {});
+                                          ForumService.pin(forumData!.forums![i].id!).then((value) {
+                                            getForumData();
+                                          });
+                                        },
+                                        () async => await getForumData(),
+                                      ),
+                                    ],
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
-          
-                          if(courseData?.quizzes.isNotEmpty ?? true)...{
-                            LearningWidget.quizezPage(courseData),
-                          },
-          
-                          if(courseData?.certificates.isNotEmpty ?? true)...{
-                            LearningWidget.certificates(courseData),
-                          },
-                          
-                          if(noticesData.isNotEmpty)...{
-                            LearningWidget.notices(noticesData),
-                          },
-
-                          if(courseData?.forum == 1)...{
-
-                            LearningWidget.forum(
-                              forumData,
-                              (i){
-                                setState(() {});
-
-                                ForumService.pin(forumData!.forums![i].id!).then((value) {
-                                  getForumData();
-                                });
-                              },
-                              () async {
-                                await getForumData();
-                              }
-                            ),
-                          }
-          
+                  ),
+                  AnimatedPositioned(
+                    duration: const Duration(milliseconds: 500),
+                    bottom: isShowForumButton ? 0 : -150,
+                    child: Container(
+                      width: getSize().width,
+                      padding: const EdgeInsets.only(
+                        left: 20,
+                        right: 20,
+                        top: 20,
+                        bottom: 30,
+                      ),
+                      decoration: BoxDecoration(
+                        color: whiteFF_26,
+                        boxShadow: [
+                          boxShadow(Colors.black.withOpacity(.1), blur: 15, y: -3),
                         ],
-                      )
-                    )
-                  }
-          
-          
-                ],
-              ),
-            ),
-
-            // forum button
-            AnimatedPositioned(
-              duration: const Duration(milliseconds: 500),
-              bottom: isShowForumButton ? 0 : -150,
-              child: Container(
-                width: getSize().width,
-                padding: const EdgeInsets.only(
-                  left: 20,
-                  right: 20,
-                  top: 20,
-                  bottom: 30
-                ),
-
-                decoration: BoxDecoration(
-                  color: whiteFF_26,
-                  boxShadow: [
-                    boxShadow(Colors.black.withOpacity(.1),blur: 15,y: -3)
-                  ],
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(30))
-                ),
-
-                child: Row(
-                  children: [
-                    
-                    Expanded(
-                      child:  button(
-                        onTap: () async {
-                          bool? res = await LearningWidget.forumNewQuestionSheet(courseData!.id!);
-
-                          if(res != null && res){
-                            getForumData();
-                          }
-                        },
-                        width: getSize().width, 
-                        height: 52, 
-                        text: appText.leaveAComment, 
-                        bgColor: green77(), 
-                        textColor: Colors.white
+                        borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: button(
+                              onTap: () async {
+                                final bool? res =
+                                    await LearningWidget.forumNewQuestionSheet(courseData!.id!);
+                                if (res == true) {
+                                  getForumData();
+                                }
+                              },
+                              width: getSize().width,
+                              height: 52,
+                              text: appText.leaveAComment,
+                              bgColor: green77(),
+                              textColor: Colors.white,
+                            ),
+                          ),
+                          if (forumData?.forums?.isNotEmpty ?? false) ...[
+                            space(0, width: 14),
+                            button(
+                              onTap: () {
+                                LearningWidget.forumSearchSheet(courseData!.id!);
+                              },
+                              width: 52,
+                              height: 52,
+                              text: '',
+                              bgColor: greyF8,
+                              textColor: Colors.white,
+                              iconPath: AppAssets.search2Svg,
+                            ),
+                          ],
+                        ],
                       ),
                     ),
-
-
-                    if(forumData?.forums?.isNotEmpty ?? false)...{
-
-                      space(0,width: 14),
-
-                      button(
-                        onTap: (){
-                          LearningWidget.forumSearchSheet(courseData!.id!);
-                        }, 
-                        width: 52, 
-                        height: 52, 
-                        text: '', 
-                        bgColor: greyF8, 
-                        textColor: Colors.white,
-                        iconPath: AppAssets.search2Svg
-                      )
-                    }
-
-                  ],
-                )
-              )
-            ),
-
-          ],
-        ),
-      )
+                  ),
+                ],
+              ),
+      ),
     );
   }
-
-
-  
-
 }
