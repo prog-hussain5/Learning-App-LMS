@@ -181,66 +181,66 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                                     children: [
                                             
                                             
-                                      // Featured Classes
-                                      Column(
-                                        children: [
-                                          HomeWidget.titleAndMore(appText.featuredClasses, isViewAll: false),
-                                            
-                                          if(locator<HomeProvider>().featuredListData.isNotEmpty || homeProvider.isLoadingFeaturedListData)...{
-                                            
-                                            SizedBox(
-                                              width: getSize().width,
-                                              height: 215,
-                                              child: PageView(
-                                                controller: sliderPageController,
-                                                onPageChanged: (value) async {
+                                      // COMMENTED: Featured Classes section
+                                      // Column(
+                                      //   children: [
+                                      //     HomeWidget.titleAndMore(appText.featuredClasses, isViewAll: false),
+                                      //       
+                                      //     if(locator<HomeProvider>().featuredListData.isNotEmpty || homeProvider.isLoadingFeaturedListData)...{
+                                      //       
+                                      //       SizedBox(
+                                      //         width: getSize().width,
+                                      //         height: 215,
+                                      //         child: PageView(
+                                      //           controller: sliderPageController,
+                                      //           onPageChanged: (value) async {
                                                   
-                                                  await Future.delayed(const Duration(milliseconds: 500));
+                                     // await Future.delayed(const Duration(milliseconds: 500));
                                                   
-                                                  setState(() {
-                                                    currentSliderIndex = value;
-                                                  });
-                                                },
-                                                physics: const BouncingScrollPhysics(),
-                                                children: List.generate( homeProvider.isLoadingFeaturedListData ? 1 : homeProvider.featuredListData.length, (index) {
-                                                  return homeProvider.isLoadingFeaturedListData
-                                                  ? courseSliderItemShimmer()
-                                                  : courseSliderItem(
-                                                      homeProvider.featuredListData[index]
-                                                    );
-                                                }),
-                                              ),
-                                            ),
-                                            
-                                            space(10),
-                                            
-                                            // indecator
-                                            SizedBox(
-                                              width: getSize().width,
-                                              height: 15,
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  ...List.generate(homeProvider.featuredListData.length, (index) {
-                                                    return AnimatedContainer(
-                                                      duration: const Duration(milliseconds: 200),
-                                                      width: currentSliderIndex == index ? 16 : 7,
-                                                      height: 7,
-                                                      margin: padding(horizontal: 2),
-                                                      decoration: BoxDecoration(
-                                                        color: green77(),
-                                                        borderRadius: borderRadius()
-                                                      ),
-                                                    );
-                                            
-                                                  }),
-                                                ],
-                                              ),
-                                            )
-                                            
-                                          },
-                                        ],
-                                      ),
+                                      //           setState(() {
+                                      //             currentSliderIndex = value;
+                                      //           });
+                                      //         },
+                                      //         physics: const BouncingScrollPhysics(),
+                                      //         children: List.generate( homeProvider.isLoadingFeaturedListData ? 1 : homeProvider.featuredListData.length, (index) {
+                                      //           return homeProvider.isLoadingFeaturedListData
+                                      //           ? courseSliderItemShimmer()
+                                      //           : courseSliderItem(
+                                      //               homeProvider.featuredListData[index]
+                                      //             );
+                                      //         }),
+                                      //       ),
+                                      //     ),
+                                      //     
+                                      //     space(10),
+                                      //     
+                                      //     // indecator
+                                      //     SizedBox(
+                                      //       width: getSize().width,
+                                      //       height: 15,
+                                      //       child: Row(
+                                      //         mainAxisAlignment: MainAxisAlignment.center,
+                                      //         children: [
+                                      //           ...List.generate(homeProvider.featuredListData.length, (index) {
+                                      //             return AnimatedContainer(
+                                      //               duration: const Duration(milliseconds: 200),
+                                      //               width: currentSliderIndex == index ? 16 : 7,
+                                      //               height: 7,
+                                      //               margin: padding(horizontal: 2),
+                                      //               decoration: BoxDecoration(
+                                      //                 color: green77(),
+                                      //                 borderRadius: borderRadius()
+                                      //               ),
+                                      //             );
+                                      //     
+                                      //           }),
+                                      //         ],
+                                      //       ),
+                                      //     )
+                                      //     
+                                      //   },
+                                      // ],
+                                      // ),
                                             
                                             
                                       // Newest Classes

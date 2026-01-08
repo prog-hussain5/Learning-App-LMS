@@ -101,7 +101,7 @@ class HomeWidget{
                                             padding: const EdgeInsetsDirectional.only(end: 8.0),
                                             child: Image.asset(
                                               AppAssets.balsamLogoColorWTransparent2xPng,
-                                              height: 32,
+                                              height: 50,
                                             ),
                                           ),
                                           Container(                                       
@@ -161,29 +161,31 @@ class HomeWidget{
                             ),
                           ),
                       
-                          AnimatedCrossFade(
-                            firstChild: Column(
-                              children: [
-                                input(
-                                  searchController, searchNode, appText.searchInputDesc,
-                                  iconPathLeft: AppAssets.searchSvg,isReadOnly: true,
-                                  fillColor: whiteFF_26,
-                                  onTap: (){
-                                    nextRoute(SuggestedSearchPage.pageName);
-                                  }
-                                ),
-                                
-                                space(16)
-                              ],
-                            ), 
-                            secondChild: SizedBox(width: getSize().width), 
-                             
-                            crossFadeState: (appBarAnimation.value < (150 + MediaQuery.of(navigatorKey.currentContext!).viewPadding.top)) 
-                              ? CrossFadeState.showSecond 
-                              : CrossFadeState.showFirst,
-
-                            duration: const Duration(milliseconds: 200), 
-                          )
+                          // COMMENTED: Search bar disabled
+                          // AnimatedCrossFade(
+                          //   firstChild: Column(
+                          //     children: [
+                          //       input(
+                          //         searchController, searchNode, appText.searchInputDesc,
+                          //         iconPathLeft: AppAssets.searchSvg,isReadOnly: true,
+                          //         fillColor: whiteFF_26,
+                          //         onTap: (){
+                          //           nextRoute(SuggestedSearchPage.pageName);
+                          //         }
+                          //       ),
+                          //       
+                          //       space(16)
+                          //     ],
+                          //   ), 
+                          //   secondChild: SizedBox(width: getSize().width), 
+                          //    
+                          //   crossFadeState: (appBarAnimation.value < (150 + MediaQuery.of(navigatorKey.currentContext!).viewPadding.top)) 
+                          //     ? CrossFadeState.showSecond 
+                          //     : CrossFadeState.showFirst,
+                          //
+                          //   duration: const Duration(milliseconds: 200), 
+                          // )
+                          SizedBox(width: getSize().width)
                         ],
                       ),
                     )

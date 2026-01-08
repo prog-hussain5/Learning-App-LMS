@@ -488,9 +488,43 @@ class _SingleCoursePageState extends State<SingleCoursePage>
                                     ),
                                   ),
                       ),
-
-                      // ✅ ملاحظة: بقية الأزرار AnimatedPositioned الموجودة في ملفك الأصلي
-                      // تبقى كما هي بدون تغيير (نفس القديم تماماً)
+                      
+                      // زر الانتقال لصفحة التعلم - يظهر دائماً للجميع
+                      Positioned(
+                        bottom: 0,
+                        child: Container(
+                          width: getSize().width,
+                          padding: const EdgeInsets.only(
+                            left: 20,
+                            right: 20,
+                            top: 20,
+                            bottom: 30
+                          ),
+                          decoration: BoxDecoration(
+                            color: whiteFF_26,
+                            boxShadow: [
+                              boxShadow(Colors.black.withOpacity(.1),blur: 15,y: -3)
+                            ],
+                            borderRadius: const BorderRadius.vertical(top: Radius.circular(30))
+                          ),
+                          child: button(
+                            onTap: (){
+                              if(courseData?.type == 'bundle'){
+                                tabController.animateTo(1);
+                              }else{
+                                nextRoute(LearningPage.pageName, arguments: courseData);
+                              }
+                            }, 
+                            width: getSize().width, 
+                            height: 52, 
+                            text: appText.goToLearningPage, 
+                            bgColor: green77(), 
+                            textColor: Colors.white,
+                            raduis: 15
+                          ),
+                        ),
+                      ),
+                      
                     ],
                   ),
       ),

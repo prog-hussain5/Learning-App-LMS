@@ -18,8 +18,9 @@ class AppDataBase{
 
   static Future getCoursesAndSaveInDB()async{
 
-    // get all purchase course
-    List<PurchaseCourseModel> purchaseData = await UserService.getPurchaseCourse();
+    try {
+      // get all purchase course
+      List<PurchaseCourseModel> purchaseData = await UserService.getPurchaseCourse();
 
     if(purchaseData.isNotEmpty){
       // open course box
@@ -56,6 +57,9 @@ class AppDataBase{
       courseBox.close();
       print('Finished !');
 
+    }
+    } catch(e) {
+      print('❌ Error in getCoursesAndSaveInDB: $e');
     }
   }
 

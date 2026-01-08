@@ -376,18 +376,19 @@ class _LoginPageState extends State<LoginPage> {
 
                   space(25),
 
-                  Center(
-                    child: GestureDetector(
-                      onTap: () {
-                        nextRoute(ForgetPasswordPage.pageName);
-                      },
-                      behavior: HitTestBehavior.opaque,
-                      child: Text(
-                        appText.forgetPassword,
-                        style: style16Regular().copyWith(color: greyB2),
-                      ),
-                    ),
-                  ),
+                  // COMMENTED: Forget password button disabled
+                  // Center(
+                  //   child: GestureDetector(
+                  //     onTap: () {
+                  //       nextRoute(ForgetPasswordPage.pageName);
+                  //     },
+                  //     behavior: HitTestBehavior.opaque,
+                  //     child: Text(
+                  //       appText.forgetPassword,
+                  //       style: style16Regular().copyWith(color: greyB2),
+                  //     ),
+                  //   ),
+                  // ),
 
                   space(25),
                 ],

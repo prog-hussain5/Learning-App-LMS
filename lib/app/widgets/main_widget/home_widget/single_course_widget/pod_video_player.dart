@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:webinar/common/common.dart';
+import 'package:webinar/config/colors.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class PodVideoPlayerDev extends StatefulWidget {
@@ -9,40 +10,47 @@ class PodVideoPlayerDev extends StatefulWidget {
   final RouteObserver<ModalRoute<void>> routeObserver;
   final ValueKey key;
 
-  const PodVideoPlayerDev(this.url,this.type, this.routeObserver,this.key,) : super(key: key);
+  const PodVideoPlayerDev(
+    this.url,
+    this.type,
+    this.routeObserver,
+    this.key,
+  ) : super(key: key);
 
   @override
   State<PodVideoPlayerDev> createState() => _VimeoVideoPlayerState();
 }
 
-class _VimeoVideoPlayerState extends State<PodVideoPlayerDev> with RouteAware, AutomaticKeepAliveClientMixin {
+class _VimeoVideoPlayerState extends State<PodVideoPlayerDev>
+    with RouteAware, AutomaticKeepAliveClientMixin {
   YoutubePlayerController? youtubeController;
 
   @override
   void initState() {
-    
     if (widget.type == 'youtube') {
       final videoId = YoutubePlayer.convertUrlToId(widget.url);
       youtubeController = YoutubePlayerController(
         initialVideoId: videoId ?? '',
-        flags: YoutubePlayerFlags(
+        flags: const YoutubePlayerFlags(
           autoPlay: false,
           mute: false,
+          enableCaption: true,
+          hideControls: false,
+          controlsVisibleAtStart: true,
+          forceHD: false,
+          disableDragSeek: false,
         ),
       );
     }
 
-    
     super.initState();
   }
-
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     widget.routeObserver.subscribe(this, ModalRoute.of(context)!);
   }
-
 
   @override
   void dispose() {
@@ -79,17 +87,29 @@ class _VimeoVideoPlayerState extends State<PodVideoPlayerDev> with RouteAware, A
           width: getSize().width,
           child: widget.type == 'youtube'
               ? (youtubeController != null
-                  ? YoutubePlayer(
-                      controller: youtubeController!,
-                      showVideoProgressIndicator: true,
+                  ? YoutubePlayerBuilder(
+                      player: YoutubePlayer(
+                        controller: youtubeController!,
+                        showVideoProgressIndicator: true,
+                        progressIndicatorColor: green77(),
+                        progressColors: ProgressBarColors(
+                          playedColor: green77(),
+                          handleColor: green77(),
+                        ),
+                      ),
+                      builder: (context, player) {
+                        return player;
+                      },
                     )
                   : Center(child: Text('لا يمكن عرض الفيديو، الرابط غير صحيح')))
-              : Center(child: Text('نوع الفيديو غير مدعوم')), // يمكنك إضافة دعم vimeo لاحقاً
+              : Center(
+                  child: Text(
+                      'نوع الفيديو غير مدعوم')), // يمكنك إضافة دعم vimeo لاحقاً
         ),
       ),
     );
   }
-  
+
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;

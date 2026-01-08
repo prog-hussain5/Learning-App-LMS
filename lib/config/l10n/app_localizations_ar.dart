@@ -9,7 +9,7 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get webinar => 'أكاديمية بلسم الطبية';
+  String get webinar => 'اكاديمية  الطبية ترحب بكم';
 
   @override
   String get splashDesc => 'أسهل طريقة للتعلم';
@@ -167,7 +167,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get hi => 'مرحباً، ';
 
   @override
-  String get letsStartLearning => 'اكاديمية  الطبية ترحب بكم';
+  String get letsStartLearning => 'مستقبل التعليم في العراق';
 
   @override
   String get searchInputDesc => 'ماذا تريد أن تتعلم؟';

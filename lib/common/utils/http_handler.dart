@@ -41,6 +41,14 @@ Future<Response> httpGet(String url,{Map<String, String> headers = const {},bool
   http.Response res = http.Response(await response.stream.bytesToString(), response.statusCode);
 
 
+  // Check if response is HTML (possible server error or hack)
+  if(res.body.trim().toLowerCase().startsWith('<!doctype') || 
+     res.body.trim().toLowerCase().startsWith('<html')){
+    print('❌ ERROR: Server returned HTML instead of JSON');
+    print('Response preview: ${res.body.substring(0, res.body.length > 200 ? 200 : res.body.length)}...');
+    return res;
+  }
+
   // ip empty state
   try{
     var data = jsonDecode(res.body);
@@ -51,7 +59,9 @@ Future<Response> httpGet(String url,{Map<String, String> headers = const {},bool
       }
       return res;
     }
-  }catch(_){}
+  }catch(e){
+    print('❌ JSON Decode Error: $e');
+  }
 
   if (res.statusCode == 401) {
       nextRoute(
