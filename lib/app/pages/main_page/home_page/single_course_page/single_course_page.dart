@@ -69,12 +69,14 @@ class _SingleCoursePageState extends State<SingleCoursePage>
   List<ContentModel> contentData = [];
 
   int? commentId;
+  bool isVideoFullscreen = false;
 
   @override
   void initState() {
     super.initState();
 
     _secureScreen();
+    _checkOrientation();
 
     tabController = TabController(length: 4, vsync: this);
 
@@ -131,6 +133,20 @@ class _SingleCoursePageState extends State<SingleCoursePage>
       );
     }
     // iOS: placeholder لمعالجة السكرين شوت لاحقاً
+  }
+
+  void _checkOrientation() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        final orientation = MediaQuery.of(context).orientation;
+        final newIsFullscreen = orientation == Orientation.landscape;
+        if (isVideoFullscreen != newIsFullscreen) {
+          setState(() {
+            isVideoFullscreen = newIsFullscreen;
+          });
+        }
+      }
+    });
   }
 
   void offAllTabs() {
@@ -232,6 +248,7 @@ class _SingleCoursePageState extends State<SingleCoursePage>
 
   @override
   Widget build(BuildContext context) {
+    _checkOrientation();
     return directionality(
       child: Scaffold(
         appBar: appbar(
@@ -489,10 +506,11 @@ class _SingleCoursePageState extends State<SingleCoursePage>
                                   ),
                       ),
                       
-                      // زر الانتقال لصفحة التعلم - يظهر دائماً للجميع
-                      Positioned(
-                        bottom: 0,
-                        child: Container(
+                      // زر الانتقال لصفحة التعلم - يختفي في fullscreen
+                      if(!isVideoFullscreen)...{
+                        Positioned(
+                          bottom: 0,
+                          child: Container(
                           width: getSize().width,
                           padding: const EdgeInsets.only(
                             left: 20,
@@ -523,7 +541,8 @@ class _SingleCoursePageState extends State<SingleCoursePage>
                             raduis: 15
                           ),
                         ),
-                      ),
+                        ),
+                      }
                       
                     ],
                   ),

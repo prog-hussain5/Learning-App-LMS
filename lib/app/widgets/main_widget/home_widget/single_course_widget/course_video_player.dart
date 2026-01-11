@@ -79,12 +79,10 @@ class _CourseVideoPlayerState extends State<CourseVideoPlayer> with RouteAware {
             autoPlay: true,
             looping: false,
             showControls: true,
-            aspectRatio: controller.value.aspectRatio,
             allowFullScreen: true,
             allowMuting: true,
             showControlsOnInitialize: true,
-            // Custom controls with blue icons
-            customControls: MaterialControls(),
+            autoInitialize: true,
             materialProgressColors: ChewieProgressColors(
               playedColor: blue64(),
               handleColor: blue64(),
@@ -130,12 +128,10 @@ class _CourseVideoPlayerState extends State<CourseVideoPlayer> with RouteAware {
               autoPlay: true,
               looping: false,
               showControls: true,
-              aspectRatio: controller.value.aspectRatio,
               allowFullScreen: true,
               allowMuting: true,
               showControlsOnInitialize: true,
-              // Custom controls with blue icons
-              customControls: MaterialControls(),
+              autoInitialize: true,
               materialProgressColors: ChewieProgressColors(
                 playedColor: blue64(),
                 handleColor: blue64(),
