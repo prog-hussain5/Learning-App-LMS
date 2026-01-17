@@ -78,6 +78,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
 
   getData() async {
 
+    if (!mounted) return;
     setState(() {
       isLoading = true;
     });
@@ -96,6 +97,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
       reward: locator<FilterCourseProvider>().rewardCourse
     );
     
+    if (!mounted) return;
     setState(() {
       isLoading = false;
     });
@@ -107,6 +109,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
 
       locator<FilterCourseProvider>().filters = filters;
 
+      if (!mounted) return;
       setState(() {});
     }
   }
@@ -114,6 +117,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
   getFeatured(){
     if(category != null){
       CourseService.featuredCourse(cat: category!.id!.toString()).then((value) {
+        if (!mounted) return;
         setState(() {
           featuredListData = value;
         });
@@ -256,6 +260,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
                                     
                                     await Future.delayed(const Duration(milliseconds: 500));
                                     
+                                    if (!mounted) return;
                                     setState(() {
                                       currentSliderIndex = value;
                                     });
@@ -367,6 +372,8 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
 
   @override
   void dispose() {
+    scrollController.dispose();
+    sliderPageController.dispose();
     locator<FilterCourseProvider>().clearFilter();
     super.dispose();
   }

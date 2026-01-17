@@ -1,5 +1,7 @@
 import UIKit
 import Flutter
+import FirebaseCore
+import FirebaseMessaging
 
 @main
 @objc class AppDelegate: FlutterAppDelegate {
@@ -10,6 +12,9 @@ import Flutter
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
+      // Initialize Firebase
+      FirebaseApp.configure()
+      
       GeneratedPluginRegistrant.register(with: self)
 
       // MethodChannel الربط مع Flutter

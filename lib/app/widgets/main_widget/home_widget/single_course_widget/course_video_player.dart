@@ -83,6 +83,7 @@ class _CourseVideoPlayerState extends State<CourseVideoPlayer> with RouteAware {
             allowMuting: true,
             showControlsOnInitialize: true,
             autoInitialize: true,
+            useRootNavigator: true,
             materialProgressColors: ChewieProgressColors(
               playedColor: blue64(),
               handleColor: blue64(),
@@ -132,6 +133,7 @@ class _CourseVideoPlayerState extends State<CourseVideoPlayer> with RouteAware {
               allowMuting: true,
               showControlsOnInitialize: true,
               autoInitialize: true,
+              useRootNavigator: true,
               materialProgressColors: ChewieProgressColors(
                 playedColor: blue64(),
                 handleColor: blue64(),
@@ -169,35 +171,10 @@ class _CourseVideoPlayerState extends State<CourseVideoPlayer> with RouteAware {
         if (isShowVideoPlayer && chewieController != null) ...{
           Container(
             width: getSize().width,
-            alignment: Alignment.center,
-            child: ClipRRect(
-              borderRadius: borderRadius(),
-              child: AspectRatio(
-                aspectRatio: controller.value.aspectRatio,
-                child: OrientationBuilder(
-                  builder: (context, orientation) {
-                    // Auto-enter fullscreen when landscape
-                    if (orientation == Orientation.landscape &&
-                        chewieController != null &&
-                        !chewieController!.isFullScreen) {
-                      Future.delayed(Duration.zero, () {
-                        chewieController!.enterFullScreen();
-                      });
-                    }
-                    // Auto-exit fullscreen when portrait
-                    else if (orientation == Orientation.portrait &&
-                        chewieController != null &&
-                        chewieController!.isFullScreen) {
-                      Future.delayed(Duration.zero, () {
-                        chewieController!.exitFullScreen();
-                      });
-                    }
-
-                    return Chewie(
-                      controller: chewieController!,
-                    );
-                  },
-                ),
+            child: AspectRatio(
+              aspectRatio: controller.value.aspectRatio,
+              child: Chewie(
+                controller: chewieController!,
               ),
             ),
           ),

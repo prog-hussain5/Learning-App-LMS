@@ -279,7 +279,9 @@ class _SingleCoursePageState extends State<SingleCoursePage>
                                 ? SingleCourseWidget.pendingVerification()
                                 : NestedScrollView(
                                     controller: scrollController,
-                                    physics: const BouncingScrollPhysics(),
+                                    physics: isVideoFullscreen 
+                                      ? const NeverScrollableScrollPhysics()
+                                      : const BouncingScrollPhysics(),
                                     floatHeaderSlivers: false,
                                     headerSliverBuilder:
                                         (context, innerBoxIsScrolled) {

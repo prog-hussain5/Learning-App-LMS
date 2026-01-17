@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:594263645890:android:df87de41a0e67a0001a55b",
+        "mobilesdk_app_id": "1:594263645890:android:9c581002b3cab7c101a55b",
         "android_client_info": {
-          "package_name": "Academy.balsam.med"
+          "package_name": "com.balsamacademy.app"
         }
       },
       "oauth_client": [],

@@ -179,7 +179,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get featuredClasses => 'فئات مميزة';
 
   @override
-  String get newestClasses => 'أحدث الفئات';
+  String get newestClasses => 'كورساتي';
 
   @override
   String get bestRated => 'الأعلى تقييماً';

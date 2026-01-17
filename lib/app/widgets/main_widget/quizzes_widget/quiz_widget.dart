@@ -30,24 +30,27 @@ class QuizWidget{
 
           // timer
           Center(
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                AnimatedFlipCounter(
-                  duration: const Duration(milliseconds: 300),
-                  value: quizTime?.inMinutes ?? 0, 
-                  wholeDigits: 2,
-                  suffix: ':',
-                  textStyle: style16Bold().copyWith(color: Colors.white),
-                ),
-                AnimatedFlipCounter(
-                  duration: const Duration(milliseconds: 300),
-                  value: (seconds ?? 0),
-                  
-                  wholeDigits: 2,
-                  textStyle: style16Bold().copyWith(color: Colors.white),
-                )
-              ],
+            child: Directionality(
+              textDirection: TextDirection.ltr,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  AnimatedFlipCounter(
+                    duration: const Duration(milliseconds: 300),
+                    value: (seconds ?? 0) ~/ 60, 
+                    wholeDigits: 2,
+                    suffix: ':',
+                    textStyle: style16Bold().copyWith(color: Colors.white),
+                  ),
+                  AnimatedFlipCounter(
+                    duration: const Duration(milliseconds: 300),
+                    value: (seconds ?? 0) % 60,
+                    
+                    wholeDigits: 2,
+                    textStyle: style16Bold().copyWith(color: Colors.white),
+                  )
+                ],
+              ),
             ),
           ),
 

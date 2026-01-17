@@ -51,7 +51,7 @@
 
 
     <application
-        android:label="أكاديمية بلسم الطبية"
+        android:label="أكاديمية بلسم"
         android:usesCleartextTraffic="true"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

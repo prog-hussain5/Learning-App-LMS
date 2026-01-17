@@ -101,10 +101,7 @@ class _SettingPageState extends State<SettingPage> with TickerProviderStateMixin
   void initState() {
     super.initState();
     
-    tabController = TabController(length: 4, vsync: this);
-
-    emailController.text = locator<UserProvider>().profile?.email ?? '';
-    nameController.text = locator<UserProvider>().profile?.fullName ?? '';
+    tabController = TabController(length: 2, vsync: this);
     phoneController.text = locator<UserProvider>().profile?.mobile ?? '';
     refUrlController.text = locator<UserProvider>().profile?.mobile ?? '';
 
@@ -273,8 +270,6 @@ class _SettingPageState extends State<SettingPage> with TickerProviderStateMixin
                       title: tabBar((p0) {}, tabController, [
                         Tab(text: appText.general, height: 32),
                         Tab(text: appText.security, height: 32),
-                        Tab(text: appText.financial, height: 32),
-                        Tab(text: appText.localization, height: 32),
                       ]),
                     ),
 
@@ -336,78 +331,7 @@ class _SettingPageState extends State<SettingPage> with TickerProviderStateMixin
                       }
                     ),
               
-              
-                    SettingWidget.financialPage(
-                      accountTypeController, accountTypeNode, ibanController, ibanNode,
-                      accountIdController, accountIdNode, addressController, addressNode, 
-                      (){
-                        setState(() {});
-                      },
-                      indentityScanImage,
-                      certificateImage,
-                      locator<UserProvider>().profile?.identityScan != null,
-                      locator<UserProvider>().profile?.certificate != null,
-                      (ImageSource source) async { //selectIndentityImage 
-                        
-                        final ImagePicker picker = ImagePicker();
-                        final XFile? image = await picker.pickImage(source: source);
-              
-                        if(image != null){
-                          indentityScanImage = await compressImage(image);
-              
-                          setState(() {});
-                        }
-              
-                      },
-                      () async {
-                        final ImagePicker picker = ImagePicker();
-                        final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-              
-                        if(image != null){
-                          certificateImage = await compressImage(image);
-              
-                          setState(() {});
-                        }
-                      }
-                    ),
-                    
-              
-                    SettingWidget.localizationPage(
-                      countries,
-                      selectedCountry,
-                      (data){
-                        selectedCountry = data;
-                        setState(() {});
-                      },
-              
-                      timeZoneData,
-                      timeZoneSelected,
-                      (data){
-                        timeZoneSelected = data;
-                        setState(() {});
-                      },
-                      
-                      provinceSelectedId,
-                      (id){
-                        provinceSelectedId = id;
-                        setState(() {});
-                      },
-                      
-                      citySelectedId,
-                      (id){
-                        citySelectedId = id;
-                        setState(() {});
-                      },
-                      
-                      districtSelectedId,
-                      (id){
-                        districtSelectedId = id;
-                        setState(() {});
-                      },
-              
-                    )
-              
-                  ]
+                  ],
                 ),
                 
               )

@@ -25,12 +25,12 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace = "Academy.balsam.med"
+    namespace = "com.balsamacademy.app"
     compileSdk = 36
     ndkVersion = "29.0.13113456 rc1"
 
     defaultConfig {
-        applicationId = "Academy.balsam.med"
+        applicationId = "com.balsamacademy.app"
         minSdk = flutter.minSdkVersion
         targetSdk = 36
         versionCode = flutterVersionCode
@@ -72,6 +72,15 @@ flutter {
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.0")
     implementation("com.facebook.android:facebook-android-sdk:[8,9)")
-    implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
+    
+    // Import the Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:34.8.0"))
+    
+    // Firebase Analytics
+    implementation("com.google.firebase:firebase-analytics")
+    
+    // Firebase Cloud Messaging (already added by flutter plugin, but ensuring it's here)
+    implementation("com.google.firebase:firebase-messaging")
+    
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.2")
 }

@@ -119,19 +119,19 @@ flutter_native_splash:
   ios: true
   web: false
   color: "#0071ff"
-  image: assets/image/png/Balsam Icon.png
+  image: assets/image/png/Balsam AppIcon@2x.png
   fullscreen: true
   android_12:
-    image: assets/image/png/Balsam Icon.png
+    image: assets/image/png/Balsam AppIcon@2x.png
     color: "#0071ff"
 
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path: "assets/image/png/Balsam Icon.png"
+  image_path: "assets/image/png/Balsam AppIcon@2x.png"
   remove_alpha_ios: true
   adaptive_icon_background: "#0071ff"
-  adaptive_icon_foreground: "assets/image/png/Balsam Icon.png"
+  adaptive_icon_foreground: "assets/image/png/Balsam AppIcon@2x.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

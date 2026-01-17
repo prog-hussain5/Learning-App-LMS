@@ -32,13 +32,17 @@ class _VimeoVideoPlayerState extends State<PodVideoPlayerDev>
       youtubeController = YoutubePlayerController(
         initialVideoId: videoId ?? '',
         flags: const YoutubePlayerFlags(
-          autoPlay: false,
-          mute: false,
-          enableCaption: true,
-          hideControls: false,
-          controlsVisibleAtStart: true,
-          forceHD: false,
-          disableDragSeek: false,
+          autoPlay: false,              // تشغيل تلقائي عند فتح الفيديو
+          mute: false,                   // كتم الصوت عند البداية
+          enableCaption: false,          // إخفاء الترجمة/الشرح (CC)
+          hideControls: false,           // إخفاء أزرار التحكم بالكامل
+          controlsVisibleAtStart: true,  // إظهار أزرار التحكم عند البداية
+          forceHD: false,                // إجبار جودة عالية HD
+          disableDragSeek: false,        // منع التقديم والترجيع بالسحب
+          hideThumbnail: false,          // إخفاء صورة الفيديو المصغرة
+          loop: false,                   // تكرار الفيديو تلقائياً
+          isLive: false,                 // وضع البث المباشر
+          useHybridComposition: true,    // تحسين الأداء على Android
         ),
       );
     }
@@ -91,11 +95,31 @@ class _VimeoVideoPlayerState extends State<PodVideoPlayerDev>
                       player: YoutubePlayer(
                         controller: youtubeController!,
                         showVideoProgressIndicator: true,
-                        progressIndicatorColor: green77(),
+                        progressIndicatorColor: Colors.blue,
                         progressColors: ProgressBarColors(
-                          playedColor: green77(),
-                          handleColor: green77(),
+                          playedColor: Colors.blue,
+                          handleColor: Colors.blue,
+                          bufferedColor: Colors.grey.withOpacity(0.5),
+                          backgroundColor: Colors.black26,
                         ),
+                        actionsPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        bottomActions: [
+                          CurrentPosition(),
+                          const SizedBox(width: 10),
+                          ProgressBar(
+                            isExpanded: true,
+                            colors: ProgressBarColors(
+                              playedColor: Colors.blue,
+                              handleColor: Colors.blue,
+                              bufferedColor: Colors.grey.withOpacity(0.5),
+                              backgroundColor: Colors.black26,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          RemainingDuration(),
+                          const SizedBox(width: 10),
+                          const FullScreenButton(),
+                        ],
                       ),
                       builder: (context, player) {
                         return player;
