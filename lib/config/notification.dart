@@ -24,7 +24,7 @@ Future<void> setupFlutterNotifications() async {
   );
 
   const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings(
-    '@mipmap/ic_notification'
+    '@mipmap/ic_launcher'
   );
   DarwinInitializationSettings initializationSettingsDarwin = const DarwinInitializationSettings(
     defaultPresentAlert: true,
@@ -93,7 +93,7 @@ void showFlutterNotification(RemoteMessage message) {
     channelDescription: channel.description,
     importance: Importance.max,
     priority: Priority.max,
-    icon: '@drawable/ic_notification',
+    icon: '@mipmap/ic_launcher',
   );
   
   const DarwinNotificationDetails darwinNotificationDetails =  DarwinNotificationDetails(

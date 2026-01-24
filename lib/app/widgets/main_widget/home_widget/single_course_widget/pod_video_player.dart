@@ -24,6 +24,7 @@ class PodVideoPlayerDev extends StatefulWidget {
 class _VimeoVideoPlayerState extends State<PodVideoPlayerDev>
     with RouteAware, AutomaticKeepAliveClientMixin {
   YoutubePlayerController? youtubeController;
+  bool _isFullScreen = false;
 
   @override
   void initState() {
@@ -32,17 +33,17 @@ class _VimeoVideoPlayerState extends State<PodVideoPlayerDev>
       youtubeController = YoutubePlayerController(
         initialVideoId: videoId ?? '',
         flags: const YoutubePlayerFlags(
-          autoPlay: false,              // تشغيل تلقائي عند فتح الفيديو
-          mute: false,                   // كتم الصوت عند البداية
-          enableCaption: false,          // إخفاء الترجمة/الشرح (CC)
-          hideControls: false,           // إخفاء أزرار التحكم بالكامل
-          controlsVisibleAtStart: true,  // إظهار أزرار التحكم عند البداية
-          forceHD: false,                // إجبار جودة عالية HD
-          disableDragSeek: false,        // منع التقديم والترجيع بالسحب
-          hideThumbnail: false,          // إخفاء صورة الفيديو المصغرة
-          loop: false,                   // تكرار الفيديو تلقائياً
-          isLive: false,                 // وضع البث المباشر
-          useHybridComposition: true,    // تحسين الأداء على Android
+          autoPlay: false,
+          mute: false,
+          enableCaption: false,
+          hideControls: false,
+          controlsVisibleAtStart: true,
+          forceHD: false,
+          disableDragSeek: false,
+          hideThumbnail: false,
+          loop: false,
+          isLive: false,
+          useHybridComposition: true,
         ),
       );
     }
@@ -70,12 +71,46 @@ class _VimeoVideoPlayerState extends State<PodVideoPlayerDev>
   void didPush() {}
 
   @override
-  @override
   void didPushNext() {
-    // final route = ModalRoute.of(context)?.settings.name;
+    if (_isFullScreen) return;
     try {
+      if (youtubeController == null || youtubeController!.value.isFullScreen) {
+        return;
+      }
       youtubeController?.pause();
     } catch (_) {}
+  }
+
+  void _openFullScreen() async {
+    if (youtubeController == null) return;
+    _isFullScreen = true;
+    final currentPos = youtubeController!.value.position;
+    final videoId = YoutubePlayer.convertUrlToId(widget.url) ?? '';
+    
+    youtubeController!.pause();
+
+    final result = await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => _FullScreenVideoPlayer(
+          videoId: videoId,
+          startAt: currentPos.inSeconds,
+        ),
+      ),
+    );
+
+    _isFullScreen = false;
+    
+    if (result != null && result is Duration) {
+      youtubeController!.seekTo(result);
+    }
+    
+    // إعادة بناء الواجهة بعد العودة وتأكيد الوضع العمودي
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
@@ -91,39 +126,39 @@ class _VimeoVideoPlayerState extends State<PodVideoPlayerDev>
           width: getSize().width,
           child: widget.type == 'youtube'
               ? (youtubeController != null
-                  ? YoutubePlayerBuilder(
-                      player: YoutubePlayer(
-                        controller: youtubeController!,
-                        showVideoProgressIndicator: true,
-                        progressIndicatorColor: Colors.blue,
-                        progressColors: ProgressBarColors(
-                          playedColor: Colors.blue,
-                          handleColor: Colors.blue,
-                          bufferedColor: Colors.grey.withOpacity(0.5),
-                          backgroundColor: Colors.black26,
-                        ),
-                        actionsPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                        bottomActions: [
-                          CurrentPosition(),
-                          const SizedBox(width: 10),
-                          ProgressBar(
-                            isExpanded: true,
-                            colors: ProgressBarColors(
-                              playedColor: Colors.blue,
-                              handleColor: Colors.blue,
-                              bufferedColor: Colors.grey.withOpacity(0.5),
-                              backgroundColor: Colors.black26,
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          RemainingDuration(),
-                          const SizedBox(width: 10),
-                          const FullScreenButton(),
-                        ],
+                  ? YoutubePlayer(
+                      controller: youtubeController!,
+                      showVideoProgressIndicator: true,
+                      progressIndicatorColor: Colors.blue,
+                      progressColors: ProgressBarColors(
+                        playedColor: Colors.blue,
+                        handleColor: Colors.blue,
+                        bufferedColor: Colors.grey.withOpacity(0.5),
+                        backgroundColor: Colors.black26,
                       ),
-                      builder: (context, player) {
-                        return player;
-                      },
+                      actionsPadding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
+                      bottomActions: [
+                        CurrentPosition(),
+                        const SizedBox(width: 10),
+                        ProgressBar(
+                          isExpanded: true,
+                          colors: ProgressBarColors(
+                            playedColor: Colors.blue,
+                            handleColor: Colors.blue,
+                            bufferedColor: Colors.grey.withOpacity(0.5),
+                            backgroundColor: Colors.black26,
+                          ),
+                        ),
+                        const SizedBox(width: 5),
+                        RemainingDuration(),
+                        const SizedBox(width: 5),
+                        IconButton(
+                          icon: const Icon(Icons.fullscreen,
+                              color: Colors.white),
+                          onPressed: _openFullScreen,
+                        ),
+                      ],
                     )
                   : Center(child: Text('لا يمكن عرض الفيديو، الرابط غير صحيح')))
               : Center(
@@ -137,4 +172,110 @@ class _VimeoVideoPlayerState extends State<PodVideoPlayerDev>
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
+}
+
+// Full Screen Video Player Widget
+class _FullScreenVideoPlayer extends StatefulWidget {
+  final String videoId;
+  final int startAt;
+
+  const _FullScreenVideoPlayer({
+    required this.videoId,
+    required this.startAt,
+  });
+
+  @override
+  State<_FullScreenVideoPlayer> createState() => _FullScreenVideoPlayerState();
+}
+
+class _FullScreenVideoPlayerState extends State<_FullScreenVideoPlayer> {
+  late YoutubePlayerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+
+    _controller = YoutubePlayerController(
+      initialVideoId: widget.videoId,
+      flags: YoutubePlayerFlags(
+        autoPlay: true,
+        startAt: widget.startAt,
+        mute: false,
+        enableCaption: false,
+        hideControls: false,
+        controlsVisibleAtStart: true,
+        forceHD: false,
+        disableDragSeek: false,
+        hideThumbnail: false,
+        loop: false,
+        isLive: false,
+        useHybridComposition: true,
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Future<bool> _onWillPop() async {
+    Navigator.of(context).pop(_controller.value.position);
+    return false;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        body: Center(
+          child: YoutubePlayer(
+            controller: _controller,
+            showVideoProgressIndicator: true,
+            progressIndicatorColor: Colors.blue,
+            progressColors: ProgressBarColors(
+              playedColor: Colors.blue,
+              handleColor: Colors.blue,
+              bufferedColor: Colors.grey.withOpacity(0.5),
+              backgroundColor: Colors.black26,
+            ),
+            bottomActions: [
+              CurrentPosition(),
+              const SizedBox(width: 10),
+              ProgressBar(
+                isExpanded: true,
+                colors: ProgressBarColors(
+                  playedColor: Colors.blue,
+                  handleColor: Colors.blue,
+                  bufferedColor: Colors.grey.withOpacity(0.5),
+                  backgroundColor: Colors.black26,
+                ),
+              ),
+              const SizedBox(width: 10),
+              RemainingDuration(),
+              const SizedBox(width: 10),
+              IconButton(
+                icon: const Icon(Icons.fullscreen_exit, color: Colors.white),
+                onPressed: () {
+                  _onWillPop();
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
