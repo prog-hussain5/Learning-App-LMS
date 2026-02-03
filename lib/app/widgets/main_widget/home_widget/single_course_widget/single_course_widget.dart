@@ -1463,35 +1463,32 @@ class SingleCourseWidget{
 
             },
 
-            // share
-            GestureDetector(
-              onTap: (){
-                backRoute();
+            // share - HIDDEN 2026-02-03: إخفاء كامل لميزة المشاركة بسبب تعليق التطبيق
+            // تم إخفاء الزر بالكامل من الواجهة بناءً على طلب العميل
+            // OLD CODE (COMMENTED OUT):
+            // GestureDetector(
+            //   onTap: (){
+            //     backRoute();
+            //     try{
+            //       Share.share(courseData.link ?? '');
+            //     }catch(e){}
+            //   },
+            //   behavior: HitTestBehavior.opaque,
+            //   child: Row(
+            //     children: [
+            //       SvgPicture.asset(AppAssets.shareSvg, colorFilter: ColorFilter.mode(greyA5, BlendMode.srcIn),),
+            //       space(0,width: 8),
+            //       Text(
+            //         appText.share,
+            //         style: style16Regular(),
+            //       ),
+            //     ],
+            //   ),
+            // ),
 
-                try{
-                  Share.share(courseData.link ?? '');
-                }catch(e){}
-                
-              },
-              behavior: HitTestBehavior.opaque,
-              child: Row(
-                children: [
-          
-                  SvgPicture.asset(AppAssets.shareSvg, colorFilter: ColorFilter.mode(greyA5, BlendMode.srcIn),),
-          
-                  space(0,width: 8),
-          
-                  Text(
-                    appText.share,
-                    style: style16Regular(),
-                  ),
-          
-                ],
-              ),
-            ),
+            // تم حذف الكود الذي كان يعرض الزر المعطل - الآن الميزة مخفية بالكامل
 
-
-            space(28),
+            // space(28), // تم حذف المسافة أيضاً لأن الميزة مخفية
             
             // report
             GestureDetector(

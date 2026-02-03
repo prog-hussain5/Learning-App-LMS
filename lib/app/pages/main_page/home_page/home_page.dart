@@ -246,11 +246,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                                       // Newest Classes
                                       Column(
                                         children: [
-                                          HomeWidget.titleAndMore(appText.newestClasses, onTapViewAll: (){
-                                            locator<FilterCourseProvider>().clearFilter();
-                                            locator<FilterCourseProvider>().sort = 'newest';
-                                            nextRoute(FilterCategoryPage.pageName);
-                                          }),
+                                          // DISABLED 2026-02-03: تعطيل زر "عرض الكل" في قسم الكورسات الجديدة
+                                          // OLD CODE:
+                                          // HomeWidget.titleAndMore(appText.newestClasses, onTapViewAll: (){
+                                          //   locator<FilterCourseProvider>().clearFilter();
+                                          //   locator<FilterCourseProvider>().sort = 'newest';
+                                          //   nextRoute(FilterCategoryPage.pageName);
+                                          // }),
+                                          
+                                          // NEW CODE: عرض العنوان فقط بدون زر "عرض الكل"
+                                          HomeWidget.titleAndMore(appText.newestClasses, isViewAll: false),
                                             
                                           SizedBox(
                                             width: getSize().width,
@@ -310,11 +315,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                                         Column(
                                           children: [
                                               
-                                            HomeWidget.titleAndMore(appText.bestRated, onTapViewAll: (){
-                                              locator<FilterCourseProvider>().clearFilter();
-                                              locator<FilterCourseProvider>().sort = 'best_rates';
-                                              nextRoute(FilterCategoryPage.pageName);
-                                            }),
+                                            // DISABLED 2026-02-03: تعطيل زر "عرض الكل" في قسم الأعلى تقييماً
+                                            // OLD CODE:
+                                            // HomeWidget.titleAndMore(appText.bestRated, onTapViewAll: (){
+                                            //   locator<FilterCourseProvider>().clearFilter();
+                                            //   locator<FilterCourseProvider>().sort = 'best_rates';
+                                            //   nextRoute(FilterCategoryPage.pageName);
+                                            // }),
+                                            
+                                            // NEW CODE: عرض العنوان فقط بدون زر "عرض الكل"
+                                            HomeWidget.titleAndMore(appText.bestRated, isViewAll: false),
                                               
                                             SizedBox(
                                               width: getSize().width,
@@ -420,38 +430,38 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                                       
                                             
                             
-                                      if(homeProvider.isLoadingDiscountListData || homeProvider.discountListData.isNotEmpty)...{
+                                      // if(homeProvider.isLoadingDiscountListData || homeProvider.discountListData.isNotEmpty)...{
                             
-                                        // Discounted Classes
-                                        Column(
-                                          children: [
-                                            HomeWidget.titleAndMore(appText.discountedClasses, onTapViewAll: (){
-                                              locator<FilterCourseProvider>().clearFilter();
-                                              locator<FilterCourseProvider>().discount = true;
-                                              nextRoute(FilterCategoryPage.pageName);
-                                            }),
+                                      //   // Discounted Classes
+                                      //   Column(
+                                      //     children: [
+                                      //       HomeWidget.titleAndMore(appText.discountedClasses, onTapViewAll: (){
+                                      //         locator<FilterCourseProvider>().clearFilter();
+                                      //         locator<FilterCourseProvider>().discount = true;
+                                      //         nextRoute(FilterCategoryPage.pageName);
+                                      //       }),
                                               
-                                            SizedBox(
-                                              width: getSize().width,
-                                              child: SingleChildScrollView(
-                                                physics: const BouncingScrollPhysics(),
-                                                padding: padding(),
-                                                scrollDirection: Axis.horizontal,
-                                                child: Row(
-                                                  children: List.generate( homeProvider.isLoadingDiscountListData ? 3 : homeProvider.discountListData.length, (index) {
-                                                    return homeProvider.isLoadingDiscountListData
-                                                      ? courseItemShimmer()
-                                                      : courseItem(
-                                                          homeProvider.discountListData[index],
-                                                        );
-                                                  }),
-                                                ),
-                                              ),
-                                            )
+                                      //       SizedBox(
+                                      //         width: getSize().width,
+                                      //         child: SingleChildScrollView(
+                                      //           physics: const BouncingScrollPhysics(),
+                                      //           padding: padding(),
+                                      //           scrollDirection: Axis.horizontal,
+                                      //           child: Row(
+                                      //             children: List.generate( homeProvider.isLoadingDiscountListData ? 3 : homeProvider.discountListData.length, (index) {
+                                      //               return homeProvider.isLoadingDiscountListData
+                                      //                 ? courseItemShimmer()
+                                      //                 : courseItem(
+                                      //                     homeProvider.discountListData[index],
+                                      //                   );
+                                      //             }),
+                                      //           ),
+                                      //         ),
+                                      //       )
                                               
-                                          ],
-                                        ),
-                                      },
+                                      //     ],
+                                      //   ),
+                                      // },
                                             
                                       // Free Classes (معلق)
                                       // Column(

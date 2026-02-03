@@ -331,8 +331,11 @@ class _LoginPageState extends State<LoginPage> {
                   Center(
                     child: GestureDetector(
                       onTap: () {
+                        // MODIFIED 2026-02-03: تحديث رابط سياسة الخصوصية
+                        // OLD URL: '${Constants.dommain}/pages/app-terms'
+                        // NEW URL: 'https://balsam.academy/pages/privacy-policy'
                         nextRoute(WebViewPage.pageName, arguments: [
-                          '${Constants.dommain}/pages/app-terms',
+                          'https://balsam.academy/pages/privacy-policy',
                           appText.webinar,
                           false,
                           LoadRequestMethod.get
