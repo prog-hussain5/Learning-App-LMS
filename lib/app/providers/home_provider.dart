@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webinar/app/models/course_model.dart';
 import 'package:webinar/app/models/purchase_course_model.dart'; // Added 2026-02-03
-import 'package:webinar/app/services/guest_service/course_service.dart';
 import 'package:webinar/app/services/user_service/user_service.dart'; // Added 2026-02-03
 import 'package:webinar/common/utils/currency_utils.dart';
 import 'package:webinar/locator.dart';

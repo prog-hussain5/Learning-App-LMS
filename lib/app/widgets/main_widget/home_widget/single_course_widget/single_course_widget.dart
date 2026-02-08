@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 // import 'package:path_provider/path_provider.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:webinar/app/models/content_model.dart';
 import 'package:webinar/app/models/course_model.dart';
 import 'package:webinar/app/models/single_course_model.dart';

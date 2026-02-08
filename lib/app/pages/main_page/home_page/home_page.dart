@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:webinar/app/pages/main_page/categories_page/filter_category_page/filter_category_page.dart';
 import 'package:webinar/app/providers/drawer_provider.dart';
 import 'package:webinar/app/providers/home_provider.dart';
 import 'package:webinar/app/providers/theme_provider.dart';
@@ -11,13 +9,10 @@ import 'package:webinar/common/common.dart';
 import 'package:webinar/common/data/app_data.dart';
 import 'package:webinar/common/shimmer_component.dart';
 import 'package:webinar/common/utils/app_text.dart';
-import 'package:webinar/config/assets.dart';
 import 'package:webinar/config/colors.dart';
-import 'package:webinar/config/styles.dart';
 import '../../../../locator.dart';
 import '../../../providers/app_language_provider.dart';
 import '../../../../common/components.dart';
-import '../../../providers/filter_course_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
