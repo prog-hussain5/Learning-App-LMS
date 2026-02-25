@@ -40,11 +40,30 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
       
       Timer(const Duration(seconds: 3), () async {
 
-        final List<ConnectivityResult> connectivityResult = await (Connectivity().checkConnectivity());
-        
-        if(connectivityResult.contains(ConnectivityResult.none)){
-          nextRoute(InternetConnectionPage.pageName, isClearBackRoutes: true);
-        }else{
+        try {
+          final List<ConnectivityResult> connectivityResult = await (Connectivity().checkConnectivity());
+          
+          if(connectivityResult.contains(ConnectivityResult.none)){
+            nextRoute(InternetConnectionPage.pageName, isClearBackRoutes: true);
+          }else{
+            String token = await AppData.getAccessToken();
+
+            if(mounted){
+              if(token.isEmpty){
+                bool isFirst = await AppData.getIsFirst(); 
+
+                if(isFirst){
+                  nextRoute(IntroPage.pageName, isClearBackRoutes: true);
+                }else{
+                  nextRoute(MainPage.pageName, isClearBackRoutes: true);
+                }
+              }else{
+                nextRoute(MainPage.pageName, isClearBackRoutes: true);
+              }
+            }
+          }
+        } catch (e) {
+          // Fallback if connectivity check fails
           String token = await AppData.getAccessToken();
 
           if(mounted){

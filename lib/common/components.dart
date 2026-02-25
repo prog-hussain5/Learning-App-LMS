@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -83,32 +84,33 @@ Widget courseSliderItem(CourseModel courseData,{int horizontalPadding=20}){
               children: [
                 
                 // price
-                Align(
-                  alignment: AlignmentDirectional.topEnd,
-                  child: Container(
-                    margin: padding(horizontal: 12,vertical: 12),
-                    padding: padding(horizontal: 12,vertical: 6),
+                if (!Platform.isIOS)
+                  Align(
+                    alignment: AlignmentDirectional.topEnd,
+                    child: Container(
+                      margin: padding(horizontal: 12,vertical: 12),
+                      padding: padding(horizontal: 12,vertical: 6),
 
-                    decoration: BoxDecoration(
-                      color: whiteFF_26,
-                      borderRadius: borderRadius(radius: 10),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(.05),
-                          offset: const Offset(0, 3),
-                          blurRadius: 10
-                        )
-                      ]
-                    ),
+                      decoration: BoxDecoration(
+                        color: whiteFF_26,
+                        borderRadius: borderRadius(radius: 10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(.05),
+                            offset: const Offset(0, 3),
+                            blurRadius: 10
+                          )
+                        ]
+                      ),
 
-                    child: Text(
-                      (courseData.price == 0)
-                        ? appText.free
-                        : CurrencyUtils.calculator(courseData.price ?? 0),
-                      style: style14Regular().copyWith(color: green77()),
+                      child: Text(
+                        (courseData.price == 0)
+                          ? appText.free
+                          : CurrencyUtils.calculator(courseData.price ?? 0),
+                        style: style14Regular().copyWith(color: green77()),
+                      ),
                     ),
                   ),
-                ),
 
                 const Spacer(),
 

@@ -119,57 +119,66 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  await setupFlutterNotifications();
-
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    showFlutterNotification(message);
-  });
-
-  // Get Firebase Token with iOS APNS handling
-  if (Platform.isIOS) {
-    print('📱 Running on iOS Device');
-    
-    // Request permissions for iOS
-    NotificationSettings settings = await FirebaseMessaging.instance.requestPermission(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
-    print('🔔 Notification Permission Status: ${settings.authorizationStatus.name}');
-    
-    // Wait for APNS token (with retries)
-    String? apnsToken;
-    for (int i = 0; i < 5; i++) {
-      apnsToken = await FirebaseMessaging.instance.getAPNSToken();
-      print('🍎 Attempt ${i + 1}: APNS Token: $apnsToken');
-      if (apnsToken != null) break;
-      await Future.delayed(const Duration(seconds: 2));
-    }
-    
-    if (apnsToken != null) {
-      try {
-        String? fcmToken = await FirebaseMessaging.instance.getToken();
-        print('🔥 Firebase Device Token (iOS): $fcmToken');
-      } catch (e) {
-        print('❌ Error getting iOS FCM token: $e');
-      }
-    } else {
-      print('⚠️ APNS Token not available after 5 attempts. FCM token will be retrieved when APNS is ready.');
-    }
-    
-    // Listen for token refresh
-    FirebaseMessaging.instance.onTokenRefresh.listen((newToken) {
-      print('🔄 Firebase Token Refreshed: $newToken');
-    });
-  } else {
-    // Android - direct token retrieval
-    FirebaseMessaging.instance.getToken().then((value) {
-      print('🔥 Firebase Device Token (Android): $value');
-    });
-  }
-
   runApp(const MyApp());
+
+  // Initialize notifications and Firebase messaging without blocking runApp
+  _initializeNotifications();
+}
+
+Future<void> _initializeNotifications() async {
+  try {
+    await setupFlutterNotifications();
+
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      showFlutterNotification(message);
+    });
+
+    // Get Firebase Token with iOS APNS handling
+    if (Platform.isIOS) {
+      print('📱 Running on iOS Device');
+      
+      // Request permissions for iOS
+      NotificationSettings settings = await FirebaseMessaging.instance.requestPermission(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+      print('🔔 Notification Permission Status: ${settings.authorizationStatus.name}');
+      
+      // Wait for APNS token (with retries)
+      String? apnsToken;
+      for (int i = 0; i < 5; i++) {
+        apnsToken = await FirebaseMessaging.instance.getAPNSToken();
+        print('🍎 Attempt ${i + 1}: APNS Token: $apnsToken');
+        if (apnsToken != null) break;
+        await Future.delayed(const Duration(seconds: 2));
+      }
+      
+      if (apnsToken != null) {
+        try {
+          String? fcmToken = await FirebaseMessaging.instance.getToken();
+          print('🔥 Firebase Device Token (iOS): $fcmToken');
+        } catch (e) {
+          print('❌ Error getting iOS FCM token: $e');
+        }
+      } else {
+        print('⚠️ APNS Token not available after 5 attempts. FCM token will be retrieved when APNS is ready.');
+      }
+      
+      // Listen for token refresh
+      FirebaseMessaging.instance.onTokenRefresh.listen((newToken) {
+        print('🔄 Firebase Token Refreshed: $newToken');
+      });
+    } else {
+      // Android - direct token retrieval
+      FirebaseMessaging.instance.getToken().then((value) {
+        print('🔥 Firebase Device Token (Android): $value');
+      });
+    }
+  } catch (e) {
+    print('❌ Error initializing notifications: $e');
+  }
 }
 
 class MyApp extends StatelessWidget {
