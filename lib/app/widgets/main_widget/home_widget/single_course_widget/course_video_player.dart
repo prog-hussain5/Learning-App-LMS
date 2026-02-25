@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
-import 'package:webinar/app/widgets/main_widget/home_widget/single_course_widget/custom_video_controls.dart';
+// import 'package:webinar/app/widgets/main_widget/home_widget/single_course_widget/custom_video_controls.dart'; // unused
 import 'package:webinar/common/utils/download_manager.dart';
 import 'package:webinar/config/assets.dart';
 import 'package:webinar/config/colors.dart';

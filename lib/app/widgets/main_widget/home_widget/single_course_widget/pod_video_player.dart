@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:webinar/common/common.dart';
-import 'package:webinar/config/colors.dart';
+// import 'package:webinar/config/colors.dart'; // unused
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class PodVideoPlayerDev extends StatefulWidget {

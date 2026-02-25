@@ -1,4 +1,4 @@
-import 'package:chewie/chewie.dart';
+// import 'package:chewie/chewie.dart'; // unused
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:webinar/config/colors.dart';

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:webinar/app/pages/authentication_page/forget_password_page.dart';
+// import 'package:webinar/app/pages/authentication_page/forget_password_page.dart'; // unused
 // COMMENTED: Registration disabled
 // import 'package:webinar/app/pages/authentication_page/register_page.dart';
 import 'package:webinar/app/pages/main_page/home_page/single_course_page/single_content_page/web_view_page.dart';
@@ -14,13 +14,13 @@ import 'package:webinar/app/pages/main_page/main_page.dart';
 import 'package:webinar/app/providers/page_provider.dart';
 import 'package:webinar/app/services/authentication_service/authentication_service.dart';
 import 'package:webinar/app/widgets/authentication_widget/auth_widget.dart';
-import 'package:webinar/app/widgets/authentication_widget/register_widget/register_widget.dart';
+// import 'package:webinar/app/widgets/authentication_widget/register_widget/register_widget.dart'; // unused
 import 'package:webinar/app/widgets/main_widget/main_widget.dart';
 import 'package:webinar/common/components.dart';
 import 'package:webinar/common/common.dart';
 import 'package:webinar/common/data/api_public_data.dart';
 import 'package:webinar/common/enums/page_name_enum.dart';
-import 'package:webinar/common/utils/constants.dart';
+// import 'package:webinar/common/utils/constants.dart'; // unused
 import 'package:webinar/locator.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 

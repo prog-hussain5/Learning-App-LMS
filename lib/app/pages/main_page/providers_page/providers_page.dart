@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:webinar/app/pages/main_page/providers_page/providers_filter.dart';
+// import 'package:webinar/app/pages/main_page/providers_page/providers_filter.dart'; // unused
 import 'package:webinar/app/pages/main_page/providers_page/user_profile_page/user_profile_page.dart';
 import 'package:webinar/app/providers/app_language_provider.dart';
 import 'package:webinar/app/providers/theme_provider.dart';

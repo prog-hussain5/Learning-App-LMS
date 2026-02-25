@@ -16,7 +16,7 @@ import 'package:webinar/common/data/api_public_data.dart';
 import 'package:webinar/common/data/app_data.dart';
 import 'package:webinar/common/enums/error_enum.dart';
 import 'package:webinar/common/utils/app_text.dart';
-import 'package:webinar/common/utils/constants.dart';
+// import 'package:webinar/common/utils/constants.dart'; // unused
 import 'package:webinar/config/styles.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../../common/enums/page_name_enum.dart';

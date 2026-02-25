@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:webinar/common/data/app_language.dart';
+// import 'package:webinar/common/data/app_language.dart'; // unused
 import 'package:webinar/config/colors.dart';
-import 'package:webinar/locator.dart';
+// import 'package:webinar/locator.dart'; // unused
 
 TextStyle style48Bold() {
   return TextStyle(

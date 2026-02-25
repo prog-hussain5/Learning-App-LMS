@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_windowmanager_plus/flutter_windowmanager_plus.dart';
 import 'package:webinar/app/models/course_model.dart';
 import 'package:webinar/app/models/single_course_model.dart';
-import 'package:webinar/app/pages/authentication_page/login_page.dart';
+// import 'package:webinar/app/pages/authentication_page/login_page.dart'; // unused
 import 'package:webinar/app/pages/main_page/home_page/single_course_page/learning_page.dart';
 import 'package:webinar/app/providers/user_provider.dart';
 import 'package:webinar/app/services/guest_service/course_service.dart';
-import 'package:webinar/app/services/user_service/cart_service.dart';
-import 'package:webinar/app/services/user_service/purchase_service.dart';
+// import 'package:webinar/app/services/user_service/cart_service.dart'; // unused
+// import 'package:webinar/app/services/user_service/purchase_service.dart'; // unused
 import 'package:webinar/app/widgets/main_widget/home_widget/single_course_widget/pod_video_player.dart';
 import 'package:webinar/common/components.dart';
 import 'package:webinar/app/widgets/main_widget/home_widget/single_course_widget/course_video_player.dart';
@@ -29,7 +29,7 @@ import 'package:webinar/locator.dart';
 
 import '../../../../../common/utils/currency_utils.dart';
 import '../../../../models/content_model.dart';
-import '../../../../widgets/main_widget/blog_widget/blog_widget.dart';
+// import '../../../../widgets/main_widget/blog_widget/blog_widget.dart'; // unused
 
 class SingleCoursePage extends StatefulWidget {
   static const String pageName = '/single-course';

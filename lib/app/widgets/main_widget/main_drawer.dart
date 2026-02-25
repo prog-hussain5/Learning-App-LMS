@@ -31,7 +31,7 @@ import 'package:webinar/locator.dart';
 import '../../../common/utils/object_instance.dart';
 // COMMENTED: Features disabled from drawer
 // import '../../pages/main_page/home_page/comments_page/comments_page.dart';
-import '../../pages/main_page/home_page/dashboard_page/dashboard_page.dart';
+// import '../../pages/main_page/home_page/dashboard_page/dashboard_page.dart'; // unused
 // import '../../pages/main_page/home_page/favorites_page/favorites_page.dart';
 import '../../pages/main_page/home_page/quizzes_page/quizzes_page.dart';
 // import '../../pages/main_page/home_page/subscription_page/subscription_page.dart';

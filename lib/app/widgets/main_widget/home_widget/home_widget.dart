@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:webinar/app/pages/main_page/home_page/notification_page.dart';
-import 'package:webinar/app/pages/main_page/home_page/search_page/suggested_search_page.dart';
+// import 'package:webinar/app/pages/main_page/home_page/search_page/suggested_search_page.dart'; // unused
 import 'package:webinar/app/providers/user_provider.dart';
 import 'package:webinar/app/services/authentication_service/authentication_service.dart';
 import 'package:webinar/common/components.dart';
