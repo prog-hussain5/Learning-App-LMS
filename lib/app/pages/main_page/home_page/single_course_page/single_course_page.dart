@@ -196,6 +196,13 @@ class _SingleCoursePageState extends State<SingleCoursePage>
       isPrivate: isPrivate,
     );
 
+    // On iOS: treat all courses as enrolled/free to prevent any payment UI
+    if (Platform.isIOS && courseData != null) {
+      courseData!.authHasBought = true;
+      courseData!.price = 0;
+      courseData!.cashbackRules = [];
+    }
+
     if (courseData != null && isBundleCourse) {
       getBundleCourses();
     }
@@ -421,7 +428,8 @@ class _SingleCoursePageState extends State<SingleCoursePage>
                                                     ),
                                                   ],
                                                 ),
-                                                if ((courseData
+                                                if (!Platform.isIOS &&
+                                                    (courseData
                                                             ?.authHasBought ==
                                                         false) &&
                                                     (courseData?.cashbackRules

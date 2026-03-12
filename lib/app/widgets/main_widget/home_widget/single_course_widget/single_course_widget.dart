@@ -401,7 +401,9 @@ class SingleCourseWidget{
                           subTitleType(contents[index].items![i]),
                           (){
                                                         
-                            if( (contents[index].items?[i].can?.view ?? false) || (contents[index].items?[i].accessibility == 'free') ){
+                            // On iOS: all content is accessible (free educational platform)
+                            final bool canAccessItem = Platform.isIOS || (contents[index].items?[i].can?.view ?? false) || (contents[index].items?[i].accessibility == 'free');
+                            if( canAccessItem ){
 
                               if(contents[index].items![i].type == 'assignment'){
                                 nextRoute(AssignmentsPage.pageName);
@@ -422,7 +424,7 @@ class SingleCourseWidget{
                                     contents[index].items![i], 
                                     courseData.id,
                                     previousLink,
-                                    (courseData.authHasBought ?? false)
+                                    Platform.isIOS ? true : (courseData.authHasBought ?? false)
                                   ]
                                 );
 

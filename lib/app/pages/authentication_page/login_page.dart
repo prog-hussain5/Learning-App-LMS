@@ -148,7 +148,33 @@ class _LoginPageState extends State<LoginPage> {
                     style: style14Regular().copyWith(color: greyA5),
                   ),
 
-                  space(50),
+                  space(20),
+
+                  // iOS free disclaimer
+                  if (Platform.isIOS)
+                    Container(
+                      width: double.infinity,
+                      padding: padding(horizontal: 16, vertical: 12),
+                      decoration: BoxDecoration(
+                        color: Colors.green.withOpacity(0.1),
+                        borderRadius: borderRadius(radius: 12),
+                        border: Border.all(color: Colors.green.withOpacity(0.3)),
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.school_outlined, color: Colors.green, size: 20),
+                          space(0, width: 8),
+                          Expanded(
+                            child: Text(
+                              'This app provides free educational content for registered students. No purchases are required.',
+                              style: style12Regular().copyWith(color: Colors.green[700]),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                  space(30),
 
                   // google and facebook auth
                   Row(
