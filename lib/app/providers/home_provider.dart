@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webinar/app/models/course_model.dart';
-import 'package:webinar/app/models/purchase_course_model.dart'; // Added 2026-02-03
-import 'package:webinar/app/services/user_service/user_service.dart'; // Added 2026-02-03
+import 'package:webinar/app/services/guest_service/course_service.dart';
 import 'package:webinar/common/utils/currency_utils.dart';
 import 'package:webinar/locator.dart';
 
@@ -45,95 +44,69 @@ class HomeProvider extends ChangeNotifier{
     isLoadingFreeListData=true;
     notifyListeners();
     
-    // MODIFIED 2026-02-03: توحيد مصدر البيانات بين الصفحة الرئيسية وصفحة "كورساتي"
-    // OLD CODE (COMMENTED): كان يجلب كل الكورسات من CourseService.getAll()
-    // NEW CODE: يجلب الكورسات المشتراة (My Courses) من UserService.getPurchaseCourse()
     Future.wait(
       [
-        // getDeaturedCourseData(), // معطل مؤقتاً
-        // getBundleData(), // معطل مؤقتاً
-        getMyPurchasedCoursesData(), // جديد: عرض الكورسات المشتراة في قسم Newest
-        // getBestRatesData(), // معطل مؤقتاً
-        // getBestsellersData(), // معطل مؤقتاً
-        // getDiscountData(), // معطل مؤقتاً
-        // getFreeData(), // معطل مؤقتاً
+        getDeaturedCourseData(),
+        getBundleData(),
+        getNewestData(),
+        getBestRatesData(),
+        getBestsellersData(),
+        getDiscountData(),
+        getFreeData(),
       ]
     ).then((v){
       notifyListeners();
     });
   }
-  
-  // NEW METHOD 2026-02-03: جلب الكورسات المشتراة (My Courses) واستخدامها في الصفحة الرئيسية
-  Future getMyPurchasedCoursesData() async {
-    try {
-      List<PurchaseCourseModel> purchases = await UserService.getPurchaseCourse();
-      
-      // تحويل PurchaseCourseModel إلى CourseModel
-      // نأخذ webinar إذا كان موجود، أو bundle إذا كان موجود
-      newsetListData = purchases
-        .map((purchase) => purchase.webinar ?? purchase.bundle)
-        .where((course) => course != null)
-        .cast<CourseModel>()
-        .toList();
-      
-      isLoadingNewsetListData = false;
-    } catch (e) {
-      isLoadingNewsetListData = false;
-      newsetListData = [];
-    }
+
+  Future getDeaturedCourseData()async{
+    await CourseService.featuredCourse().then((value) {
+      isLoadingFeaturedListData = false;
+      featuredListData = value;
+    });
   }
 
-  // COMMENTED 2026-02-03: الدوال القديمة التي كانت تجلب كل الكورسات من CourseService
-  // تم تعطيلها لصالح getMyFavoritesData() التي تجلب المفضلة فقط
-  
-  // Future getDeaturedCourseData()async{
-  //   await CourseService.featuredCourse().then((value) {
-  //     isLoadingFeaturedListData = false;
-  //     featuredListData = value;
-  //   });
-  // }
+  Future getBundleData()async{
+    await CourseService.getAll(offset: 0, bundle: true).then((value) {
+      isLoadingBundleData=false;
+      bundleData = value;
+    });
+  }
 
-  // Future getBundleData()async{
-  //   await CourseService.getAll(offset: 0, bundle: true).then((value) {
-  //     isLoadingBundleData=false;
-  //     bundleData = value;
-  //   });
-  // }
+  Future getNewestData()async{
+    await CourseService.getAll(offset: 0, sort: 'newest').then((value) {
+      isLoadingNewsetListData=false;
+      newsetListData = value;
+    });
+  }
 
-  // Future getNewestData()async{
-  //   await CourseService.getAll(offset: 0, sort: 'newest').then((value) {
-  //     isLoadingNewsetListData=false;
-  //     newsetListData = value;
-  //   });
-  // }
+  Future getBestRatesData()async{
+    await CourseService.getAll(offset: 0, sort: 'best_rates').then((value) {
+      isLoadingBestRatedListData = false;
+      bestRatedListData = value;
+    });
+  }
 
-  // Future getBestRatesData()async{
-  //   await CourseService.getAll(offset: 0, sort: 'best_rates').then((value) {
-  //     isLoadingBestRatedListData = false;
-  //     bestRatedListData = value;
-  //   });
-  // }
+  Future getBestsellersData()async{
+    await CourseService.getAll(offset: 0, sort: 'bestsellers').then((value) {
+      isLoadingBestSellingListData = false;
+      bestSellingListData = value;
+    });
+  }
 
-  // Future getBestsellersData()async{
-  //   await CourseService.getAll(offset: 0, sort: 'bestsellers').then((value) {
-  //     isLoadingBestSellingListData = false;
-  //     bestSellingListData = value;
-  //   });
-  // }
+  Future getDiscountData()async{
+    await CourseService.getAll(offset: 0, discount: true).then((value) {
+      isLoadingDiscountListData = false;
+      discountListData = value;
+    });
+  }
 
-  // Future getDiscountData()async{
-  //   await CourseService.getAll(offset: 0, discount: true).then((value) {
-  //     isLoadingDiscountListData = false;
-  //     discountListData = value;
-  //   });
-  // }
-
-  // Future getFreeData()async{
-  //   await CourseService.getAll(offset: 0, free: true).then((value) {
-  //     isLoadingFreeListData = false;
-  //     freeListData = value;
-  //   });
-  // }
+  Future getFreeData()async{
+    await CourseService.getAll(offset: 0, free: true).then((value) {
+      isLoadingFreeListData = false;
+      freeListData = value;
+    });
+  }
 
 
 
