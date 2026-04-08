@@ -32,8 +32,7 @@ import 'package:webinar/common/utils/constants.dart';
 import 'package:webinar/config/colors.dart';
 import 'package:webinar/config/notification.dart';
 import 'app/pages/authentication_page/forget_password_page.dart';
-// COMMENTED: Registration disabled
-// import 'app/pages/authentication_page/register_page.dart';
+import 'app/pages/authentication_page/register_page.dart';
 import 'app/pages/authentication_page/verify_code_page.dart';
 import 'app/pages/main_page/blog_page/details_blog_page.dart';
 import 'app/pages/main_page/categories_page/filter_category_page/filter_category_page.dart';
@@ -257,8 +256,7 @@ class MyApp extends StatelessWidget {
             SplashPage.pageName: (context) => const SplashPage(),
             IntroPage.pageName: (context) => const IntroPage(),
             LoginPage.pageName: (context) => const LoginPage(),
-            // COMMENTED: Registration disabled - users will be created from dashboard
-            // RegisterPage.pageName : (context) => const RegisterPage(),
+            RegisterPage.pageName: (context) => const RegisterPage(),
             VerifyCodePage.pageName: (context) => const VerifyCodePage(),
             ForgetPasswordPage.pageName: (context) =>
                 const ForgetPasswordPage(),

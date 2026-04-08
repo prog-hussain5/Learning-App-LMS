@@ -428,7 +428,10 @@ class _RegisterPageState extends State<RegisterPage> {
       
                                   
                                   if(res != null){
-                                    if(registerConfig?.disableRegistrationVerification ?? false){
+                                    // Temporary fast path: skip OTP screen and continue directly.
+                                    final bool skipOtpVerification =
+                                        (PublicData.apiConfigData?['otp_bypass_mobile_app'] ?? true) == true;
+                                    if(skipOtpVerification || (registerConfig?.disableRegistrationVerification ?? false)){
                                       locator<PageProvider>().setPage(PageNames.home);
                                       nextRoute(MainPage.pageName, arguments: res['user_id']);
                                     }else{
@@ -464,7 +467,10 @@ class _RegisterPageState extends State<RegisterPage> {
                                   );
                                   
                                   if(res != null){
-                                    if(registerConfig?.disableRegistrationVerification ?? false){
+                                    // Temporary fast path: skip OTP screen and continue directly.
+                                    final bool skipOtpVerification =
+                                        (PublicData.apiConfigData?['otp_bypass_mobile_app'] ?? true) == true;
+                                    if(skipOtpVerification || (registerConfig?.disableRegistrationVerification ?? false)){
                                       locator<PageProvider>().setPage(PageNames.home);
                                       nextRoute(MainPage.pageName, arguments: res['user_id']);
                                     }else{
