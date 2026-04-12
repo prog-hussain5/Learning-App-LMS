@@ -196,8 +196,8 @@ class _SingleCoursePageState extends State<SingleCoursePage>
       isPrivate: isPrivate,
     );
 
-    // On iOS: treat all courses as enrolled/free to prevent any payment UI
-    if (Platform.isIOS && courseData != null) {
+    // Fully free app: treat all courses as enrolled/free to remove purchase UI
+    if (courseData != null) {
       courseData!.authHasBought = true;
       courseData!.price = 0;
       courseData!.cashbackRules = [];
@@ -428,10 +428,9 @@ class _SingleCoursePageState extends State<SingleCoursePage>
                                                     ),
                                                   ],
                                                 ),
-                                                if (!Platform.isIOS &&
-                                                    (courseData
-                                                            ?.authHasBought ==
-                                                        false) &&
+                                                if ((courseData
+                                                      ?.authHasBought ==
+                                                    false) &&
                                                     (courseData?.cashbackRules
                                                             .isNotEmpty ??
                                                         false)) ...{

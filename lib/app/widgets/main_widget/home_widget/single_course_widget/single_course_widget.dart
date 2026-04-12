@@ -401,8 +401,11 @@ class SingleCourseWidget{
                           subTitleType(contents[index].items![i]),
                           (){
                                                         
-                            // On iOS: all content is accessible (free educational platform)
-                            final bool canAccessItem = Platform.isIOS || (contents[index].items?[i].can?.view ?? false) || (contents[index].items?[i].accessibility == 'free');
+                            // Fully free app mode keeps all content accessible.
+                            final bool canAccessItem =
+                              (PublicData.apiConfigData?['fully_free_app'] ?? true) == true ||
+                              (contents[index].items?[i].can?.view ?? false) ||
+                              (contents[index].items?[i].accessibility == 'free');
                             if( canAccessItem ){
 
                               if(contents[index].items![i].type == 'assignment'){
@@ -424,7 +427,9 @@ class SingleCourseWidget{
                                     contents[index].items![i], 
                                     courseData.id,
                                     previousLink,
-                                    Platform.isIOS ? true : (courseData.authHasBought ?? false)
+                                    (PublicData.apiConfigData?['fully_free_app'] ?? true) == true
+                                      ? true
+                                      : (courseData.authHasBought ?? false)
                                   ]
                                 );
 

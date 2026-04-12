@@ -13,9 +13,9 @@ import 'package:webinar/app/pages/introduction_page/intro_page.dart';
 import 'package:webinar/app/pages/introduction_page/ip_empty_state_page.dart';
 import 'package:webinar/app/pages/introduction_page/maintenance_page.dart';
 import 'package:webinar/app/pages/introduction_page/splash_page.dart';
-import 'package:webinar/app/pages/main_page/home_page/dashboard_page/reward_point_page.dart';
+// import 'package:webinar/app/pages/main_page/home_page/dashboard_page/reward_point_page.dart';
 import 'package:webinar/app/pages/main_page/home_page/meetings_page/meeting_details_page.dart';
-import 'package:webinar/app/pages/main_page/home_page/payment_status_page/payment_status_page.dart';
+// import 'package:webinar/app/pages/main_page/home_page/payment_status_page/payment_status_page.dart';
 import 'package:webinar/app/pages/main_page/home_page/single_course_page/single_content_page/pdf_viewer_page.dart';
 import 'package:webinar/app/pages/main_page/home_page/single_course_page/single_content_page/web_view_page.dart';
 import 'package:webinar/app/pages/offline_page/internet_connection_page.dart';
@@ -48,7 +48,7 @@ import 'app/pages/main_page/home_page/assignments_page/assignment_history_page.d
 import 'app/pages/main_page/home_page/assignments_page/assignment_overview_page.dart';
 import 'app/pages/main_page/home_page/assignments_page/assignments_page.dart';
 import 'app/pages/main_page/home_page/assignments_page/submissions_page.dart';
-import 'app/pages/main_page/home_page/cart_page/bank_accounts_page.dart';
+// import 'app/pages/main_page/home_page/cart_page/bank_accounts_page.dart';
 // COMMENTED: Cart and Checkout disabled
 // import 'app/pages/main_page/home_page/cart_page/cart_page.dart';
 // import 'app/pages/main_page/home_page/cart_page/checkout_page.dart';
@@ -70,7 +70,7 @@ import 'app/pages/main_page/home_page/quizzes_page/quizzes_page.dart';
 import 'app/pages/main_page/providers_page/user_profile_page/user_profile_page.dart';
 import 'app/pages/main_page/home_page/search_page/result_search_page.dart';
 import 'app/pages/main_page/home_page/search_page/suggested_search_page.dart';
-import 'app/pages/main_page/home_page/subscription_page/subscription_page.dart';
+// import 'app/pages/main_page/home_page/subscription_page/subscription_page.dart';
 import 'app/providers/app_language_provider.dart';
 import 'app/providers/filter_course_provider.dart';
 import 'app/providers/page_provider.dart';
@@ -276,7 +276,7 @@ class MyApp extends StatelessWidget {
             // CheckoutPage.pageName : (context) => const CheckoutPage(),
             SingleContentPage.pageName: (context) => const SingleContentPage(),
             WebViewPage.pageName: (context) => const WebViewPage(),
-            BankAccountsPage.pageName: (context) => const BankAccountsPage(),
+            // BankAccountsPage.pageName: (context) => const BankAccountsPage(),
             UserProfilePage.pageName: (context) => const UserProfilePage(),
             AssignmentsPage.pageName: (context) => const AssignmentsPage(),
             AssignmentOverviewPage.pageName: (context) =>
@@ -302,16 +302,16 @@ class MyApp extends StatelessWidget {
                 const CertificatesDetailsPage(),
             CertificatesStudentPage.pageName: (context) =>
                 const CertificatesStudentPage(),
-            SubscriptionPage.pageName: (context) => const SubscriptionPage(),
+            // SubscriptionPage.pageName: (context) => const SubscriptionPage(),
             FavoritesPage.pageName: (context) => const FavoritesPage(),
             DashboardPage.pageName: (context) => const DashboardPage(),
             SupportMessagePage.pageName: (context) =>
                 const SupportMessagePage(),
             ConversationPage.pageName: (context) => const ConversationPage(),
             PdfViewerPage.pageName: (context) => const PdfViewerPage(),
-            RewardPointPage.pageName: (context) => const RewardPointPage(),
+            // RewardPointPage.pageName: (context) => const RewardPointPage(),
             MaintenancePage.pageName: (context) => const MaintenancePage(),
-            PaymentStatusPage.pageName: (context) => const PaymentStatusPage(),
+            // PaymentStatusPage.pageName: (context) => const PaymentStatusPage(),
             IpEmptyStatePage.pageName: (context) => const IpEmptyStatePage(),
             // offline pages...
             InternetConnectionPage.pageName: (context) =>
