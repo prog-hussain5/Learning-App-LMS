@@ -264,11 +264,11 @@ class _MainPageState extends State<MainPage> {
                                     //   pageProvider.setPage(PageNames.blog);
                                     // }),
 
-                                    // My Courses (changed from myClasses)
+                                    // Courses
                                     MainWidget.navItem(
                                         PageNames.myCourses,
                                         pageProvider.page,
-                                        appText.myClassess,
+                                        appText.classes,
                                         AppAssets.classesSvg, () {
                                       pageProvider.setPage(PageNames.myCourses);
                                     }),
