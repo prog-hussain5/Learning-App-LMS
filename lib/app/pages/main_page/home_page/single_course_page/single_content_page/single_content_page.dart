@@ -46,6 +46,7 @@ class _SingleContentPageState extends State<SingleContentPage> {
   int? courseId;
 
   bool isLoading = true;
+  bool hasError = false;
   bool isSpeakLoading = false;
   bool isPlayingText = false;
   bool authHasBought = true;
@@ -79,28 +80,50 @@ class _SingleContentPageState extends State<SingleContentPage> {
         authHasBought = (ModalRoute.of(context)!.settings.arguments as List)[3] ?? true;
       }catch(_){}
 
-      Future.wait([getData(), getPreviousData()]).then((value){
-
-
-        if(previousContentData != null){
-          if(singleContentData?.checkPreviousParts == 1 && ( !(previousContentData?.authHasRead ?? true) || !(previousContentData?.passed ?? true) || (previousContentData?.assignmentStatus != 'passed') ) ){
-            isDripContent = true;
-          }
-        }
-  
-        setState(() {
-          isLoading = false;
-        });
-      });
+      _runLoad();
 
     });
   }
 
+  void _runLoad(){
+    Future.wait([getData(), getPreviousData()]).then((value){
+
+      if(previousContentData != null){
+        if(singleContentData?.checkPreviousParts == 1 && ( !(previousContentData?.authHasRead ?? true) || !(previousContentData?.passed ?? true) || (previousContentData?.assignmentStatus != 'passed') ) ){
+          isDripContent = true;
+        }
+      }
+
+      if(!mounted) return;
+      setState(() {
+        hasError = singleContentData == null;  // ponytail: content failed to load
+        isLoading = false;
+      });
+    }).catchError((e){
+      if(!mounted) return;
+      setState(() {
+        hasError = true;
+        isLoading = false;  // ponytail: never leave the spinner stuck on a failure
+      });
+    });
+  }
+
+  void _retry(){
+    setState(() {
+      isLoading = true;
+      hasError = false;
+    });
+    _runLoad();
+  }
+
   Future getNote() async {
+    // ponytail: content fetch may have failed (singleContentData == null). Force-unwrapping
+    // here used to throw, which prevented isLoading from ever clearing -> spinner forever.
+    if(content?.id == null || singleContentData?.contentType == null) return;
 
     note = await PersonalNoteService.getNote(content!.id!, singleContentData!.contentType!);
 
-    setState(() {});
+    if(mounted) setState(() {});
 
   }
 
@@ -136,8 +159,10 @@ class _SingleContentPageState extends State<SingleContentPage> {
         
         appBar: appbar(title: appText.courseDetails),
 
-        body: isLoading 
+        body: isLoading
       ? loading()
+      : hasError
+      ? _errorRetry()
       : Stack(
           children: [
             
@@ -573,6 +598,33 @@ class _SingleContentPageState extends State<SingleContentPage> {
     );
   }
 
+
+  Widget _errorRetry(){
+    return Center(
+      child: Padding(
+        padding: padding(),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              appText.serverExceptionError,
+              style: style14Regular().copyWith(color: greyA5),
+              textAlign: TextAlign.center,
+            ),
+            space(16),
+            button(
+              onTap: _retry,
+              width: 160,
+              height: 48,
+              text: appText.retry,
+              bgColor: green77(),
+              textColor: Colors.white,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   Widget pageButton({bool showViewButton=true}){
 

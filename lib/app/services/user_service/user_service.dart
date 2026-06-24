@@ -27,29 +27,29 @@ class UserService{
 
   static Future<List<PurchaseCourseModel>> getPurchaseCourse()async{
     List<PurchaseCourseModel> data = [];
-    // try{
+    try{
       String url = '${Constants.baseUrl}panel/webinars/purchases';
 
       Response res = await httpGetWithToken(
-        url, 
+        url,
       );
-      
+
 
       var jsonResponse = jsonDecode(res.body);
-      
+
       if(jsonResponse['success'] ?? false){
-        jsonResponse['data']?['purchases']?.forEach((json){
-          data.add(PurchaseCourseModel.fromJson(json));
-        });
+        for (final json in (jsonResponse['data']?['purchases'] as List?) ?? []) {
+          try{ data.add(PurchaseCourseModel.fromJson(json)); }catch(_){}  // ponytail: tolerate a bad row
+        }
         return data;
       }else{
         ErrorHandler().showError(ErrorEnum.error, jsonResponse);
         return data;
       }
 
-    // }catch(e){
-    //   return data;
-    // }
+    }catch(e){
+      return data;
+    }
   }
 
   static Future<String?> getPurchaseCourseJSON()async{

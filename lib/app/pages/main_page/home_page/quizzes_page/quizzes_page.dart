@@ -54,12 +54,14 @@ class _QuizzesPageState extends State<QuizzesPage> with TickerProviderStateMixin
     isLoadingNotParticipated = true;
 
     QuizService.getMyResults().then((value) {
+      if(!mounted) return;
       myResults = value;
       isLoadingMyResults = false;
       setState(() {});
     });
 
     QuizService.getNotParticipated().then((value) {
+      if(!mounted) return;
       notParticipated = value;
       isLoadingNotParticipated = false;
       setState(() {});
@@ -71,14 +73,16 @@ class _QuizzesPageState extends State<QuizzesPage> with TickerProviderStateMixin
 
       isLoadingStudentResults = true;
       QuizService.getStudentResults().then((value) {
+        if(!mounted) return;
         studentResults = value;
         isLoadingStudentResults = false;
         setState(() {});
       });
 
-      
+
       isLoadingListQuiz = true;
       QuizService.getList().then((value) {
+        if(!mounted) return;
         listQuiz = value;
         isLoadingListQuiz = false;
         setState(() {});
@@ -90,6 +94,12 @@ class _QuizzesPageState extends State<QuizzesPage> with TickerProviderStateMixin
     setState(() {});
   }
 
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -158,7 +168,9 @@ class _QuizzesPageState extends State<QuizzesPage> with TickerProviderStateMixin
 
                   isLoadingNotParticipated
                 ? loading()
-                : SingleChildScrollView(
+                : notParticipated.isEmpty
+                  ? emptyState(AppAssets.bioEmptyStateSvg, appText.noResults, appText.youHaveNoQuizResults)
+                  : SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
                     padding: padding(),
 
@@ -169,7 +181,7 @@ class _QuizzesPageState extends State<QuizzesPage> with TickerProviderStateMixin
 
                         ...List.generate(notParticipated.length, (index) {
                           return QuizzesWidget.item(
-                            notParticipated[index], 
+                            notParticipated[index],
                             () async {
                               await nextRoute(QuizInfoPage.pageName, arguments: [notParticipated[index], notParticipated[index].status, null, 'NotParticipated']);
 

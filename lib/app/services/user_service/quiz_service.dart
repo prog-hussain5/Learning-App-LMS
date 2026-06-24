@@ -15,44 +15,40 @@ class QuizService{
   static Future<List<ListQuizModel>> getList()async{
     List<ListQuizModel> data = [];
 
-    // try{
+    try{
       String url = '${Constants.baseUrl}instructor/quizzes/list';
 
 
       Response res = await httpGetWithToken(
-        url, 
+        url,
       );
-      
+
 
       var jsonResponse = jsonDecode(res.body);
 
-      if(jsonResponse['success']){
-        
-        for (var j = 0; j < jsonResponse['data']['quizzes'].length; j++) {
-          
-          int counter = 0;
-          int userGradeSum = 0;
-          
-          if(jsonResponse['data']['quizzes_results'] != null){
-            try{
-              
-              for (var i = 0; i < jsonResponse['data']['quizzes_results'].length; i++) {
+      if(jsonResponse['success'] ?? false){
 
-                if(jsonResponse['data']['quizzes_results'][i]['quiz_id'] == jsonResponse['data']['quizzes'][j]['id']){
-                  counter++;
-                  userGradeSum += int.tryParse(jsonResponse['data']['quizzes_results'][i]['user_grade']?.toString() ?? '0') ?? 0;
-                }
+        final quizzes = (jsonResponse['data']?['quizzes'] as List?) ?? [];
+        final results = (jsonResponse['data']?['quizzes_results'] as List?) ?? [];
+
+        for (var j = 0; j < quizzes.length; j++) {
+          try{
+            int counter = 0;
+            int userGradeSum = 0;
+
+            for (var i = 0; i < results.length; i++) {
+              if(results[i]['quiz_id'] == quizzes[j]['id']){
+                counter++;
+                userGradeSum += int.tryParse(results[i]['user_grade']?.toString() ?? '0') ?? 0;
               }
-            }catch(e){}
-            // print('---------');
-            // print(counter);
-            // print(userGradeSum / counter);
-          }
-          
-          jsonResponse['data']['quizzes'][j]['avrage'] = (userGradeSum / counter);
-          jsonResponse['data']['quizzes'][j]['studentCount'] = counter;
-          
-          data.add(ListQuizModel.fromJson(jsonResponse['data']['quizzes'][j]));
+            }
+
+            // ponytail: counter==0 was 0/0 = NaN, which corrupted the parsed row.
+            quizzes[j]['avrage'] = counter == 0 ? 0 : (userGradeSum / counter);
+            quizzes[j]['studentCount'] = counter;
+
+            data.add(ListQuizModel.fromJson(quizzes[j]));
+          }catch(_){}  // ponytail: skip a malformed row, don't drop the whole list
         }
 
         return data;
@@ -61,9 +57,9 @@ class QuizService{
         return data;
       }
 
-    // }catch(e){
-    //   return data;
-    // }
+    }catch(e){
+      return data;
+    }
   }
 
   static Future<List<QuizModel>> getMyResults()async{
@@ -79,10 +75,10 @@ class QuizService{
       
 
       var jsonResponse = jsonDecode(res.body);
-      if(jsonResponse['success']){
-        jsonResponse['data']['results'].forEach((json){
-          data.add(QuizModel.fromJson(json));
-        });
+      if(jsonResponse['success'] ?? false){
+        for (final json in (jsonResponse['data']?['results'] as List?) ?? []) {
+          try{ data.add(QuizModel.fromJson(json)); }catch(_){}  // ponytail: tolerate a bad row
+        }
 
         return data;
       }else{
@@ -108,10 +104,10 @@ class QuizService{
       
 
       var jsonResponse = jsonDecode(res.body);
-      if(jsonResponse['success']){
-        jsonResponse['data']['results'].forEach((json){
-          data.add(QuizModel.fromJson(json));
-        });
+      if(jsonResponse['success'] ?? false){
+        for (final json in (jsonResponse['data']?['results'] as List?) ?? []) {
+          try{ data.add(QuizModel.fromJson(json)); }catch(_){}  // ponytail: tolerate a bad row
+        }
 
         return data;
       }else{
@@ -138,10 +134,10 @@ class QuizService{
       
 
       var jsonResponse = jsonDecode(res.body);
-      if(jsonResponse['success']){
-        jsonResponse['data']['quizzes'].forEach((json){
-          data.add(Quiz.fromJson(json));
-        });
+      if(jsonResponse['success'] ?? false){
+        for (final json in (jsonResponse['data']?['quizzes'] as List?) ?? []) {
+          try{ data.add(Quiz.fromJson(json)); }catch(_){}  // ponytail: tolerate a bad row
+        }
 
         return data;
       }else{

@@ -10,9 +10,39 @@ import 'package:webinar/common/utils/constants.dart';
 import '../../app/pages/authentication_page/login_page.dart';
 import '../../locator.dart';
 import '../common.dart';
+import '../components.dart';
 import '../data/app_data.dart';
+import '../enums/error_enum.dart';
+import 'app_text.dart';
 
 
+// ponytail: one place to make transient network failures visible instead of letting
+// each service silently swallow them into a blank screen. Debounced so a screen that
+// fires several requests doesn't stack snackbars. Returns a non-throwing synthetic
+// error response, so callers' jsonDecode succeeds and they take their success==false
+// branch instead of throwing uncaught (which used to leave spinners stuck forever).
+DateTime? _lastNetErrorAt;
+
+void _notifyNetworkError() {
+  final now = DateTime.now();
+  if (_lastNetErrorAt == null || now.difference(_lastNetErrorAt!).inSeconds >= 4) {
+    _lastNetErrorAt = now;
+    try {
+      showSnackBar(ErrorEnum.error, null, desc: appText.serverExceptionError);
+    } catch (_) {}
+  }
+}
+
+Future<http.Response> _safeSend(http.Request request) async {
+  try {
+    final streamed = await request.send().timeout(const Duration(seconds: 30));
+    final body = await streamed.stream.bytesToString();
+    return http.Response(body, streamed.statusCode, headers: streamed.headers);
+  } catch (e) {
+    _notifyNetworkError();
+    return http.Response('{"success":false,"message":"network_error"}', 503);
+  }
+}
 
 
 Future<Response> httpGet(String url,{Map<String, String> headers = const {},bool isRedirectingStatusCode=true, bool isMaintenance=false, bool isSendToken=false}) async {
@@ -36,9 +66,7 @@ Future<Response> httpGet(String url,{Map<String, String> headers = const {},bool
   );
 
   request.headers.addAll(headers);
-  http.StreamedResponse response = await request.send();
-
-  http.Response res = http.Response(await response.stream.bytesToString(), response.statusCode);
+  http.Response res = await _safeSend(request);
 
 
   // Check if response is HTML (possible server error or hack)
@@ -64,10 +92,14 @@ Future<Response> httpGet(String url,{Map<String, String> headers = const {},bool
   }
 
   if (res.statusCode == 401) {
+    // ponytail: honor isRedirectingStatusCode like the other verbs — a stray 401 on a
+    // background/content GET should not force-logout and wipe the nav stack.
+    if(isRedirectingStatusCode){
       nextRoute(
         LoginPage.pageName,
         isClearBackRoutes: true
       );
+    }
     return res;
   } else {
 
@@ -104,9 +136,7 @@ Future<Response> httpPost(String url, dynamic body,{Map<String, String> headers 
 
   request.body = myBody;
   request.headers.addAll(headers);
-  http.StreamedResponse response = await request.send();
-
-  http.Response res = http.Response(await response.stream.bytesToString(), response.statusCode);
+  http.Response res = await _safeSend(request);
 
   if (res.statusCode == 401) {
     if(isRedirectingStatusCode){
@@ -140,9 +170,7 @@ Future<Response> httpDelete(String url, dynamic body,{Map<String, String> header
 
   request.body = myBody;
   request.headers.addAll(headers);
-  http.StreamedResponse response = await request.send();
-
-  http.Response res = http.Response(await response.stream.bytesToString(), response.statusCode);
+  http.Response res = await _safeSend(request);
 
   if (res.statusCode == 401) {
     if(isRedirectingStatusCode){
@@ -176,9 +204,7 @@ Future<Response> httpPut(String url, dynamic body,{Map<String, String> headers =
 
   request.body = myBody;
   request.headers.addAll(headers);
-  http.StreamedResponse response = await request.send();
-
-  http.Response res = http.Response(await response.stream.bytesToString(), response.statusCode);
+  http.Response res = await _safeSend(request);
 
   if (res.statusCode == 401) {
     if(isRedirectingStatusCode){

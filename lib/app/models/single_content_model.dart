@@ -59,7 +59,9 @@ class SingleContentModel {
       this.attachmentsCount});
 
   SingleContentModel.fromJson(Map<String, dynamic> json) {
-    checkPreviousParts = json['check_previous_parts'];
+    // ponytail: was a raw assign of a non-nullable int — a null/string from the API
+    // threw here and the whole lecture was swallowed to a blank screen.
+    checkPreviousParts = int.tryParse(json['check_previous_parts']?.toString() ?? '') ?? 0;
     assignmentStatus = json['assignmentStatus'];
     passed = json['passed'];
     webLink = json['web_link'];

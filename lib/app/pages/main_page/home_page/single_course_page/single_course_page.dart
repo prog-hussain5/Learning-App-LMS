@@ -561,8 +561,9 @@ class _SingleCoursePageState extends State<SingleCoursePage>
 
   @override
   void dispose() {
+    // ponytail: these were never disposed (leak). tabController is `late`, so guard it.
+    try { tabController.dispose(); } catch(_) {}
     scrollController.dispose();
-    tabController.dispose();
     super.dispose();
   }
 }

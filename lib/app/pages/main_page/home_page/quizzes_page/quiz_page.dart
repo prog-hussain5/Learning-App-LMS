@@ -143,7 +143,7 @@ class _QuizPageState extends State<QuizPage> {
         
 
         quizTime = Duration(seconds: quizTime!.inSeconds - 1);
-        seconds = int.parse(formatHHMMSS(quizTime?.inSeconds ?? 0).split(':').last);
+        seconds = int.tryParse(formatHHMMSS(quizTime?.inSeconds ?? 0).split(':').last) ?? 0;
         setState(() {});
       }else{
         print('........end........');
@@ -449,7 +449,7 @@ class _QuizPageState extends State<QuizPage> {
                                       // max
                                       GestureDetector(
                                         onTap: (){
-                                          if(quizData!.questions![currentQuestionIndex].gradeForUser! < (int.parse(quizData!.questions![currentQuestionIndex].grade ?? '0'))){
+                                          if(quizData!.questions![currentQuestionIndex].gradeForUser! < (int.tryParse(quizData!.questions![currentQuestionIndex].grade ?? '0') ?? 0)){
                                             setState(() {
                                               quizData!.questions![currentQuestionIndex].gradeForUser ??= 0; 
                                               quizData!.questions![currentQuestionIndex].gradeForUser = quizData!.questions![currentQuestionIndex].gradeForUser! + 1;
