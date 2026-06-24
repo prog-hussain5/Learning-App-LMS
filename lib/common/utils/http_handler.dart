@@ -33,14 +33,26 @@ void _notifyNetworkError() {
   }
 }
 
-Future<http.Response> _safeSend(http.Request request) async {
-  try {
-    final streamed = await request.send().timeout(const Duration(seconds: 30));
-    final body = await streamed.stream.bytesToString();
-    return http.Response(body, streamed.statusCode, headers: streamed.headers);
-  } catch (e) {
-    _notifyNetworkError();
-    return http.Response('{"success":false,"message":"network_error"}', 503);
+Future<http.Response> _safeSend(String method, String url, Map<String, String> headers, {String? body, bool retry = false}) async {
+  // ponytail: rebuild the request each attempt (a sent Request can't be re-sent).
+  // retry only GETs (content/quiz LOADING) so flaky/slow internet recovers automatically;
+  // never auto-retry POST/PUT/DELETE — could double-submit quiz answers or payments.
+  final maxAttempts = retry ? 3 : 1;
+  for (var attempt = 1; ; attempt++) {
+    try {
+      final request = http.Request(method, Uri.parse(url));
+      request.headers.addAll(headers);
+      if (body != null) request.body = body;
+      final streamed = await request.send().timeout(const Duration(seconds: 30));
+      final resBody = await streamed.stream.bytesToString();
+      return http.Response(resBody, streamed.statusCode, headers: streamed.headers);
+    } catch (e) {
+      if (attempt >= maxAttempts) {
+        _notifyNetworkError();
+        return http.Response('{"success":false,"message":"network_error"}', 503);
+      }
+      await Future.delayed(Duration(milliseconds: 400 * attempt));  // backoff: 0.4s, 0.8s
+    }
   }
 }
 
@@ -60,13 +72,7 @@ Future<Response> httpGet(String url,{Map<String, String> headers = const {},bool
       'x-locale' : locator<AppLanguage>().currentLanguage.toLowerCase(),
     };
   }
-  var request = http.Request(
-    'GET', 
-    Uri.parse(url),
-  );
-
-  request.headers.addAll(headers);
-  http.Response res = await _safeSend(request);
+  http.Response res = await _safeSend('GET', url, headers, retry: true);
 
 
   // Check if response is HTML (possible server error or hack)
@@ -129,14 +135,7 @@ Future<Response> httpPost(String url, dynamic body,{Map<String, String> headers 
     };
   }
 
-  var request = http.Request(
-    'POST', 
-    Uri.parse(url),
-  );
-
-  request.body = myBody;
-  request.headers.addAll(headers);
-  http.Response res = await _safeSend(request);
+  http.Response res = await _safeSend('POST', url, headers, body: myBody);
 
   if (res.statusCode == 401) {
     if(isRedirectingStatusCode){
@@ -163,14 +162,7 @@ Future<Response> httpDelete(String url, dynamic body,{Map<String, String> header
     };
   }
 
-  var request = http.Request(
-    'DELETE', 
-    Uri.parse(url),
-  );
-
-  request.body = myBody;
-  request.headers.addAll(headers);
-  http.Response res = await _safeSend(request);
+  http.Response res = await _safeSend('DELETE', url, headers, body: myBody);
 
   if (res.statusCode == 401) {
     if(isRedirectingStatusCode){
@@ -197,14 +189,7 @@ Future<Response> httpPut(String url, dynamic body,{Map<String, String> headers =
     headers = {"Content-Type" : "application/json",'Accept' : 'application/json','x-api-key' : Constants.apiKey, 'x-locale' : locator<AppLanguage>().currentLanguage.toLowerCase(),};
   }
 
-  var request = http.Request(
-    'PUT', 
-    Uri.parse(url),
-  );
-
-  request.body = myBody;
-  request.headers.addAll(headers);
-  http.Response res = await _safeSend(request);
+  http.Response res = await _safeSend('PUT', url, headers, body: myBody);
 
   if (res.statusCode == 401) {
     if(isRedirectingStatusCode){
