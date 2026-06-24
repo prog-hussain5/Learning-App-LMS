@@ -27,7 +27,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace = "com.balsamacademy.app"
     compileSdk = 36
-    ndkVersion = "29.0.13113456 rc1"
+    ndkVersion = "29.0.13113456 rc1"  // project-required NDK; SDK licenses accepted so Gradle installs it
 
     defaultConfig {
         applicationId = "com.balsamacademy.app"
@@ -38,18 +38,25 @@ android {
     }
 
 
+    // ponytail: only build a real release signing config when key.properties exists.
+    // Without it (CI / test builds) fall back to debug signing so the APK still builds.
     signingConfigs {
-        create("release") {
-            keyAlias = keystoreProperties["keyAlias"] as String
-            keyPassword = keystoreProperties["keyPassword"] as String
-            storeFile = keystoreProperties["storeFile"]?.let { file(it) }
-            storePassword = keystoreProperties["storePassword"] as String
+        if (keystorePropertiesFile.exists()) {
+            create("release") {
+                keyAlias = keystoreProperties["keyAlias"] as String
+                keyPassword = keystoreProperties["keyPassword"] as String
+                storeFile = keystoreProperties["storeFile"]?.let { file(it) }
+                storePassword = keystoreProperties["storePassword"] as String
+            }
         }
     }
-    
+
     buildTypes {
         release {
-            signingConfig = signingConfigs.getByName("release")
+            signingConfig = if (keystorePropertiesFile.exists())
+                signingConfigs.getByName("release")
+            else
+                signingConfigs.getByName("debug")
         }
     }
 
