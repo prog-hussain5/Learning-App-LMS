@@ -41,8 +41,12 @@ Future<http.Response> _safeSend(String method, String url, Map<String, String> h
   for (var attempt = 1; ; attempt++) {
     try {
       final request = http.Request(method, Uri.parse(url));
-      request.headers.addAll(headers);
+      // ponytail: set body BEFORE headers. Dart's body setter appends "; charset=utf-8" to an
+      // already-set Content-Type, and the server's RequestType middleware on the auth routes
+      // rejects anything != exactly 'application/json'. Setting body first lets the explicit
+      // 'Content-Type: application/json' from addAll() win, keeping login/register working.
       if (body != null) request.body = body;
+      request.headers.addAll(headers);
       final streamed = await request.send().timeout(const Duration(seconds: 30));
       final resBody = await streamed.stream.bytesToString();
       return http.Response(resBody, streamed.statusCode, headers: streamed.headers);
