@@ -258,7 +258,8 @@ class _QuizzesPageState extends State<QuizzesPage> with TickerProviderStateMixin
                                       ..title = listQuiz[index].getTitle()
                                       ..questioncount = listQuiz[index].questionCount
                                       ..avrage = listQuiz[index].avrage
-                                      ..studentcount = listQuiz[index].studentCount,
+                                      ..studentcount = listQuiz[index].studentCount
+                                      ..webinar = listQuiz[index].webinar,  // ponytail: keep course (title/thumbnail) through the round-trip
                                        
                                     listQuiz[index].status, 
                                     null, 

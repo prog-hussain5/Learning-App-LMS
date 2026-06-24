@@ -46,9 +46,9 @@ class QuizModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    data['quiz'] = quiz!.toJson();
-    data['webinar'] = webinar!.toJson();
-    data['user'] = user!.toJson();
+    data['quiz'] = quiz?.toJson();  // ponytail: null-safe serialization
+    data['webinar'] = webinar?.toJson();
+    data['user'] = user?.toJson();
     data['user_grade'] = usergrade;
     data['status'] = status;
     data['created_at'] = createdat;
@@ -184,7 +184,9 @@ class Question {
     descriptivecorrectanswer = json['descriptive_correct_answer'];
 
     grade = json['grade'];
-    gradeForUser = int.tryParse(json['grade']) ?? 0;
+    // ponytail: was the question's MAX grade -> a teacher who reviewed nothing awarded full
+    // marks on every descriptive answer. Start at 0; the +button (capped by `grade`) awards marks.
+    gradeForUser = 0;
 
     createdat = json['created_at'];
 
@@ -317,11 +319,11 @@ class Quiz {
     data['attempt'] = attempt;
     data['created_at'] = createdat;
     data['certificate'] = certificate;
-    data['teacher'] = teacher!.toJson();
+    data['teacher'] = teacher?.toJson();  // ponytail: null-safe serialization
     data['auth_attempt_count'] = authattemptcount;
     data['attempt_state'] = attemptstate;
     data['auth_can_start'] = authcanstart;
-    data['webinar'] = webinar!.toJson();
+    data['webinar'] = webinar?.toJson();  // ponytail: null-safe serialization
     data['questions'] = questions != null ? questions!.map((v) => v.toJson()).toList() : null;
     data['auth_can_download_certificate'] = authcandownloadcertificate;
     data['participated_count'] = participatedcount;
@@ -372,7 +374,7 @@ class QuizReview {
     data['created_at'] = createdat;
     data['answers'] =answers != null ? answers!.map((v) => v?.toJson()).toList() : null;
     data['updated_at'] = updatedat;
-    data['user_answer'] = useranswer!.toJson();
+    data['user_answer'] = useranswer?.toJson();  // ponytail: null-safe serialization
     data['multiple_correct_answer'] = multiplecorrectanswer?.toJson();
     return data;
   }

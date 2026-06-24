@@ -8,7 +8,6 @@ import 'package:webinar/app/widgets/main_widget/quizzes_widget/quiz_widget.dart'
 import 'package:webinar/common/common.dart';
 import 'package:webinar/common/components.dart';
 import 'package:webinar/common/utils/app_text.dart';
-import 'package:webinar/common/utils/date_formater.dart';
 import 'package:webinar/config/colors.dart';
 import 'package:webinar/config/styles.dart';
 
@@ -143,11 +142,21 @@ class _QuizPageState extends State<QuizPage> {
         
 
         quizTime = Duration(seconds: quizTime!.inSeconds - 1);
-        seconds = int.tryParse(formatHHMMSS(quizTime?.inSeconds ?? 0).split(':').last) ?? 0;
+        // ponytail: widget does ~/60 and %60 on this, so it needs TOTAL remaining seconds
+        // (was the SS-only portion, so minutes always showed 00 and seconds looped 0-59).
+        seconds = quizTime?.inSeconds ?? 0;
         setState(() {});
       }else{
-        print('........end........');
         timer.cancel();
+        // ponytail: enforce the time limit — auto-submit current answers once when the clock hits 0
+        if(mounted && !isReview && isStartQuiz && !isLoadingSendingResult && quizResultId != null){
+          setState(() => isLoadingSendingResult = true);
+          QuizService.storeResult(quizData!.id!, quizResultId!, quizData!.questions ?? []).then((res){
+            if(!mounted) return;
+            isLoadingSendingResult = false;
+            if(res){ backRoute(arguments: true); } else { setState(() {}); }
+          });
+        }
       }
     });
 
@@ -414,9 +423,9 @@ class _QuizPageState extends State<QuizPage> {
                                       GestureDetector(
                                         onTap: (){
 
-                                          if(quizData!.questions![currentQuestionIndex].gradeForUser! > 1){
+                                          if((quizData!.questions![currentQuestionIndex].gradeForUser ?? 0) > 0){  // ponytail: allow lowering to 0
                                             setState(() {
-                                              quizData!.questions![currentQuestionIndex].gradeForUser ??= 0; 
+                                              quizData!.questions![currentQuestionIndex].gradeForUser ??= 0;
                                               quizData!.questions![currentQuestionIndex].gradeForUser = quizData!.questions![currentQuestionIndex].gradeForUser! - 1;
                                             });
                                           }
@@ -449,7 +458,7 @@ class _QuizPageState extends State<QuizPage> {
                                       // max
                                       GestureDetector(
                                         onTap: (){
-                                          if(quizData!.questions![currentQuestionIndex].gradeForUser! < (int.tryParse(quizData!.questions![currentQuestionIndex].grade ?? '0') ?? 0)){
+                                          if((quizData!.questions![currentQuestionIndex].gradeForUser ?? 0) < (num.tryParse(quizData!.questions![currentQuestionIndex].grade ?? '0')?.round() ?? 0)){  // ponytail: null-safe + supports decimal grade cap
                                             setState(() {
                                               quizData!.questions![currentQuestionIndex].gradeForUser ??= 0; 
                                               quizData!.questions![currentQuestionIndex].gradeForUser = quizData!.questions![currentQuestionIndex].gradeForUser! + 1;
