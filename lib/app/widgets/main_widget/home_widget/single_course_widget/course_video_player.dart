@@ -87,14 +87,14 @@ class _CourseVideoPlayerState extends State<CourseVideoPlayer> with RouteAware {
             autoInitialize: true,
             useRootNavigator: true,
             materialProgressColors: ChewieProgressColors(
-              playedColor: blue64(),
-              handleColor: blue64(),
+              playedColor: green77(),
+              handleColor: green77(),
               backgroundColor: Colors.grey,
               bufferedColor: Colors.grey.withOpacity(0.5),
             ),
             cupertinoProgressColors: ChewieProgressColors(
-              playedColor: blue64(),
-              handleColor: blue64(),
+              playedColor: green77(),
+              handleColor: green77(),
               backgroundColor: Colors.grey,
               bufferedColor: Colors.grey.withOpacity(0.5),
             ),
@@ -138,14 +138,14 @@ class _CourseVideoPlayerState extends State<CourseVideoPlayer> with RouteAware {
               autoInitialize: true,
               useRootNavigator: true,
               materialProgressColors: ChewieProgressColors(
-                playedColor: blue64(),
-                handleColor: blue64(),
+                playedColor: green77(),
+                handleColor: green77(),
                 backgroundColor: Colors.grey,
                 bufferedColor: Colors.grey.withOpacity(0.5),
               ),
               cupertinoProgressColors: ChewieProgressColors(
-                playedColor: blue64(),
-                handleColor: blue64(),
+                playedColor: green77(),
+                handleColor: green77(),
                 backgroundColor: Colors.grey,
                 bufferedColor: Colors.grey.withOpacity(0.5),
               ),
@@ -191,16 +191,24 @@ class _CourseVideoPlayerState extends State<CourseVideoPlayer> with RouteAware {
               borderRadius: borderRadius(),
               child: AspectRatio(
                 aspectRatio: 16 / 9,
-                child: Image.network(
-                  widget.imageCover,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Image.asset(
-                      AppAssets.placePng,
-                      width: getSize().width,
-                      height: getSize().width,
-                    );
-                  },
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Image.network(
+                      widget.imageCover,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Image.asset(
+                          AppAssets.placePng,
+                          width: getSize().width,
+                          height: getSize().width,
+                        );
+                      },
+                    ),
+                    // ponytail: buffering feedback while the video initializes
+                    Container(color: Colors.black26),
+                    Center(child: CircularProgressIndicator(color: green77())),
+                  ],
                 ),
               ),
             ),

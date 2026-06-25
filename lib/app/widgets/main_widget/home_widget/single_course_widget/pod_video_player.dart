@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:webinar/common/common.dart';
-// import 'package:webinar/config/colors.dart'; // unused
+import 'package:webinar/config/colors.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class PodVideoPlayerDev extends StatefulWidget {
@@ -129,10 +129,10 @@ class _VimeoVideoPlayerState extends State<PodVideoPlayerDev>
                   ? YoutubePlayer(
                       controller: youtubeController!,
                       showVideoProgressIndicator: true,
-                      progressIndicatorColor: Colors.blue,
+                      progressIndicatorColor: green77(),
                       progressColors: ProgressBarColors(
-                        playedColor: Colors.blue,
-                        handleColor: Colors.blue,
+                        playedColor: green77(),
+                        handleColor: green77(),
                         bufferedColor: Colors.grey.withOpacity(0.5),
                         backgroundColor: Colors.black26,
                       ),
@@ -144,8 +144,8 @@ class _VimeoVideoPlayerState extends State<PodVideoPlayerDev>
                         ProgressBar(
                           isExpanded: true,
                           colors: ProgressBarColors(
-                            playedColor: Colors.blue,
-                            handleColor: Colors.blue,
+                            playedColor: green77(),
+                            handleColor: green77(),
                             bufferedColor: Colors.grey.withOpacity(0.5),
                             backgroundColor: Colors.black26,
                           ),
@@ -244,10 +244,10 @@ class _FullScreenVideoPlayerState extends State<_FullScreenVideoPlayer> {
           child: YoutubePlayer(
             controller: _controller,
             showVideoProgressIndicator: true,
-            progressIndicatorColor: Colors.blue,
+            progressIndicatorColor: green77(),
             progressColors: ProgressBarColors(
-              playedColor: Colors.blue,
-              handleColor: Colors.blue,
+              playedColor: green77(),
+              handleColor: green77(),
               bufferedColor: Colors.grey.withOpacity(0.5),
               backgroundColor: Colors.black26,
             ),
@@ -257,8 +257,8 @@ class _FullScreenVideoPlayerState extends State<_FullScreenVideoPlayer> {
               ProgressBar(
                 isExpanded: true,
                 colors: ProgressBarColors(
-                  playedColor: Colors.blue,
-                  handleColor: Colors.blue,
+                  playedColor: green77(),
+                  handleColor: green77(),
                   bufferedColor: Colors.grey.withOpacity(0.5),
                   backgroundColor: Colors.black26,
                 ),
