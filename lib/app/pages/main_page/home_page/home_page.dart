@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:webinar/app/providers/drawer_provider.dart';
 import 'package:webinar/app/providers/home_provider.dart';
 import 'package:webinar/app/providers/theme_provider.dart';
+import 'package:webinar/app/models/course_model.dart';
 import 'package:webinar/app/services/user_service/user_service.dart';
 import 'package:webinar/app/widgets/main_widget/home_widget/home_widget.dart';
 import 'package:webinar/common/common.dart';
@@ -10,6 +11,7 @@ import 'package:webinar/common/data/app_data.dart';
 import 'package:webinar/common/shimmer_component.dart';
 import 'package:webinar/common/utils/app_text.dart';
 import 'package:webinar/config/colors.dart';
+import 'package:webinar/config/assets.dart';
 import '../../../../locator.dart';
 import '../../../providers/app_language_provider.dart';
 import '../../../../common/components.dart';
@@ -25,6 +27,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
 
   String token = '';
   String name = '';
+
+  List<CourseModel> myCourses = [];
+  bool isLoadingMyCourses = true;
+
+  // ponytail: catalog sections (best-rated etc.) hidden — home shows only the user's courses
+  final bool showCatalog = false;
 
   TextEditingController searchController = TextEditingController();
   FocusNode searchNode = FocusNode();
@@ -49,6 +57,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
     super.initState();
 
     getToken();
+    getMyCourses();
 
     appBarController = AnimationController(vsync: this,duration: const Duration(milliseconds: 200));
     appBarAnimation = Tween<double>(
@@ -135,6 +144,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
       setState(() {
         name = value;
       });
+    });
+  }
+
+  // ponytail: load only the courses this user has (assigned/purchased)
+  getMyCourses() async {
+    final purchases = await UserService.getPurchaseCourse();
+    if(!mounted) return;
+    setState(() {
+      myCourses = purchases.map((e) => e.webinar ?? e.bundle).whereType<CourseModel>().toList();
+      isLoadingMyCourses = false;
     });
   }
 
@@ -250,26 +269,22 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                                           // }),
                                           
                                           // NEW CODE: عرض العنوان فقط بدون زر "عرض الكل"
-                                          HomeWidget.titleAndMore(appText.newestClasses, isViewAll: false),
-                                            
-                                          SizedBox(
-                                            width: getSize().width,
-                                            child: SingleChildScrollView(
-                                              physics: const BouncingScrollPhysics(),
-                                              padding: padding(),
-                                              scrollDirection: Axis.horizontal,
-                                              child: Row(
-                                                children: List.generate( homeProvider.isLoadingNewsetListData ? 3 : homeProvider.newsetListData.length, (index) {
-                                                  
-                                                  return homeProvider.isLoadingNewsetListData
-                                                    ? courseItemShimmer()
-                                                    : courseItem(
-                                                        homeProvider.newsetListData[index],
-                                                      );
-                                                }),
-                                              ),
-                                            ),
-                                          )
+                                          HomeWidget.titleAndMore(appText.myCourses, isViewAll: false),
+
+                                          if(isLoadingMyCourses)
+                                            Padding(
+                                              padding: padding(vertical: 60),
+                                              child: loading(),
+                                            )
+                                          else if(myCourses.isEmpty)
+                                            Padding(
+                                              padding: padding(vertical: 30),
+                                              child: emptyState(AppAssets.bioEmptyStateSvg, appText.noCourse, appText.noContentForShow),
+                                            )
+                                          else
+                                            ...List.generate(myCourses.length, (index) {
+                                              return HomeWidget.myCourseCard(myCourses[index]);
+                                            })
                                             
                                         ],
                                       ),
@@ -304,8 +319,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                                       // ),
                                             
                             
-                                      if(homeProvider.bestRatedListData.isNotEmpty)...{
-                            
+                                      if(showCatalog && homeProvider.bestRatedListData.isNotEmpty)...{
+
                                         // Best Rated
                                         Column(
                                           children: [

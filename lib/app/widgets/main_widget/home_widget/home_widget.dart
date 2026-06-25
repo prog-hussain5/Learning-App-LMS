@@ -4,7 +4,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:webinar/app/models/course_model.dart';
 import 'package:webinar/app/pages/main_page/home_page/notification_page.dart';
+import 'package:webinar/app/pages/main_page/home_page/single_course_page/single_course_page.dart';
 // import 'package:webinar/app/pages/main_page/home_page/search_page/suggested_search_page.dart'; // unused
 import 'package:webinar/app/providers/user_provider.dart';
 import 'package:webinar/app/services/authentication_service/authentication_service.dart';
@@ -230,6 +232,68 @@ class HomeWidget{
           }
 
         ],
+      ),
+    );
+  }
+
+  // ponytail: full-width "my courses" card for the home screen (Option A layout)
+  static Widget myCourseCard(CourseModel course){
+    double w = getSize().width - 32;
+    return GestureDetector(
+      onTap: (){
+        nextRoute(SingleCoursePage.pageName, arguments: [course.id, course.type == 'bundle']);
+      },
+      behavior: HitTestBehavior.opaque,
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        clipBehavior: Clip.hardEdge,
+        decoration: BoxDecoration(
+          color: whiteFF_26,
+          borderRadius: borderRadius(radius: 15),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+
+            fadeInImage(course.image ?? '', w, 170),
+
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+
+                  Text(
+                    course.title ?? '',
+                    style: style16Bold(),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+
+                  if((course.teacher?.fullName ?? '').isNotEmpty)...{
+                    space(6),
+                    Row(
+                      children: [
+                        Icon(Icons.person_outline, size: 15, color: greyA5),
+                        space(0, width: 4),
+                        Expanded(
+                          child: Text(
+                            course.teacher?.fullName ?? '',
+                            style: style12Regular().copyWith(color: greyA5),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                  },
+
+                ],
+              ),
+            ),
+
+          ],
+        ),
       ),
     );
   }
