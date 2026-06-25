@@ -5,8 +5,15 @@ import FirebaseMessaging
 
 @main
 @objc class AppDelegate: FlutterAppDelegate {
-    
+
+  // Visible deterrent shown while the screen is being recorded/mirrored.
   private var overlayWindow: UIWindow?
+  // Black cover shown when the app is backgrounded (hides the app-switcher snapshot).
+  private var privacyCover: UIView?
+  // Secure text field whose redacted layer hosts the app content so that
+  // screenshots / screen recordings / AirPlay mirroring all render BLACK.
+  private let secureField = UITextField()
+  private var protectionEnabled = false
 
   override func application(
     _ application: UIApplication,
@@ -14,7 +21,7 @@ import FirebaseMessaging
   ) -> Bool {
       // Initialize Firebase
       FirebaseApp.configure()
-      
+
       GeneratedPluginRegistrant.register(with: self)
 
       // MethodChannel الربط مع Flutter
@@ -37,39 +44,78 @@ import FirebaseMessaging
       return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 
+  // MARK: - Public start/stop
+
   private func startProtection() {
-    NotificationCenter.default.addObserver(
-      self,
-      selector: #selector(screenCaptureChanged),
-      name: UIScreen.capturedDidChangeNotification,
-      object: nil
-    )
-    NotificationCenter.default.addObserver(
-      self,
-      selector: #selector(screenshotTaken),
-      name: UIApplication.userDidTakeScreenshotNotification,
-      object: nil
-    )
+    guard !protectionEnabled else { return }
+    protectionEnabled = true
+
+    // 1) Screenshot / recording blackout (covers every screen — it's window-level).
+    enableScreenshotShield()
+
+    // 2) Observers for recording state + app lifecycle (background privacy).
+    let nc = NotificationCenter.default
+    nc.addObserver(self, selector: #selector(screenCaptureChanged),
+                   name: UIScreen.capturedDidChangeNotification, object: nil)
+    nc.addObserver(self, selector: #selector(screenshotTaken),
+                   name: UIApplication.userDidTakeScreenshotNotification, object: nil)
+    nc.addObserver(self, selector: #selector(appWillResignActive),
+                   name: UIApplication.willResignActiveNotification, object: nil)
+    nc.addObserver(self, selector: #selector(appDidBecomeActive),
+                   name: UIApplication.didBecomeActiveNotification, object: nil)
+
     updateOverlay()
   }
 
   private func stopProtection() {
+    protectionEnabled = false
     NotificationCenter.default.removeObserver(self)
+    disableScreenshotShield()
     overlayWindow?.isHidden = true
     overlayWindow = nil
+    removePrivacyCover()
   }
+
+  // MARK: - Screenshot / recording shield (secure text field trick)
+  // Re-parents the key window's layer inside a secureTextEntry field's redacted
+  // layer. The user still sees everything normally, but the OS renders the content
+  // BLACK in any system capture (screenshot, screen recording, AirPlay mirroring).
+
+  private func enableScreenshotShield() {
+    guard let window = self.window else { return }
+    guard secureField.superview == nil else { return }
+
+    secureField.isSecureTextEntry = true
+    secureField.isUserInteractionEnabled = false
+    secureField.translatesAutoresizingMaskIntoConstraints = false
+
+    window.addSubview(secureField)
+    NSLayoutConstraint.activate([
+      secureField.centerXAnchor.constraint(equalTo: window.centerXAnchor),
+      secureField.centerYAnchor.constraint(equalTo: window.centerYAnchor),
+    ])
+    window.layer.superlayer?.addSublayer(secureField.layer)
+    secureField.layer.sublayers?.first?.addSublayer(window.layer)
+  }
+
+  private func disableScreenshotShield() {
+    secureField.removeFromSuperview()
+  }
+
+  // MARK: - Recording deterrent overlay
 
   @objc private func screenCaptureChanged() {
     updateOverlay()
   }
 
   @objc private func screenshotTaken() {
-    // يمكنك هنا عرض Alert أو Log
+    // Screenshots are already redacted to black by the secure-field shield above.
+    // Re-assert the shield defensively in case the view hierarchy changed.
+    enableScreenshotShield()
   }
 
   private func updateOverlay() {
-    let isCaptured = UIScreen.main.isCaptured
-    if isCaptured {
+    if UIScreen.main.isCaptured {
       showOverlay()
     } else {
       hideOverlay()
@@ -86,11 +132,14 @@ import FirebaseMessaging
       label.text = "Screen recording is not allowed"
       label.textColor = .white
       label.textAlignment = .center
+      label.numberOfLines = 0
       label.translatesAutoresizingMaskIntoConstraints = false
       vc.view.addSubview(label)
       NSLayoutConstraint.activate([
         label.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor),
-        label.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor)
+        label.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor),
+        label.leadingAnchor.constraint(greaterThanOrEqualTo: vc.view.leadingAnchor, constant: 24),
+        label.trailingAnchor.constraint(lessThanOrEqualTo: vc.view.trailingAnchor, constant: -24),
       ])
       overlayWindow?.rootViewController = vc
     }
@@ -99,5 +148,31 @@ import FirebaseMessaging
 
   private func hideOverlay() {
     overlayWindow?.isHidden = true
+  }
+
+  // MARK: - Background privacy (app-switcher snapshot)
+
+  @objc private func appWillResignActive() {
+    guard protectionEnabled, let window = self.window else { return }
+    if privacyCover == nil {
+      let cover = UIView(frame: window.bounds)
+      cover.backgroundColor = .black
+      cover.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+      window.addSubview(cover)
+      privacyCover = cover
+    }
+    privacyCover?.isHidden = false
+    if let cover = privacyCover {
+      window.bringSubviewToFront(cover)
+    }
+  }
+
+  @objc private func appDidBecomeActive() {
+    removePrivacyCover()
+  }
+
+  private func removePrivacyCover() {
+    privacyCover?.removeFromSuperview()
+    privacyCover = nil
   }
 }
