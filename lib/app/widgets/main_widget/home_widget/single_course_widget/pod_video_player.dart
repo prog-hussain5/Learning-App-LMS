@@ -31,6 +31,7 @@ class _PodVideoPlayerDevState extends State<PodVideoPlayerDev>
     with RouteAware, AutomaticKeepAliveClientMixin {
   YoutubePlayerController? _controller;
   String? _videoId;
+  String _coverUrl = '';
 
   @override
   void initState() {
@@ -40,6 +41,9 @@ class _PodVideoPlayerDevState extends State<PodVideoPlayerDev>
           (widget.url.trim().length == 11 ? widget.url.trim() : null);
 
       if (_videoId != null) {
+        // ponytail: plain YouTube thumbnail used as a cover so the embed's own
+        // cued UI (title bar + center YouTube play button) is never shown.
+        _coverUrl = 'https://i.ytimg.com/vi/$_videoId/hqdefault.jpg';
         _controller = YoutubePlayerController.fromVideoId(
           videoId: _videoId!,
           autoPlay: false, // cue only — don't force a full download on mount (faster load)
@@ -99,8 +103,9 @@ class _PodVideoPlayerDevState extends State<PodVideoPlayerDev>
           builder: (context, player) {
             return Stack(
               children: [
-                player,
-                Positioned.fill(child: _YoutubeControls(_controller!)),
+                // ponytail: slight zoom + clip pushes YouTube's corner logo out of frame
+                ClipRect(child: Transform.scale(scale: 1.08, child: player)),
+                Positioned.fill(child: _YoutubeControls(_controller!, _coverUrl)),
               ],
             );
           },
@@ -117,7 +122,8 @@ class _PodVideoPlayerDevState extends State<PodVideoPlayerDev>
 /// Mirrors CustomVideoControls (the uploaded-video player) so both players feel identical.
 class _YoutubeControls extends StatefulWidget {
   final YoutubePlayerController controller;
-  const _YoutubeControls(this.controller);
+  final String coverUrl;
+  const _YoutubeControls(this.controller, this.coverUrl);
 
   @override
   State<_YoutubeControls> createState() => _YoutubeControlsState();
@@ -131,6 +137,7 @@ class _YoutubeControlsState extends State<_YoutubeControls> {
   bool _isPlaying = false;
   bool _isBuffering = false;
   bool _isFullScreen = false;
+  bool _hasStarted = false; // hide the cover once playback actually begins
   double _speed = 1.0;
   Duration _duration = Duration.zero;
 
@@ -155,12 +162,14 @@ class _YoutubeControlsState extends State<_YoutubeControls> {
         buffering != _isBuffering ||
         fs != _isFullScreen ||
         dur != _duration ||
+        (playing && !_hasStarted) ||
         (v.playbackRate - _speed).abs() > 0.01) {
       setState(() {
         _isPlaying = playing;
         _isBuffering = buffering;
         _isFullScreen = fs;
         _duration = dur;
+        if (playing) _hasStarted = true;
         if (v.playbackRate > 0) _speed = v.playbackRate;
       });
     }
@@ -343,6 +352,7 @@ class _YoutubeControlsState extends State<_YoutubeControls> {
                       ),
                     ),
                   ),
+                  if (!_hasStarted) _buildCover(),
                 ],
               ),
             );
@@ -351,6 +361,28 @@ class _YoutubeControlsState extends State<_YoutubeControls> {
       },
     );
   }
+
+  // ponytail: opaque cover (plain YT thumbnail + our play button) shown until the
+  // first play — hides YouTube's cued thumbnail/title/center-play entirely.
+  Widget _buildCover() => GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: _playPause,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            if (widget.coverUrl.isNotEmpty)
+              Image.network(
+                widget.coverUrl,
+                fit: BoxFit.cover,
+                errorBuilder: (_, __, ___) => Container(color: Colors.black),
+              )
+            else
+              Container(color: Colors.black),
+            Container(color: Colors.black26),
+            Center(child: _circleButton(Icons.play_arrow, 56, _playPause)),
+          ],
+        ),
+      );
 
   Widget _iconButton(IconData icon, double size, VoidCallback onTap) => GestureDetector(
         behavior: HitTestBehavior.opaque,
