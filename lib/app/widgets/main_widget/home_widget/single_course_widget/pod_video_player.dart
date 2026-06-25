@@ -103,8 +103,7 @@ class _PodVideoPlayerDevState extends State<PodVideoPlayerDev>
           builder: (context, player) {
             return Stack(
               children: [
-                // ponytail: slight zoom + clip pushes YouTube's corner logo out of frame
-                ClipRect(child: Transform.scale(scale: 1.08, child: player)),
+                player,
                 Positioned.fill(child: _YoutubeControls(_controller!, _coverUrl)),
               ],
             );
