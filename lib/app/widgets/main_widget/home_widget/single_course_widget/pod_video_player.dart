@@ -53,7 +53,9 @@ class _PodVideoPlayerDevState extends State<PodVideoPlayerDev>
             showVideoAnnotations: false,
             enableCaption: false,
             strictRelatedVideos: true, // no related-video spam on the end screen
-            pointerEvents: PointerEvents.none, // embed ignores touch -> no copy-URL menu; our overlay owns gestures
+            // NOTE: pointerEvents:none was removed — it broke the IFrame player's
+            // init so playVideo() never started. The copy-URL menu is instead
+            // blocked by an onLongPress absorber on the controls overlay below.
           ),
         );
       }
@@ -199,6 +201,17 @@ class _YoutubeControlsState extends State<_YoutubeControls> {
     _startHideTimer();
   }
 
+  // First play from the cover. Hide the cover immediately so the user is never
+  // stuck on it even if the player takes a moment to report 'playing'.
+  void _startPlayback() {
+    c.playVideo();
+    setState(() {
+      _hasStarted = true;
+      _visible = true;
+    });
+    _startHideTimer();
+  }
+
   void _seekBy(int seconds, Duration current) {
     var target = current + Duration(seconds: seconds);
     if (target < Duration.zero) target = Duration.zero;
@@ -250,6 +263,7 @@ class _YoutubeControlsState extends State<_YoutubeControls> {
             return GestureDetector(
               behavior: HitTestBehavior.opaque,
               onTap: _toggleVisible,
+              onLongPress: () {}, // absorb long-press so the WebView copy-URL menu can't open
               onDoubleTapDown: (d) =>
                   _seekBy(d.localPosition.dx < cns.maxWidth / 2 ? -10 : 10, pos),
               child: Stack(
@@ -365,7 +379,7 @@ class _YoutubeControlsState extends State<_YoutubeControls> {
   // first play — hides YouTube's cued thumbnail/title/center-play entirely.
   Widget _buildCover() => GestureDetector(
         behavior: HitTestBehavior.opaque,
-        onTap: _playPause,
+        onTap: _startPlayback,
         child: Stack(
           fit: StackFit.expand,
           children: [
@@ -378,7 +392,7 @@ class _YoutubeControlsState extends State<_YoutubeControls> {
             else
               Container(color: Colors.black),
             Container(color: Colors.black26),
-            Center(child: _circleButton(Icons.play_arrow, 56, _playPause)),
+            Center(child: _circleButton(Icons.play_arrow, 56, _startPlayback)),
           ],
         ),
       );
