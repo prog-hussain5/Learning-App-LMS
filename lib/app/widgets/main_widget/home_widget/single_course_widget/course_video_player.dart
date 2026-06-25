@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
-// import 'package:webinar/app/widgets/main_widget/home_widget/single_course_widget/custom_video_controls.dart'; // unused
+import 'package:webinar/app/widgets/main_widget/home_widget/single_course_widget/custom_video_controls.dart';
 import 'package:webinar/common/utils/download_manager.dart';
 import 'package:webinar/config/assets.dart';
 import 'package:webinar/config/colors.dart';
@@ -81,6 +81,7 @@ class _CourseVideoPlayerState extends State<CourseVideoPlayer> with RouteAware {
             autoPlay: true,
             looping: false,
             showControls: true,
+            customControls: const CustomVideoControls(),  // ponytail: branded controls
             allowFullScreen: true,
             allowMuting: true,
             showControlsOnInitialize: true,
@@ -132,6 +133,7 @@ class _CourseVideoPlayerState extends State<CourseVideoPlayer> with RouteAware {
               autoPlay: true,
               looping: false,
               showControls: true,
+              customControls: const CustomVideoControls(),  // ponytail: branded controls
               allowFullScreen: true,
               allowMuting: true,
               showControlsOnInitialize: true,
