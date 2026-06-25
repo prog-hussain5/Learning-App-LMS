@@ -5,6 +5,8 @@ import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:webinar/common/common.dart';
+import 'package:webinar/app/pages/main_page/home_page/notification_page.dart';
 
 bool isFlutterLocalNotificationsInitialized = false;
 
@@ -46,7 +48,10 @@ Future<void> setupFlutterNotifications() async {
     initializationSettings,
 
     onDidReceiveNotificationResponse: (details) {
-      // var payload = jsonDecode(details.payload ?? '');
+      // ponytail: open the in-app notifications screen when a shown notification is tapped
+      try {
+        navigatorKey.currentState?.pushNamed(NotificationPage.pageName);
+      } catch (_) {}
     },
     
   );

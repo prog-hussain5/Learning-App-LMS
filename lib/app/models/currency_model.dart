@@ -24,7 +24,7 @@ class CurrencyModel {
     currencyPosition = json['currency_position'];
     currencySeparator = json['currency_separator'];
     currencyDecimal = int.tryParse(json['currency_decimal'].toString());
-    exchangeRate = double.parse(json['exchange_rate']?.toString() ?? '1.0');
+    exchangeRate = double.tryParse(json['exchange_rate']?.toString() ?? '') ?? 1.0;  // ponytail: tolerate bad rate
     order = json['order'];
     createdAt = json['created_at'];
   }

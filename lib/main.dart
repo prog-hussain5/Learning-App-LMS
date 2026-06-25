@@ -91,6 +91,14 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // print('message--');
 }
 
+void _handleNotificationTap(Map<String, dynamic> data) {
+  // ponytail: open the in-app notifications screen on tap. Extend with data['type']/data['id']
+  // to deep-link to a specific course/quiz once the backend payload shape is pinned down.
+  try {
+    navigatorKey.currentState?.pushNamed(NotificationPage.pageName);
+  } catch (_) {}
+}
+
 void main() async {
   // debugRepaintRainbowEnabled = true;
 
@@ -131,6 +139,12 @@ Future<void> _initializeNotifications() async {
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       showFlutterNotification(message);
+    });
+
+    // ponytail: route taps that open the app from background or a terminated (cold) start
+    FirebaseMessaging.onMessageOpenedApp.listen((m) => _handleNotificationTap(m.data));
+    FirebaseMessaging.instance.getInitialMessage().then((m) {
+      if (m != null) _handleNotificationTap(m.data);
     });
 
     // Get Firebase Token with iOS APNS handling

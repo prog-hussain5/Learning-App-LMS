@@ -79,7 +79,7 @@ class PaymentChannels {
     status = json['status'];
     image = json['image'];
     settings = json['settings'];
-    currencies = json['currencies'].cast<String>();
+    currencies = (json['currencies'] as List?)?.cast<String>() ?? [];  // ponytail: null-safe
     createdAt = json['created_at'];
   }
 

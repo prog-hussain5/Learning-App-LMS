@@ -32,7 +32,6 @@ import '../../../../../config/colors.dart';
 import '../../../../../common/components.dart';
 import '../../../../pages/main_page/home_page/assignments_page/assignments_page.dart';
 import '../../../../pages/main_page/home_page/quizzes_page/quiz_page.dart';
-import '../../../../pages/main_page/home_page/quizzes_page/quizzes_page.dart';
 import '../../blog_widget/blog_widget.dart';
 
 class SingleCourseWidget{
@@ -411,7 +410,8 @@ class SingleCourseWidget{
                               if(contents[index].items![i].type == 'assignment'){
                                 nextRoute(AssignmentsPage.pageName);
                               }else if(contents[index].items![i].type == 'quiz'){
-                                nextRoute(QuizzesPage.pageName);
+                                // ponytail: open the tapped quiz (item id == quiz id) instead of the global list
+                                nextRoute(QuizPage.pageName, arguments: [contents[index].items![i].id]);
                               }else{
 
                                 int previousIndex = i - 1;

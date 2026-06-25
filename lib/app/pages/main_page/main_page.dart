@@ -60,14 +60,16 @@ class _MainPageState extends State<MainPage> {
       // For iOS: Get APNS token first before getting Firebase token
       if (!kIsWeb && Platform.isIOS) {
         try {
-          String? apnsToken = await FirebaseMessaging.instance.getAPNSToken();
-          if (apnsToken != null) {
-            // Now we can safely get Firebase token
-            String? firebaseToken = await FirebaseMessaging.instance.getToken();
-            if (firebaseToken != null) {
-              print('🔔 Firebase Device Token (iOS): $firebaseToken');
-              UserService.sendFirebaseToken(firebaseToken);
-            }
+          // ponytail: APNS token isn't ready immediately on first launch — retry a few times
+          String? apnsToken;
+          for (int i = 0; i < 5 && apnsToken == null; i++) {
+            apnsToken = await FirebaseMessaging.instance.getAPNSToken();
+            if (apnsToken == null) await Future.delayed(const Duration(seconds: 2));
+          }
+          String? firebaseToken = await FirebaseMessaging.instance.getToken();
+          if (firebaseToken != null) {
+            print('🔔 Firebase Device Token (iOS): $firebaseToken');
+            UserService.sendFirebaseToken(firebaseToken);
           }
         } catch (e) {
           print('❌ Error getting Firebase token (iOS): $e');
@@ -85,6 +87,11 @@ class _MainPageState extends State<MainPage> {
           }
         });
       }
+
+      // ponytail: keep the server's token current on both platforms when FCM rotates it
+      FirebaseMessaging.instance.onTokenRefresh.listen((t) {
+        UserService.sendFirebaseToken(t);
+      });
     });
 
     getData();

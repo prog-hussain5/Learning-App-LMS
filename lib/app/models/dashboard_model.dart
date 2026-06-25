@@ -63,7 +63,7 @@ class DashboardModel {
       });
     }
     
-    balance = double.parse(json['balance']?.toString() ?? '0.0');
+    balance = double.tryParse(json['balance']?.toString() ?? '') ?? 0.0;  // ponytail: tolerate bad balance
 
     canDrawable = json['can_drawable'];
     badges = json['badges'] != null ? Badges.fromJson(json['badges']) : null;
@@ -276,8 +276,9 @@ class MonthlyChart {
   MonthlyChart({this.months, this.data});
 
   MonthlyChart.fromJson(Map<String, dynamic> json) {
-    months = json['months'].cast<String>();
-    data = json['data'].cast<int>();
+    // ponytail: null-safe + tolerate PHP doubles (e.g. 12.0) so the chart never wipes
+    months = (json['months'] as List?)?.map((e) => e.toString()).toList() ?? [];
+    data = (json['data'] as List?)?.map((e) => (num.tryParse(e.toString()) ?? 0).toInt()).toList() ?? [];
   }
 
   Map<String, dynamic> toJson() {

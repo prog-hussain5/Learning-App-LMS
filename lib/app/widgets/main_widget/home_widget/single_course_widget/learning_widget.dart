@@ -17,7 +17,6 @@ import 'package:webinar/app/pages/main_page/home_page/assignments_page/assignmen
 import 'package:webinar/app/pages/main_page/home_page/single_course_page/forum_page/search_forum_page.dart';
 import 'package:webinar/app/pages/main_page/home_page/single_course_page/single_content_page/single_content_page.dart';
 import 'package:webinar/app/pages/main_page/home_page/quizzes_page/quiz_page.dart';
-import 'package:webinar/app/pages/main_page/home_page/quizzes_page/quizzes_page.dart';
 import 'package:webinar/app/services/user_service/forum_service.dart';
 import 'package:webinar/common/enums/error_enum.dart';
 import 'package:webinar/config/styles.dart';
@@ -230,7 +229,8 @@ class LearningWidget{
                                   if(contents[index].items![i].type == 'assignment'){
                                     nextRoute(AssignmentsPage.pageName);
                                   }else if(contents[index].items![i].type == 'quiz'){
-                                    nextRoute(QuizzesPage.pageName);
+                                    // ponytail: open the tapped quiz (item id == quiz id) instead of the global list
+                                    nextRoute(QuizPage.pageName, arguments: [contents[index].items![i].id]);
                                   }else{
 
                                     int previousIndex = i - 1;

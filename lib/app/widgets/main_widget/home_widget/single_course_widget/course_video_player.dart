@@ -29,6 +29,7 @@ class CourseVideoPlayer extends StatefulWidget {
 class _CourseVideoPlayerState extends State<CourseVideoPlayer> with RouteAware {
   late VideoPlayerController controller;
   ChewieController? chewieController;
+  bool _hasController = false;  // ponytail: controller may never be assigned (missing local file)
 
   bool isShowVideoPlayer = false;
 
@@ -48,7 +49,7 @@ class _CourseVideoPlayerState extends State<CourseVideoPlayer> with RouteAware {
   void dispose() {
     widget.routeObserver.unsubscribe(this);
     chewieController?.dispose();
-    controller.dispose();
+    if(_hasController) controller.dispose();  // ponytail: guard — controller may be unassigned
     super.dispose();
   }
 
@@ -57,12 +58,12 @@ class _CourseVideoPlayerState extends State<CourseVideoPlayer> with RouteAware {
 
   @override
   void didPushNext() {
-    controller.pause();
+    if(_hasController) controller.pause();
   }
 
   @override
   void didPopNext() {
-    controller.play();
+    if(_hasController) controller.play();
   }
 
   initVideo() async {
@@ -72,6 +73,7 @@ class _CourseVideoPlayerState extends State<CourseVideoPlayer> with RouteAware {
         Uri.parse(widget.url),
       )..initialize().then((_) {
           isShowVideoPlayer = true;
+          _hasController = true;
 
           // Initialize Chewie with fullscreen support
           chewieController = ChewieController(
@@ -122,6 +124,7 @@ class _CourseVideoPlayerState extends State<CourseVideoPlayer> with RouteAware {
           File('${directory.toString()}/${widget.localFileName}'),
         )..initialize().then((_) {
             isShowVideoPlayer = true;
+          _hasController = true;
 
             // Initialize Chewie with fullscreen support
             chewieController = ChewieController(

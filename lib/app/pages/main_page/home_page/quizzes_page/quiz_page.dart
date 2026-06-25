@@ -372,7 +372,7 @@ class _QuizPageState extends State<QuizPage> {
                               isReview
                                 ? (
                                     quizData!.questions![currentQuestionIndex].inputController..text = reviewQuizData?.answersheet?.items[
-                                      reviewQuizData?.answersheet?.items.keys.toList().singleWhere((element) => quizData!.questions![currentQuestionIndex].id.toString() == element)
+                                      reviewQuizData?.answersheet?.items.keys.toList().singleWhere((element) => quizData!.questions![currentQuestionIndex].id.toString() == element, orElse: () => '')
                                     ]?.answer?.toString() ?? '-'
                                   )
                                 : quizData!.questions![currentQuestionIndex].inputController, 
