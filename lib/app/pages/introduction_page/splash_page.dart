@@ -38,7 +38,8 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
       
       animationController.forward();
       
-      Timer(const Duration(seconds: 3), () async {
+      // ponytail: was 3s of dead time before the (fast) connectivity+token work; 800ms keeps a brief brand moment
+      Timer(const Duration(milliseconds: 800), () async {
 
         try {
           final List<ConnectivityResult> connectivityResult = await (Connectivity().checkConnectivity());

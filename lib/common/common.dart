@@ -120,6 +120,8 @@ Widget fadeInImage(String url,double width,double height,){
     width: width.toDouble(),
     height: height.toDouble(),
     fit: BoxFit.cover,
+    // ponytail: decode near display size instead of full-res — memory/decode win on lists & covers
+    memCacheWidth: width.isFinite && width > 0 ? (width * 2).round() : null,
 
     errorWidget: (context, url, _) => Image.asset(AppAssets.placePng, width: width.toDouble(), height: height.toDouble(), fit: BoxFit.cover),
   );

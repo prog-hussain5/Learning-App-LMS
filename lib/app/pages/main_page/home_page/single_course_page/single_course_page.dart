@@ -169,7 +169,7 @@ class _SingleCoursePageState extends State<SingleCoursePage>
       isLoading = true;
     });
 
-    await Future.delayed(const Duration(milliseconds: 500));
+    // ponytail: removed a dead 500ms delay that blocked every course-page open
 
     // ignore_for_file: use_build_context_synchronously
     int id = courseData?.id ??
