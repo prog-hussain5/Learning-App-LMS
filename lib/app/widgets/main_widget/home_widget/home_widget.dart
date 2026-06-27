@@ -29,6 +29,44 @@ import '../main_widget.dart';
 
 class HomeWidget{
 
+  // ponytail: branded welcome hero — greeting + a tip that rotates daily.
+  static Widget welcomeHero(String name){
+    final tips = [appText.homeTip1, appText.homeTip2, appText.homeTip3, appText.homeTip4];
+    final tip = tips[DateTime.now().day % tips.length];
+    final hasName = name.trim().isNotEmpty;
+    return Container(
+      width: getSize().width,
+      margin: const EdgeInsets.fromLTRB(16, 14, 16, 2),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: green77(),
+        borderRadius: borderRadius(),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  hasName ? '${appText.welcomeBack}, $name 👋' : '${appText.welcomeBack} 👋',
+                  style: style16Bold().copyWith(color: Colors.white),
+                ),
+                space(6),
+                Text(
+                  tip,
+                  style: style12Regular().copyWith(color: Colors.white.withOpacity(0.9)),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 12),
+          Icon(Icons.school_rounded, color: Colors.white.withOpacity(0.9), size: 42),
+        ],
+      ),
+    );
+  }
+
   static Widget homeAppBar(AnimationController appBarController, Animation appBarAnimation,String token,TextEditingController searchController,FocusNode searchNode,String name){
     return AnimatedBuilder(
       animation: appBarAnimation,

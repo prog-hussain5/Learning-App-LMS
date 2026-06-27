@@ -195,6 +195,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                                     children: [
                                             
                                             
+                                      // ponytail: welcome hero (greeting + rotating tip)
+                                      HomeWidget.welcomeHero(name),
+                                      space(8),
+
                                       // COMMENTED: Featured Classes section
                                       // Column(
                                       //   children: [

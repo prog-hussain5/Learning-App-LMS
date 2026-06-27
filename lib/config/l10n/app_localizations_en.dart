@@ -80,7 +80,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get haveAnAccount => 'Have an account?';
 
   @override
-  String get welcomeBack => 'Welcome Back!';
+  String get welcomeBack => 'Welcome back';
 
   @override
   String get welcomeBackDesc => 'Login to your account and enjoy learning...';
@@ -1849,4 +1849,17 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get authLimitAccount =>
       'You cannot log in because your account is open on another device';
+
+  @override
+  String get homeTip1 => 'A little progress each day adds up to big results.';
+
+  @override
+  String get homeTip2 => 'Review your notes right after each lecture.';
+
+  @override
+  String get homeTip3 =>
+      'Take the quiz after each chapter to lock in what you learned.';
+
+  @override
+  String get homeTip4 => 'Short, regular study sessions beat long cramming.';
 }

@@ -233,7 +233,7 @@ abstract class AppLocalizations {
   /// No description provided for @welcomeBack.
   ///
   /// In en, this message translates to:
-  /// **'Welcome Back!'**
+  /// **'Welcome back'**
   String get welcomeBack;
 
   /// No description provided for @welcomeBackDesc.
@@ -3697,6 +3697,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You cannot log in because your account is open on another device'**
   String get authLimitAccount;
+
+  /// No description provided for @homeTip1.
+  ///
+  /// In en, this message translates to:
+  /// **'A little progress each day adds up to big results.'**
+  String get homeTip1;
+
+  /// No description provided for @homeTip2.
+  ///
+  /// In en, this message translates to:
+  /// **'Review your notes right after each lecture.'**
+  String get homeTip2;
+
+  /// No description provided for @homeTip3.
+  ///
+  /// In en, this message translates to:
+  /// **'Take the quiz after each chapter to lock in what you learned.'**
+  String get homeTip3;
+
+  /// No description provided for @homeTip4.
+  ///
+  /// In en, this message translates to:
+  /// **'Short, regular study sessions beat long cramming.'**
+  String get homeTip4;
 }
 
 class _AppLocalizationsDelegate

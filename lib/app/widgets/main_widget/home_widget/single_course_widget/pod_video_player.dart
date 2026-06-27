@@ -153,6 +153,8 @@ class _VimeoVideoPlayerState extends State<PodVideoPlayerDev>
                         const SizedBox(width: 5),
                         RemainingDuration(),
                         const SizedBox(width: 5),
+                        const PlaybackSpeedButton(),
+                        const SizedBox(width: 5),
                         IconButton(
                           icon: const Icon(Icons.fullscreen,
                               color: Colors.white),
@@ -265,6 +267,8 @@ class _FullScreenVideoPlayerState extends State<_FullScreenVideoPlayer> {
               ),
               const SizedBox(width: 10),
               RemainingDuration(),
+              const SizedBox(width: 10),
+              const PlaybackSpeedButton(),
               const SizedBox(width: 10),
               IconButton(
                 icon: const Icon(Icons.fullscreen_exit, color: Colors.white),

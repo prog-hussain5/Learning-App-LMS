@@ -76,7 +76,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get haveAnAccount => 'هل لديك حساب؟';
 
   @override
-  String get welcomeBack => 'مرحبًا!';
+  String get welcomeBack => 'أهلاً بعودتك';
 
   @override
   String get welcomeBackDesc => 'قم بالدخول إلى حسابك واستمتع بالتعلم...';
@@ -1828,4 +1828,17 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get authLimitAccount =>
       'لا يمكنك تسجيل الدخول لأن الحساب مفتوح في جهاز آخر';
+
+  @override
+  String get homeTip1 => 'تقدّمٌ بسيط كل يوم يصنع نتائج كبيرة.';
+
+  @override
+  String get homeTip2 => 'راجع ملاحظاتك مباشرةً بعد كل محاضرة.';
+
+  @override
+  String get homeTip3 => 'أجرِ الاختبار بعد كل فصل لترسيخ ما تعلّمته.';
+
+  @override
+  String get homeTip4 =>
+      'جلساتٌ قصيرة ومنتظمة للمذاكرة أفضل من المراجعة المكثّفة.';
 }
