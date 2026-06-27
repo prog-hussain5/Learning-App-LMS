@@ -3698,6 +3698,12 @@ abstract class AppLocalizations {
   /// **'You cannot log in because your account is open on another device'**
   String get authLimitAccount;
 
+  /// No description provided for @suggestedForYou.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested for you'**
+  String get suggestedForYou;
+
   /// No description provided for @homeTip1.
   ///
   /// In en, this message translates to:

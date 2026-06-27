@@ -1851,6 +1851,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'You cannot log in because your account is open on another device';
 
   @override
+  String get suggestedForYou => 'Suggested for you';
+
+  @override
   String get homeTip1 => 'A little progress each day adds up to big results.';
 
   @override

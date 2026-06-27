@@ -619,6 +619,7 @@
     "authLimitAccount": "You cannot log in because your account is open on another device",
 
     "welcomeBack" : "Welcome back",
+    "suggestedForYou" : "Suggested for you",
     "homeTip1" : "A little progress each day adds up to big results.",
     "homeTip2" : "Review your notes right after each lecture.",
     "homeTip3" : "Take the quiz after each chapter to lock in what you learned.",

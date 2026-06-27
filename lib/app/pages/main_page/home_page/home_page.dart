@@ -157,6 +157,33 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
     });
   }
 
+  // ponytail: a horizontal suggestion row from already-loaded catalog data,
+  // excluding courses the student already owns. Hidden when empty (post-load).
+  Widget _suggestionRow(String title, List<CourseModel> all, bool isLoading) {
+    final ownedIds = myCourses.map((c) => c.id).toSet();
+    final courses = all.where((c) => !ownedIds.contains(c.id)).toList();
+    if (!isLoading && courses.isEmpty) return const SizedBox.shrink();
+    return Column(
+      children: [
+        HomeWidget.titleAndMore(title, isViewAll: false),
+        SizedBox(
+          width: getSize().width,
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            padding: padding(),
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: List.generate(isLoading ? 3 : courses.length, (index) {
+                return isLoading ? courseItemShimmer() : courseItem(courses[index]);
+              }),
+            ),
+          ),
+        ),
+        space(8),
+      ],
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -294,6 +321,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                                       ),
                                             
                                             
+                                      // ponytail: course suggestions — reuse already-loaded catalog data, exclude owned
+                                      _suggestionRow(appText.suggestedForYou, homeProvider.bestRatedListData, homeProvider.isLoadingBestRatedListData),
+                                      _suggestionRow(appText.newestClasses, homeProvider.newsetListData, homeProvider.isLoadingNewsetListData),
+                                      _suggestionRow(appText.freeClasses, homeProvider.freeListData, homeProvider.isLoadingFreeListData),
+
                                       // Bundle (معلق)
                                       // Column(
                                       //   children: [

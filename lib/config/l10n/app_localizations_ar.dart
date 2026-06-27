@@ -1830,6 +1830,9 @@ class AppLocalizationsAr extends AppLocalizations {
       'لا يمكنك تسجيل الدخول لأن الحساب مفتوح في جهاز آخر';
 
   @override
+  String get suggestedForYou => 'مقترحة لك';
+
+  @override
   String get homeTip1 => 'تقدّمٌ بسيط كل يوم يصنع نتائج كبيرة.';
 
   @override
