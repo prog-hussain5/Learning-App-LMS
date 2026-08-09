@@ -359,7 +359,7 @@ class _LoginPageState extends State<LoginPage> {
                         // OLD URL: '${Constants.dommain}/pages/app-terms'
                         // NEW URL: 'https://balsam.academy/pages/privacy-policy'
                         nextRoute(WebViewPage.pageName, arguments: [
-                          'https://balsam.academy/pages/privacy-policy',
+                          'https://blsm.app/pages/privacy-policy',
                           appText.webinar,
                           false,
                           LoadRequestMethod.get
