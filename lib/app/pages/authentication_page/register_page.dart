@@ -517,9 +517,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       Center(
                         child: GestureDetector(
                           onTap: (){
-                            // MODIFIED 2026-02-03: تحديث رابط سياسة الخصوصية
-                            // OLD URL: '${Constants.dommain}/pages/app-terms'
-                            // NEW URL: 'https://balsam.academy/pages/privacy-policy'
+                            // privacy policy page on the current domain
                             nextRoute(WebViewPage.pageName, arguments: ['https://blsm.app/pages/privacy-policy', appText.webinar, false, LoadRequestMethod.get]);
                           },
                           behavior: HitTestBehavior.opaque,
