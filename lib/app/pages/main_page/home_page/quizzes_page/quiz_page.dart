@@ -40,6 +40,7 @@ class _QuizPageState extends State<QuizPage> {
   bool isStartQuiz = false;
   bool isLoadingSendingResult = false;
   bool isReview = false;
+  bool loadFailed = false;  // ponytail: quiz couldn't be loaded -> show retry instead of a blank screen
 
 
 
@@ -59,17 +60,35 @@ class _QuizPageState extends State<QuizPage> {
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
 
-      if(((ModalRoute.of(context)!.settings.arguments as List)[0]) is QuizModel){
-        reviewQuizData = (ModalRoute.of(context)!.settings.arguments as List)[0];
+      // ponytail: never crash on malformed/missing route args — show retry instead
+      final rawArgs = ModalRoute.of(context)?.settings.arguments;
+      if(rawArgs is! List || rawArgs.isEmpty){
+        setState(() {
+          isLoadingGetQuizData = false;
+          loadFailed = true;
+        });
+        return;
+      }
+
+      if(rawArgs[0] is QuizModel){
+        reviewQuizData = rawArgs[0];
         quizData = reviewQuizData?.quiz;
         quizId = reviewQuizData?.id;
         isStartQuiz = true;
 
-      }else if(((ModalRoute.of(context)!.settings.arguments as List)[0]) is Quiz){
-        Quiz? data = (ModalRoute.of(context)!.settings.arguments as List)[0];
-        quizId = data?.id;  
+      }else if(rawArgs[0] is Quiz){
+        Quiz? data = rawArgs[0];
+        quizId = data?.id;
       }else{
-        quizId = (ModalRoute.of(context)!.settings.arguments as List)[0];
+        quizId = rawArgs[0] is int ? rawArgs[0] : int.tryParse('${rawArgs[0]}');
+      }
+
+      if(quizId == null){
+        setState(() {
+          isLoadingGetQuizData = false;
+          loadFailed = true;
+        });
+        return;
       }
 
       try{
@@ -95,18 +114,23 @@ class _QuizPageState extends State<QuizPage> {
     
     setState(() {
       isLoadingGetQuizData = true;
+      loadFailed = false;
     });
-    
+
     Map? res = await QuizService.startQuiz(quizId!);
 
     if(res != null){
       quizData = res['quiz'];
       quizResultId = res['quiz_result_id'];
-      
+
       startTimer();
       isStartQuiz = true;
+    }else{
+      // ponytail: don't leave a blank screen when the quiz fails to load
+      loadFailed = true;
     }
-    
+
+    if(!mounted) return;
     setState(() {
       isLoadingGetQuizData = false;
     });
@@ -117,24 +141,76 @@ class _QuizPageState extends State<QuizPage> {
 
     setState(() {
       isLoadingGetQuizData = true;
+      loadFailed = false;
     });
 
     reviewQuizData = await QuizService.reviewQuiz(quizId!, beforTabPage);
 
-    quizData = reviewQuizData?.quiz;
-    isStartQuiz = true;
+    // ponytail: only mark the quiz as ready when it actually loaded, else show retry
+    if(reviewQuizData != null){
+      quizData = reviewQuizData?.quiz;
+      isStartQuiz = true;
+    }else{
+      loadFailed = true;
+    }
 
+    if(!mounted) return;
     setState(() {
       isLoadingGetQuizData = false;
     });
   }
 
+  // ponytail: shared retry for a failed quiz load
+  void _retryLoad(){
+    if(isReview){
+      getQuizForReview();
+    }else{
+      getData();
+    }
+  }
+
+  // ponytail: error + retry instead of a blank quiz screen
+  Widget _errorRetry(){
+    return Center(
+      child: Padding(
+        padding: padding(),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              appText.serverExceptionError,
+              style: style14Regular().copyWith(color: greyA5),
+              textAlign: TextAlign.center,
+            ),
+            space(16),
+            button(
+              onTap: _retryLoad,
+              width: 160,
+              height: 48,
+              text: appText.retry,
+              bgColor: green77(),
+              textColor: Colors.white,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
 
   startTimer(){
 
-    quizTime = Duration(seconds: ((quizData?.time ?? 0) * 60));
+    final totalSeconds = (quizData?.time ?? 0) * 60;
 
-    timer = Timer.periodic(const Duration(seconds: 1), (timer) { 
+    // ponytail: time == 0/null means NO time limit — don't run a countdown at all,
+    // otherwise the first tick sees 0 and instantly auto-submits an empty sheet.
+    if(totalSeconds <= 0){
+      return;
+    }
+
+    quizTime = Duration(seconds: totalSeconds);
+
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
 
       
       if((quizTime?.inSeconds ?? -1) >= 1){
@@ -333,6 +409,8 @@ class _QuizPageState extends State<QuizPage> {
                   Expanded(
                     child: isLoadingGetQuizData
                   ? loading()
+                  : loadFailed
+                ? _errorRetry()
                   : !isStartQuiz
                 ? const SizedBox()
                 : SingleChildScrollView(

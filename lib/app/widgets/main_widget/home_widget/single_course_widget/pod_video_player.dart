@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:webinar/common/common.dart';
+import 'package:webinar/common/utils/app_text.dart';
 import 'package:webinar/config/colors.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -29,9 +30,15 @@ class _VimeoVideoPlayerState extends State<PodVideoPlayerDev>
   @override
   void initState() {
     if (widget.type == 'youtube') {
-      final videoId = YoutubePlayer.convertUrlToId(widget.url);
+      // ponytail: fall back to a bare 11-char id; if we still can't resolve one,
+      // leave the controller null so build() shows the message instead of a blank player.
+      final raw = widget.url.trim();
+      final videoId = YoutubePlayer.convertUrlToId(raw) ??
+          (RegExp(r'^[A-Za-z0-9_-]{11}$').hasMatch(raw) ? raw : null);
+
+      if (videoId != null && videoId.isNotEmpty) {
       youtubeController = YoutubePlayerController(
-        initialVideoId: videoId ?? '',
+        initialVideoId: videoId,
         flags: const YoutubePlayerFlags(
           autoPlay: false,
           mute: false,
@@ -46,6 +53,7 @@ class _VimeoVideoPlayerState extends State<PodVideoPlayerDev>
           useHybridComposition: true,
         ),
       );
+      }
     }
 
     super.initState();
@@ -162,10 +170,10 @@ class _VimeoVideoPlayerState extends State<PodVideoPlayerDev>
                         ),
                       ],
                     )
-                  : Center(child: Text('لا يمكن عرض الفيديو، الرابط غير صحيح')))
+                  : Center(child: Text(appText.videoLoadError, textAlign: TextAlign.center)))
               : Center(
-                  child: Text(
-                      'نوع الفيديو غير مدعوم')), // يمكنك إضافة دعم vimeo لاحقاً
+                  child: Text(appText.videoLoadError,
+                      textAlign: TextAlign.center)), // يمكنك إضافة دعم vimeo لاحقاً
         ),
       ),
     );

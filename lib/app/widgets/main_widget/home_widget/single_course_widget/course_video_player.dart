@@ -5,9 +5,12 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
 // import 'package:webinar/app/widgets/main_widget/home_widget/single_course_widget/custom_video_controls.dart'; // unused
+import 'package:webinar/common/components.dart';
+import 'package:webinar/common/utils/app_text.dart';
 import 'package:webinar/common/utils/download_manager.dart';
 import 'package:webinar/config/assets.dart';
 import 'package:webinar/config/colors.dart';
+import 'package:webinar/config/styles.dart';
 
 import '../../../../../common/common.dart';
 
@@ -29,7 +32,9 @@ class CourseVideoPlayer extends StatefulWidget {
 class _CourseVideoPlayerState extends State<CourseVideoPlayer> with RouteAware {
   late VideoPlayerController controller;
   ChewieController? chewieController;
-  bool _hasController = false;  // ponytail: controller may never be assigned (missing local file)
+  bool _hasController = false;  // ponytail: controller finished initializing (safe to pause/play)
+  bool _controllerCreated = false;  // ponytail: controller object exists -> dispose must free it
+  bool _hasError = false;  // ponytail: init failed / no file -> show retry instead of a forever spinner
 
   bool isShowVideoPlayer = false;
 
@@ -49,7 +54,9 @@ class _CourseVideoPlayerState extends State<CourseVideoPlayer> with RouteAware {
   void dispose() {
     widget.routeObserver.unsubscribe(this);
     chewieController?.dispose();
-    if(_hasController) controller.dispose();  // ponytail: guard — controller may be unassigned
+    // ponytail: free the controller whenever it was CREATED (not only when init finished),
+    // otherwise leaving a lecture mid-initialize leaks the player.
+    if(_controllerCreated) controller.dispose();
     super.dispose();
   }
 
@@ -68,10 +75,17 @@ class _CourseVideoPlayerState extends State<CourseVideoPlayer> with RouteAware {
 
   initVideo() async {
     if (widget.isLoadNetwork) {
-      print(Uri.parse(widget.url));
+      // ponytail: no url -> fail fast instead of spinning forever on Uri.parse('')
+      if (widget.url.trim().isEmpty) {
+        if (mounted) setState(() => _hasError = true);
+        return;
+      }
+      _controllerCreated = true;
       controller = VideoPlayerController.networkUrl(
         Uri.parse(widget.url),
       )..initialize().then((_) {
+          // ponytail: page may be gone before init completes
+          if (!mounted) return;
           isShowVideoPlayer = true;
           _hasController = true;
 
@@ -110,19 +124,23 @@ class _CourseVideoPlayerState extends State<CourseVideoPlayer> with RouteAware {
           );
 
           setState(() {});
+        }).catchError((e) {
+          // ponytail: bad/expired/unplayable url -> show retry, never spin forever
+          if (mounted) setState(() => _hasError = true);
         });
     } else {
       String directory = (await getApplicationSupportDirectory()).path;
-      print('${directory.toString()}/${widget.localFileName}');
 
       bool isExistFile = await DownloadManager.findFile(
-          directory, widget.localFileName!,
+          directory, widget.localFileName ?? '',
           isOpen: false);
 
       if (isExistFile) {
+        _controllerCreated = true;
         controller = VideoPlayerController.file(
           File('${directory.toString()}/${widget.localFileName}'),
         )..initialize().then((_) {
+            if (!mounted) return;
             isShowVideoPlayer = true;
           _hasController = true;
 
@@ -161,9 +179,23 @@ class _CourseVideoPlayerState extends State<CourseVideoPlayer> with RouteAware {
             );
 
             setState(() {});
+          }).catchError((e) {
+            if (mounted) setState(() => _hasError = true);
           });
+      } else {
+        // ponytail: downloaded file is missing -> tell the user instead of a blank box
+        if (mounted) setState(() => _hasError = true);
       }
     }
+  }
+
+  // ponytail: retry a failed video init
+  void _retryVideo() {
+    setState(() {
+      _hasError = false;
+      isShowVideoPlayer = false;
+    });
+    initVideo();
   }
 
   @override
@@ -178,6 +210,46 @@ class _CourseVideoPlayerState extends State<CourseVideoPlayer> with RouteAware {
               aspectRatio: controller.value.aspectRatio,
               child: Chewie(
                 controller: chewieController!,
+              ),
+            ),
+          ),
+          space(12),
+        } else if (_hasError) ...{
+          // ponytail: video failed to load -> message + retry (never a forever spinner)
+          Container(
+            width: getSize().width,
+            alignment: Alignment.center,
+            child: ClipRRect(
+              borderRadius: borderRadius(),
+              child: AspectRatio(
+                aspectRatio: 16 / 9,
+                child: Container(
+                  color: Colors.black87,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.error_outline, color: Colors.white70, size: 34),
+                      space(8),
+                      Padding(
+                        padding: padding(horizontal: 16),
+                        child: Text(
+                          appText.serverExceptionError,
+                          style: style12Regular().copyWith(color: Colors.white70),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      space(10),
+                      button(
+                        onTap: _retryVideo,
+                        width: 140,
+                        height: 40,
+                        text: appText.retry,
+                        bgColor: green77(),
+                        textColor: Colors.white,
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),

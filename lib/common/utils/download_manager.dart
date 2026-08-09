@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:webinar/common/common.dart';
 import 'package:webinar/common/components.dart';
 import 'package:webinar/common/enums/error_enum.dart';
@@ -19,15 +18,16 @@ class DownloadManager{
 
   static Future<void> download(String url,Function(int progress) onDownlaod,{CancelToken? cancelToken,String? name,Function? onLoadAtLocal, bool isOpen=true}) async {
 
-    PermissionStatus res = await Permission.storage.request();
-    PermissionStatus res2 = await Permission.photos.request();
-
-    if(res.isGranted || res2.isGranted){
+    // ponytail: no storage/photos permission needed — we write to the app's OWN
+    // support directory. Requesting them auto-denies on Android 13+ and the old
+    // `if(granted)` gate then aborted the download silently (nothing happened).
+    {
       String directory = (await getApplicationSupportDirectory()).path;
 
-      
-      if(! (await findFile(directory, name ?? url.split('/').last, onLoadAtLocal: onLoadAtLocal )) ){
-        
+      final String fileName = _safeName(name, url);
+
+      if(! (await findFile(directory, fileName, onLoadAtLocal: onLoadAtLocal )) ){
+
         String token = await AppData.getAccessToken();
 
         Map<String, String> headers = {
@@ -40,7 +40,7 @@ class DownloadManager{
         try{
           await locator<Dio>().download(
             url, 
-            '$directory/${ name ?? url.split('/').last}',
+            '$directory/$fileName',
             onReceiveProgress: (count, total) {
               onDownlaod((count / total * 100).toInt());
             },
@@ -54,11 +54,11 @@ class DownloadManager{
 
             if(value.statusCode == 200){
               if(navigatorKey.currentContext!.mounted){
-                backRoute(arguments: '$directory/${ name ?? url.split('/').last}');
+                backRoute(arguments: '$directory/$fileName');
               }
 
               if(isOpen){
-                OpenFile.open('$directory/${ name ?? url.split('/').last}');
+                OpenFile.open('$directory/$fileName');
               }
             }
 
@@ -74,14 +74,30 @@ class DownloadManager{
 
   }
 
+  // ponytail: never return an empty/degenerate file name — `path.contains('')` is
+  // always true, which made findFile open an arbitrary cached file.
+  static String _safeName(String? name, String url){
+    final n = (name ?? '').trim();
+    if(n.isNotEmpty && n != 'null' && n != 'null.null') return n;
+
+    final fromUrl = Uri.tryParse(url)?.pathSegments.where((s) => s.isNotEmpty).lastOrNull ?? '';
+    if(fromUrl.isNotEmpty) return fromUrl;
+
+    return 'download_${url.hashCode.toUnsigned(32)}';
+  }
+
   static Future<bool> findFile(String directory, String name,{Function? onLoadAtLocal, bool isOpen=true}) async {
     bool state=false;
 
+    // ponytail: an empty name must never match everything
+    if(name.trim().isEmpty) return false;
+
     files = Directory(directory).listSync().toList();
-    
+
     for (var i = 0; i < files.length; i++) {
-      if(files[i].path.contains(name)){
-        
+      // ponytail: exact file-name match (was `contains`, which matched partial/unrelated files)
+      if(files[i].path.split(Platform.pathSeparator).last == name){
+
         if(onLoadAtLocal != null){
           onLoadAtLocal();
         }

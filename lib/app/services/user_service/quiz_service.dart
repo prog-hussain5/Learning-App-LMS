@@ -161,7 +161,7 @@ class QuizService{
       
 
       var jsonResponse = jsonDecode(res.body);
-      if(jsonResponse['success']){
+      if(jsonResponse['success'] ?? false){
 
         return {
           'quiz' : Quiz.fromJson(jsonResponse['data']['quiz']),
@@ -192,7 +192,7 @@ class QuizService{
 
       var jsonResponse = jsonDecode(res.body);
 
-      if(jsonResponse['success']){
+      if(jsonResponse['success'] ?? false){
 
         // Map<String, dynamic> data = {};
         
@@ -306,7 +306,7 @@ class QuizService{
 
       var jsonResponse = jsonDecode(res.body);
 
-      if(jsonResponse['success']){
+      if(jsonResponse['success'] ?? false){
         showSnackBar(ErrorEnum.success, jsonResponse['message'].toString());
         return true;
       }else{

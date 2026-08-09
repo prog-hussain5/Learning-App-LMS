@@ -233,7 +233,7 @@ abstract class AppLocalizations {
   /// No description provided for @welcomeBack.
   ///
   /// In en, this message translates to:
-  /// **'Welcome back'**
+  /// **'Welcome Back!'**
   String get welcomeBack;
 
   /// No description provided for @welcomeBackDesc.
@@ -3703,6 +3703,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Suggested for you'**
   String get suggestedForYou;
+
+  /// No description provided for @videoLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'This video can\'t be played. Please try again later.'**
+  String get videoLoadError;
 
   /// No description provided for @homeTip1.
   ///

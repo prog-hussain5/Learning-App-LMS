@@ -256,11 +256,13 @@ class Quiz {
     // studentCount = json['studentCount'];
     id = json['id'];
     title = json['title'];
-    time = json['time'];
+    // ponytail: API may send these as strings/nulls — parse defensively so one
+    // stringy field can't throw and blank the whole quiz.
+    time = int.tryParse('${json['time']}');
     authstatus = json['auth_status'];
-    questioncount = json['question_count'];
-    totalmark = json['total_mark'];
-    passmark = json['pass_mark'];
+    questioncount = int.tryParse('${json['question_count']}');
+    totalmark = int.tryParse('${json['total_mark']}');
+    passmark = int.tryParse('${json['pass_mark']}');
     averagegrade = int.tryParse(json['average_grade'].toString());
     studentcount = json['student_count'];
     certificatescount = json['certificates_count'];

@@ -80,7 +80,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get haveAnAccount => 'Have an account?';
 
   @override
-  String get welcomeBack => 'Welcome back';
+  String get welcomeBack => 'Welcome Back!';
 
   @override
   String get welcomeBackDesc => 'Login to your account and enjoy learning...';
@@ -1852,6 +1852,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get suggestedForYou => 'Suggested for you';
+
+  @override
+  String get videoLoadError =>
+      'This video can\'t be played. Please try again later.';
 
   @override
   String get homeTip1 => 'A little progress each day adds up to big results.';

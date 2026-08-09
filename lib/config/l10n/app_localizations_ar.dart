@@ -76,7 +76,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get haveAnAccount => 'هل لديك حساب؟';
 
   @override
-  String get welcomeBack => 'أهلاً بعودتك';
+  String get welcomeBack => 'مرحبًا!';
 
   @override
   String get welcomeBackDesc => 'قم بالدخول إلى حسابك واستمتع بالتعلم...';
@@ -1831,6 +1831,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get suggestedForYou => 'مقترحة لك';
+
+  @override
+  String get videoLoadError =>
+      'لا يمكن تشغيل هذا الفيديو. يرجى المحاولة لاحقاً.';
 
   @override
   String get homeTip1 => 'تقدّمٌ بسيط كل يوم يصنع نتائج كبيرة.';

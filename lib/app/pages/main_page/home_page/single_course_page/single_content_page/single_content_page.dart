@@ -69,15 +69,26 @@ class _SingleContentPageState extends State<SingleContentPage> {
     });
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      content = (ModalRoute.of(context)!.settings.arguments as List)[0];
-      courseId = (ModalRoute.of(context)!.settings.arguments as List)[1];
+      // ponytail: malformed/missing route args must show the retry state, not crash
+      // into a permanent spinner.
+      final rawArgs = ModalRoute.of(context)?.settings.arguments;
+      if(rawArgs is! List || rawArgs.length < 2){
+        setState(() {
+          isLoading = false;
+          hasError = true;
+        });
+        return;
+      }
+
+      content = rawArgs[0];
+      courseId = rawArgs[1];
 
       try{
-        previousContentLink = (ModalRoute.of(context)!.settings.arguments as List)[2];
+        previousContentLink = rawArgs[2];
       }catch(_){}
-      
+
       try{
-        authHasBought = (ModalRoute.of(context)!.settings.arguments as List)[3] ?? true;
+        authHasBought = rawArgs[3] ?? true;
       }catch(_){}
 
       _runLoad();
@@ -552,10 +563,17 @@ class _SingleContentPageState extends State<SingleContentPage> {
                                   singleContentData?.attachments?[index].volume ?? '',
 
                                   (){
-
+                                    // ponytail: use the ATTACHMENT's own id (was content?.id, so
+                                    // every attachment downloaded the same parent file), and give
+                                    // the file a real name fallback instead of ''.
+                                    final att = singleContentData?.attachments?[index];
+                                    final attName = (att?.file?.split('/').last ?? '').trim();
                                     downloadSheet(
-                                      '${Constants.baseUrl}files/${content?.id}/download',
-                                      singleContentData?.attachments?[index].file?.split('/').last ?? ''
+                                      '${Constants.baseUrl}files/${att?.id ?? content?.id}/download',
+                                      attName.isNotEmpty
+                                        ? attName
+                                        : '${(att?.title ?? 'attachment').replaceAll(RegExp(r'[\\/:*?"<>|]'), '_')}'
+                                          '${(att?.fileType ?? '').isNotEmpty ? '.${att!.fileType}' : ''}'
                                     );
                                   },
                                 );
