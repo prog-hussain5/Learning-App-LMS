@@ -48,14 +48,38 @@ class _QuizzesPageState extends State<QuizzesPage> with TickerProviderStateMixin
     getData();
   }
 
+  // ponytail: the API returns one row per ATTEMPT, so retaking a quiz made the same
+  // quiz appear several times in "my results". Show one row per quiz — the most
+  // recent attempt (falls back to the highest result id when created_at is missing).
+  List<QuizModel> _latestAttemptPerQuiz(List<QuizModel> all){
+    final Map<int, QuizModel> latest = {};
+    final List<QuizModel> unkeyed = [];
+
+    for (final r in all) {
+      final quizId = r.quiz?.id;
+      if(quizId == null){
+        unkeyed.add(r);  // can't group it — never drop it
+        continue;
+      }
+      final prev = latest[quizId];
+      if(prev == null
+          || (r.createdat ?? 0) > (prev.createdat ?? 0)
+          || ((r.createdat ?? 0) == (prev.createdat ?? 0) && (r.id ?? 0) >= (prev.id ?? 0))){
+        latest[quizId] = r;
+      }
+    }
+
+    return [...latest.values, ...unkeyed];
+  }
+
   getData() async {
-    
+
     isLoadingMyResults = true;
     isLoadingNotParticipated = true;
 
     QuizService.getMyResults().then((value) {
       if(!mounted) return;
-      myResults = value;
+      myResults = _latestAttemptPerQuiz(value);
       isLoadingMyResults = false;
       setState(() {});
     });

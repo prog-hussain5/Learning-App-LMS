@@ -29,48 +29,22 @@ import '../main_widget.dart';
 
 class HomeWidget{
 
-  // ponytail: branded welcome hero — greeting + a tip that rotates daily.
-  static Widget welcomeHero(String name){
-    final tips = [appText.homeTip1, appText.homeTip2, appText.homeTip3, appText.homeTip4];
-    final tip = tips[DateTime.now().day % tips.length];
-    final hasName = name.trim().isNotEmpty;
-    return Container(
-      width: getSize().width,
-      margin: const EdgeInsets.fromLTRB(16, 14, 16, 2),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: green77(),
-        borderRadius: borderRadius(),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  hasName ? '${appText.welcomeBack}, $name 👋' : '${appText.welcomeBack} 👋',
-                  style: style16Bold().copyWith(color: Colors.white),
-                ),
-                space(6),
-                Text(
-                  tip,
-                  style: style12Regular().copyWith(color: Colors.white.withOpacity(0.9)),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 12),
-          Icon(Icons.school_rounded, color: Colors.white.withOpacity(0.9), size: 42),
-        ],
-      ),
-    );
-  }
-
   static Widget homeAppBar(AnimationController appBarController, Animation appBarAnimation,String token,TextEditingController searchController,FocusNode searchNode,String name){
     return AnimatedBuilder(
       animation: appBarAnimation,
       builder: (context, child) {
+
+        // ponytail: the bar collapses from (150 + inset) to (80 + inset) but its content
+        // needed ~89 + inset, so the greeting/subtitle were clipped while scrolling.
+        // Shrink the content with the bar instead: t = 1 expanded, 0 collapsed.
+        final topInset = MediaQuery.of(context).viewPadding.top;
+        final expandedH = 150 + topInset;
+        final collapsedH = 80 + topInset;
+        final double t = (expandedH - collapsedH) <= 0
+            ? 1.0
+            : ((appBarAnimation.value - collapsedH) / (expandedH - collapsedH))
+                .clamp(0.0, 1.0)
+                .toDouble();
 
         return Consumer<UserProvider>(
           builder: (context,userProvider,_) {
@@ -109,7 +83,10 @@ class HomeWidget{
                           // app bar
                           Container(
                             width: getSize().width,
-                            margin: EdgeInsets.only(top: (!kIsWeb && Platform.isIOS) ? MediaQuery.of(context).viewPadding.top + 16 : MediaQuery.of(context).viewPadding.top + 22),
+                            // ponytail: top gap shrinks as the bar collapses
+                            margin: EdgeInsets.only(
+                              top: topInset + (((!kIsWeb && Platform.isIOS) ? 16 : 22) * t) + (10 * (1 - t)),
+                            ),
                             child: Row(
                               children: [
                                 // menu 
@@ -141,10 +118,12 @@ class HomeWidget{
                                             padding: const EdgeInsetsDirectional.only(end: 8.0),
                                             child: Image.asset(
                                               AppAssets.balsamLogoColorWTransparent2xPng,
-                                              height: 50,
+                                              // ponytail: logo shrinks with the bar so the row still fits
+                                              height: 36 + (14 * t),
                                             ),
                                           ),
-                                          Container(                                       
+                                          // ponytail: Flexible so a long name ellipsizes instead of overflowing
+                                          Flexible(
                                             child: Text(
                                               token.isEmpty
                                               ? appText.webinar
@@ -159,11 +138,24 @@ class HomeWidget{
                                           }
                                         ],
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(right: 40),
-                                        child: Text(
-                                          appText.letsStartLearning,
-                                          style: style14Regular().copyWith(color: Colors.white, height: 1),
+                                      // ponytail: fade + collapse to 0 height as the bar shrinks,
+                                      // so this line is never half-clipped mid-scroll.
+                                      ClipRect(
+                                        child: Align(
+                                          alignment: AlignmentDirectional.topStart,
+                                          heightFactor: t,
+                                          child: Opacity(
+                                            opacity: t,
+                                            child: Padding(
+                                              padding: const EdgeInsetsDirectional.only(end: 40),
+                                              child: Text(
+                                                appText.letsStartLearning,
+                                                style: style14Regular().copyWith(color: Colors.white, height: 1),
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ],

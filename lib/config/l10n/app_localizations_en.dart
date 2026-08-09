@@ -1856,17 +1856,4 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get videoLoadError =>
       'This video can\'t be played. Please try again later.';
-
-  @override
-  String get homeTip1 => 'A little progress each day adds up to big results.';
-
-  @override
-  String get homeTip2 => 'Review your notes right after each lecture.';
-
-  @override
-  String get homeTip3 =>
-      'Take the quiz after each chapter to lock in what you learned.';
-
-  @override
-  String get homeTip4 => 'Short, regular study sessions beat long cramming.';
 }

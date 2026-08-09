@@ -222,10 +222,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                                     children: [
                                             
                                             
-                                      // ponytail: welcome hero (greeting + rotating tip)
-                                      HomeWidget.welcomeHero(name),
-                                      space(8),
-
                                       // COMMENTED: Featured Classes section
                                       // Column(
                                       //   children: [
@@ -321,9 +317,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                                       ),
                                             
                                             
-                                      // ponytail: course suggestions — reuse already-loaded catalog data, exclude owned
+                                      // ponytail: course suggestions — reuse already-loaded catalog data, exclude owned.
+                                      // NOTE: do NOT use appText.newestClasses here — it is translated as
+                                      // "كورساتي" (= My Courses) in app_ar.arb, which made this catalog row
+                                      // look like a second "My Courses" section listing every course.
                                       _suggestionRow(appText.suggestedForYou, homeProvider.bestRatedListData, homeProvider.isLoadingBestRatedListData),
-                                      _suggestionRow(appText.newestClasses, homeProvider.newsetListData, homeProvider.isLoadingNewsetListData),
                                       _suggestionRow(appText.freeClasses, homeProvider.freeListData, homeProvider.isLoadingFreeListData),
 
                                       // Bundle (معلق)
