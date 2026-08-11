@@ -7,7 +7,8 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 // import 'package:webinar/app/pages/authentication_page/forget_password_page.dart'; // unused
-import 'package:webinar/app/pages/authentication_page/register_page.dart';
+// COMMENTED: registration disabled — login only
+// import 'package:webinar/app/pages/authentication_page/register_page.dart';
 import 'package:webinar/app/pages/main_page/home_page/single_course_page/single_content_page/web_view_page.dart';
 import 'package:webinar/app/pages/main_page/main_page.dart';
 import 'package:webinar/app/providers/page_provider.dart';
@@ -149,30 +150,30 @@ class _LoginPageState extends State<LoginPage> {
 
                   space(20),
 
-                  // Free app disclaimer
-                  Container(
-                    width: double.infinity,
-                    padding: padding(horizontal: 16, vertical: 12),
-                    decoration: BoxDecoration(
-                      color: Colors.green.withOpacity(0.1),
-                      borderRadius: borderRadius(radius: 12),
-                      border: Border.all(color: Colors.green.withOpacity(0.3)),
-                    ),
-                    child: Row(
-                      children: [
-                        const Icon(Icons.school_outlined, color: Colors.green, size: 20),
-                        space(0, width: 8),
-                        Expanded(
-                          child: Text(
-                            'This app provides free educational content for all users. No purchases are required.',
-                            style: style12Regular().copyWith(color: Colors.green[700]),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  space(30),
+                  // COMMENTED: free-app disclaimer removed from the UI
+                  // Container(
+                  //   width: double.infinity,
+                  //   padding: padding(horizontal: 16, vertical: 12),
+                  //   decoration: BoxDecoration(
+                  //     color: Colors.green.withOpacity(0.1),
+                  //     borderRadius: borderRadius(radius: 12),
+                  //     border: Border.all(color: Colors.green.withOpacity(0.3)),
+                  //   ),
+                  //   child: Row(
+                  //     children: [
+                  //       const Icon(Icons.school_outlined, color: Colors.green, size: 20),
+                  //       space(0, width: 8),
+                  //       Expanded(
+                  //         child: Text(
+                  //           'This app provides free educational content for all users. No purchases are required.',
+                  //           style: style12Regular().copyWith(color: Colors.green[700]),
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  //
+                  // space(30),
 
                   // google and facebook auth
                   Row(
@@ -372,34 +373,35 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
 
-                  space(80),
+                  space(40),
 
-                  // haveAnAccount
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        appText.dontHaveAnAccount,
-                        style: style16Regular(),
-                      ),
-
-                      space(0, width: 2),
-
-                      GestureDetector(
-                        onTap: () {
-                          nextRoute(RegisterPage.pageName,
-                              isClearBackRoutes: true);
-                        },
-                        behavior: HitTestBehavior.opaque,
-                        child: Text(
-                          appText.signup,
-                          style: style16Regular(),
-                        ),
-                      )
-                    ],
-                  ),
-
-                  space(25),
+                  // COMMENTED: registration disabled — login only.
+                  // (was space(80) above; reduced since this block is hidden)
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     Text(
+                  //       appText.dontHaveAnAccount,
+                  //       style: style16Regular(),
+                  //     ),
+                  //
+                  //     space(0, width: 2),
+                  //
+                  //     GestureDetector(
+                  //       onTap: () {
+                  //         nextRoute(RegisterPage.pageName,
+                  //             isClearBackRoutes: true);
+                  //       },
+                  //       behavior: HitTestBehavior.opaque,
+                  //       child: Text(
+                  //         appText.signup,
+                  //         style: style16Regular(),
+                  //       ),
+                  //     )
+                  //   ],
+                  // ),
+                  //
+                  // space(25),
 
                   // COMMENTED: Forget password button disabled
                   // Center(
