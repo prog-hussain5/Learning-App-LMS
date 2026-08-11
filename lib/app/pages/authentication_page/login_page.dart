@@ -3,9 +3,10 @@ import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+// COMMENTED: social sign-in hidden — email + password only
+// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+// import 'package:google_sign_in/google_sign_in.dart';
 // import 'package:webinar/app/pages/authentication_page/forget_password_page.dart'; // unused
 // COMMENTED: registration disabled — login only
 // import 'package:webinar/app/pages/authentication_page/register_page.dart';
@@ -175,97 +176,98 @@ class _LoginPageState extends State<LoginPage> {
                   //
                   // space(30),
 
-                  // google and facebook auth
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      if (PublicData
-                              .apiConfigData?['show_google_login_button'] ??
-                          false) ...{
-                        socialWidget(AppAssets.googleSvg, () async {
-                          final GoogleSignInAccount? gUser =
-                              await GoogleSignIn().signIn();
-                          print(gUser?.email);
-                          final GoogleSignInAuthentication gAuth =
-                              await gUser!.authentication;
-
-                          if (gAuth.accessToken != null) {
-                            setState(() {
-                              isSendingData = true;
-                            });
-
-                            try {
-                              bool res = await AuthenticationService.google(
-                                  gUser.email,
-                                  gAuth.accessToken ?? '',
-                                  gUser.displayName ?? '');
-
-                              if (res) {
-                                try {
-                                  await FirebaseMessaging.instance
-                                      .deleteToken();
-                                } catch (_) {}
-
-                                nextRoute(MainPage.pageName,
-                                    isClearBackRoutes: true);
-                              }
-                            } catch (_) {}
-
-                            setState(() {
-                              isSendingData = false;
-                            });
-                          }
-                        }),
-                        space(0, width: 20),
-                      },
-                      if (PublicData
-                              .apiConfigData?['show_facebook_login_button'] ??
-                          false) ...{
-                        socialWidget(AppAssets.facebookSvg, () async {
-                          // try{
-                          final LoginResult result = await FacebookAuth.instance
-                              .login(permissions: ['email']);
-
-                          if (result.status == LoginStatus.success) {
-                            final AccessToken accessToken = result.accessToken!;
-
-                            setState(() {
-                              isSendingData = true;
-                            });
-
-                            FacebookAuth.instance
-                                .getUserData()
-                                .then((value) async {
-                              String email = value['email'];
-                              String name = value['name'] ?? '';
-
-                              try {
-                                bool res = await AuthenticationService.facebook(
-                                    email, accessToken.tokenString, name);
-
-                                if (res) {
-                                  try {
-                                    await FirebaseMessaging.instance
-                                        .deleteToken();
-                                  } catch (_) {}
-
-                                  nextRoute(MainPage.pageName,
-                                      isClearBackRoutes: true);
-                                }
-                              } catch (_) {}
-
-                              setState(() {
-                                isSendingData = false;
-                              });
-                            });
-                          } else {}
-                          // }catch(e){}
-                        }),
-                      }
-                    ],
-                  ),
-
-                  space(25),
+                  // COMMENTED: social sign-in hidden — email + password only
+                  // // google and facebook auth
+                  // Row(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    // children: [
+                      // if (PublicData
+                              // .apiConfigData?['show_google_login_button'] ??
+                          // false) ...{
+                        // socialWidget(AppAssets.googleSvg, () async {
+                          // final GoogleSignInAccount? gUser =
+                              // await GoogleSignIn().signIn();
+                          // print(gUser?.email);
+                          // final GoogleSignInAuthentication gAuth =
+                              // await gUser!.authentication;
+                  //
+                          // if (gAuth.accessToken != null) {
+                            // setState(() {
+                              // isSendingData = true;
+                            // });
+                  //
+                            // try {
+                              // bool res = await AuthenticationService.google(
+                                  // gUser.email,
+                                  // gAuth.accessToken ?? '',
+                                  // gUser.displayName ?? '');
+                  //
+                              // if (res) {
+                                // try {
+                                  // await FirebaseMessaging.instance
+                                      // .deleteToken();
+                                // } catch (_) {}
+                  //
+                                // nextRoute(MainPage.pageName,
+                                    // isClearBackRoutes: true);
+                              // }
+                            // } catch (_) {}
+                  //
+                            // setState(() {
+                              // isSendingData = false;
+                            // });
+                          // }
+                        // }),
+                        // space(0, width: 20),
+                      // },
+                      // if (PublicData
+                              // .apiConfigData?['show_facebook_login_button'] ??
+                          // false) ...{
+                        // socialWidget(AppAssets.facebookSvg, () async {
+                          // // try{
+                          // final LoginResult result = await FacebookAuth.instance
+                              // .login(permissions: ['email']);
+                  //
+                          // if (result.status == LoginStatus.success) {
+                            // final AccessToken accessToken = result.accessToken!;
+                  //
+                            // setState(() {
+                              // isSendingData = true;
+                            // });
+                  //
+                            // FacebookAuth.instance
+                                // .getUserData()
+                                // .then((value) async {
+                              // String email = value['email'];
+                              // String name = value['name'] ?? '';
+                  //
+                              // try {
+                                // bool res = await AuthenticationService.facebook(
+                                    // email, accessToken.tokenString, name);
+                  //
+                                // if (res) {
+                                  // try {
+                                    // await FirebaseMessaging.instance
+                                        // .deleteToken();
+                                  // } catch (_) {}
+                  //
+                                  // nextRoute(MainPage.pageName,
+                                      // isClearBackRoutes: true);
+                                // }
+                              // } catch (_) {}
+                  //
+                              // setState(() {
+                                // isSendingData = false;
+                              // });
+                            // });
+                          // } else {}
+                          // // }catch(e){}
+                        // }),
+                      // }
+                    // ],
+                  // ),
+                  //
+                  // space(25),
 
                   // Other Register Method
                   if (PublicData.apiConfigData?['showOtherRegisterMethod'] ??
