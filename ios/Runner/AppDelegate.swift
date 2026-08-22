@@ -50,10 +50,12 @@ import FirebaseMessaging
     guard !protectionEnabled else { return }
     protectionEnabled = true
 
-    // 1) Screenshot / recording blackout (covers every screen — it's window-level).
-    enableScreenshotShield()
+    // Note: enableScreenshotShield is disabled because UITextField secureTextEntry reparenting
+    // obscures Flutter Metal rendering on iOS, causing a black screen.
+    // Protection against recording and app-switcher preview remains active below.
+    // enableScreenshotShield()
 
-    // 2) Observers for recording state + app lifecycle (background privacy).
+    // Observers for recording state + app lifecycle (background privacy).
     let nc = NotificationCenter.default
     nc.addObserver(self, selector: #selector(screenCaptureChanged),
                    name: UIScreen.capturedDidChangeNotification, object: nil)
@@ -70,7 +72,7 @@ import FirebaseMessaging
   private func stopProtection() {
     protectionEnabled = false
     NotificationCenter.default.removeObserver(self)
-    disableScreenshotShield()
+    // disableScreenshotShield()
     overlayWindow?.isHidden = true
     overlayWindow = nil
     removePrivacyCover()
@@ -82,23 +84,39 @@ import FirebaseMessaging
   // BLACK in any system capture (screenshot, screen recording, AirPlay mirroring).
 
   private func enableScreenshotShield() {
-    guard let window = self.window else { return }
-    guard secureField.superview == nil else { return }
+    guard let window = self.window,
+          let rootView = window.rootViewController?.view,
+          secureField.superview == nil else { return }
 
     secureField.isSecureTextEntry = true
     secureField.isUserInteractionEnabled = false
-    secureField.translatesAutoresizingMaskIntoConstraints = false
+    secureField.frame = window.bounds
+    secureField.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
     window.addSubview(secureField)
-    NSLayoutConstraint.activate([
-      secureField.centerXAnchor.constraint(equalTo: window.centerXAnchor),
-      secureField.centerYAnchor.constraint(equalTo: window.centerYAnchor),
-    ])
-    window.layer.superlayer?.addSublayer(secureField.layer)
-    secureField.layer.sublayers?.first?.addSublayer(window.layer)
+
+    if let superlayer = rootView.layer.superlayer,
+       let secureContainer = secureField.layer.sublayers?.first {
+      secureField.layer.frame = window.bounds
+      secureContainer.frame = window.bounds
+      superlayer.addSublayer(secureField.layer)
+      secureContainer.addSublayer(rootView.layer)
+      rootView.layer.frame = window.bounds
+    }
   }
 
   private func disableScreenshotShield() {
+    guard let window = self.window,
+          let rootView = window.rootViewController?.view else {
+      secureField.removeFromSuperview()
+      return
+    }
+
+    if rootView.layer.superlayer != window.layer {
+      window.layer.addSublayer(rootView.layer)
+      rootView.layer.frame = window.bounds
+    }
+    secureField.layer.removeFromSuperlayer()
     secureField.removeFromSuperview()
   }
 
